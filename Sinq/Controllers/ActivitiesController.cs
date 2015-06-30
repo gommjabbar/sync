@@ -7,19 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Sinq.Models;
+using Sinq.Repositories;
 
 namespace Sinq.Controllers
 {
     public class ActivitiesController : Controller
     {
-        private SyncDbContext db = new SyncDbContext();
+       // private SyncDbContext db = new SyncDbContext();
+        private IActivityRepository activityRepository;
+
+        public ActivitiesController() {
+
+             this.activityRepository = new ActivityRepository(new SyncDbContext());
+       }
+
+        public ActivitiesController(IActivityRepository activityRepository){
+         
+            this.activityRepository = activityRepository;
+      }
+
+
+      
 
 
 
         // GET: Activities
         public ActionResult Index()
         {
-            return View(db.Activities.ToList());
+           // return View(db.Activities.ToList());
+            return View(activityRepository.GetActivities());
         }
 
         // GET: Activities/Details/5
@@ -29,7 +45,8 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = db.Activities.Find(id);
+           // Activity activity = db.Activities.Find(id);
+            Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -52,8 +69,10 @@ namespace Sinq.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Activities.Add(activity);
-                db.SaveChanges();
+               // db.Activities.Add(activity);
+                activityRepository.Add(activity);
+               // db.SaveChanges();
+                activityRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +86,8 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = db.Activities.Find(id);
+            //Activity activity = db.Activities.Find(id);
+            Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -84,8 +104,12 @@ namespace Sinq.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(activity).State = EntityState.Modified;
-                db.SaveChanges();
+                //in metoda update din repository
+                //db.Entry(activity).State = EntityState.Modified;
+                activityRepository.Update(activity);
+
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(activity);
@@ -98,7 +122,8 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Activity activity = db.Activities.Find(id);
+            //Activity activity = db.Activities.Find(id);
+            Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -111,19 +136,23 @@ namespace Sinq.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Activity activity = db.Activities.Find(id);
-            db.Activities.Remove(activity);
-            db.SaveChanges();
+           // Activity activity = db.Activities.Find(id);
+           // Activity activity = ActivityRepository.FindActivityBy(id);
+            //db.Activities.Remove(activity);
+            activityRepository.Remove(id);
+            //db.SaveChanges();
+            activityRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+      /*  protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+            
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }
