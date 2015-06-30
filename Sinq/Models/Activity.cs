@@ -5,11 +5,11 @@ using System.Web;
 
 namespace Sinq.Models
 {
-    public class Activity
+    public class Activity:BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTimeOffset CreateDate { get; set; }
+     //   public DateTimeOffset CreateDate { get; set; }
         public DateTimeOffset? DueDate { get; set; }
     }
 }

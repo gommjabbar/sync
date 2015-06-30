@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Sinq.Models
 {
-    public class SyncDbContext : IdentityDbContext<ApplicationUser>
+   /* public class SyncDbContext : IdentityDbContext<ApplicationUser>
     {
         public SyncDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -19,5 +19,23 @@ namespace Sinq.Models
         {
             return new SyncDbContext();
         }
+    }*/
+
+    public class SyncDbContext : DbContext
+    {
+        public SyncDbContext()
+            : base("SyncDBConnectionString")
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<SyncDbContext, SyncDataLayer.Migrations.Configuration>("SyncDBConnectionString"));
+
+        }
+
+        public DbSet<Activity> Activities { get; set; } 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }

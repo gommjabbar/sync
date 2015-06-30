@@ -11,7 +11,6 @@ namespace Sinq.Repositories
     {
         private SyncDbContext db;
 
-       // public ActivityRepository() { }
 
         public ActivityRepository(SyncDbContext db) {
             this.db = db;
