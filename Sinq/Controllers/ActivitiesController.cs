@@ -14,6 +14,8 @@ namespace Sinq.Controllers
     {
         private SyncDbContext db = new SyncDbContext();
 
+
+
         // GET: Activities
         public ActionResult Index()
         {
