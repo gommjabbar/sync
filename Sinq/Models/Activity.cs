@@ -10,6 +10,6 @@ namespace Sinq.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTimeOffset CreateDate { get; set; }
-        public DateTimeOffset DueDate { get; set; }
+        public DateTimeOffset? DueDate { get; set; }
     }
 }
