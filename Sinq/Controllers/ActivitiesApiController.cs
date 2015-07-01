@@ -34,5 +34,25 @@ namespace Sinq.Controllers
             }
             return null;
         }
+
+        [Route("api/activities")]
+        [HttpGet]
+        public Activity Get(Activity activity)
+        {
+            if (ModelState.IsValid)
+            {
+                //in metoda update din repository
+                //db.Entry(activity).State = EntityState.Modified;
+                
+                activityRepository.GetActivities();
+                
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
+                return activity;
+            }
+            return null;
+        }
+
+
     }
 }
