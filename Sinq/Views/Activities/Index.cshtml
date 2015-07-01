@@ -34,6 +34,19 @@
 </div>
 
 
+
+
+<h3>Activity</h3>
+<ul data-bind="foreach: allActivities">
+    <li>
+
+        <span data-bind="text: name"> </span>
+
+    </li>
+</ul>
+
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/knockout")
     <script type="text/javascript">
@@ -43,11 +56,13 @@
 
             self.name = ko.observable(data.name || '');
             self.dueDate = ko.observable(data.dueDate || '');
+          
         }
 
+        
         function ActivityOverviewVM() {
             var self = this;
-            self.newActivity = ko.observable(new Activity({ name: 'test'}));
+            self.newActivity = ko.observable(new Activity({ name: 'test' }));
             self.allActivities = ko.observableArray(
                 [
                     new Activity({ name: 'test1' }),
@@ -59,6 +74,9 @@
 
         $('#datetimepicker').datetimepicker();
         $('#Name').attr("placeholder", "Type activity name here");
+
+        
+       
 
         // weird javascript code
         //function test() { return { prop: "asd" }};
