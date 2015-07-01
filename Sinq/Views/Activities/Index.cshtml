@@ -41,6 +41,7 @@
     <li>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
+        <label><input type="checkbox" data-bind="checkedValue: $data,checked: $parent.completedActivity.bind(undefined,id)  "></label>
         <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
         </li>
 </ul>
@@ -60,6 +61,7 @@
             self.name = ko.observable(data.Name || '');
             self.dueDate = ko.observable(data.dueDate || '');
             self.id = ko.observable(data.Id || '');
+            self.complete = ko.observable(data.Complete || '');
           
         }
 
@@ -101,16 +103,22 @@
             };
 
             self.removeActivity = function (id) {
-                //self.allActivities.remove(this);
                 $.ajax({
                     url: "/api/activities/"+id,
                     method: "Delete",
                     async: false,
-                }).done(function (result) {
-                    //alert(result)
-                })
+                }).done(function (result) {  
+              })
             }
 
+            self.completedActivity = function (id) {
+                $.ajax({
+                    url: "/api/activities/" + id,
+                    method: "Put",
+                    async: false,
+                }).done(function (result) {
+                })
+            }
         }
         ko.applyBindings(new ActivityOverviewVM());
 
