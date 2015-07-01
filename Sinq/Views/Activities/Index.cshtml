@@ -7,22 +7,46 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+<!--    Html.ActionLink("Create New", "Create")-->
+    
+
+
 </p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+    Nume:  
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreateDate)
+            <div class="container">
+                <div class="row">
+                    <div class='col-sm-3'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker'>
+                                <input type='text' class="form-control" id="dueDate"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+</th>
+        <!--
+        <th>
+            Html.DisplayNameFor(model => model.CreateDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DueDate)
+
+            Html.DisplayNameFor(model => model.DueDate)
         </th>
         <th></th>
+               -->
     </tr>
-
+         
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -43,3 +67,9 @@
 }
 
 </table>
+@section Scripts {
+<script type="text/javascript">
+    $('#datetimepicker').datetimepicker();
+    $('#Name').attr("placeholder", "Type activity name here");
+</script>
+}
