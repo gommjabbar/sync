@@ -34,3 +34,12 @@ textarea {
         padding: 10px 15px;
     }
 }
+
+.noPadding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.noPadding input {
+    max-width: 1800px;
+}
