@@ -15,9 +15,9 @@ namespace Sinq.Controllers
 
          public ActivitiesApiController()
          {
-
              this.activityRepository = new ActivityRepository(new SyncDbContext());
-       }
+         }
+
         [Route("api/activities")]
         [HttpPost]
          public Activity Create(Activity activity)
@@ -34,21 +34,42 @@ namespace Sinq.Controllers
             }
             return null;
         }
-
+        /*
         [Route("api/activities")]
         [HttpGet]
-        public Activity Get(Activity activity)
+        public Activity Get()
+        {
+            if (ModelState.IsValid)
+            {
+                //in metoda update din repository
+                //db.Entry(activity).State = EntityState.Modified;
+                activityRepository.GetActivities();
+
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
+                return activity;
+            }
+            return null;
+        }
+        */
+
+
+        // GET: Activities 
+        [Route("api/activities")]
+        [HttpGet]
+        public IEnumerable < Activity> Get()
         {
             if (ModelState.IsValid)
             {
                 //in metoda update din repository
                 //db.Entry(activity).State = EntityState.Modified;
                 
-                activityRepository.GetActivities();
+              //  activityRepository.GetActivities();
                 
                 //db.SaveChanges();
-                activityRepository.SaveChanges();
-                return activity;
+               // activityRepository.SaveChanges();
+                return activityRepository.GetActivities();
+                
             }
             return null;
         }
