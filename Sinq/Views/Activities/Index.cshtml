@@ -39,9 +39,18 @@
 <h3>Activity</h3>
 <ul data-bind="foreach: allActivities">
     <li>
-
+        Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
+        <a href="#" data-bind="click: $parent.removeActivity">Remove</a>
+        </li>
+</ul>
 
+<button data-bind="click: addActivity">AddActivity</button>
+
+
+<ul data-bind="foreach: allActivities">
+    <li>
+        <span data-bind="text: name"> </span>
     </li>
 </ul>
 
@@ -68,6 +77,13 @@
                     new Activity({ name: 'test1' }),
                     new Activity({ name: 'test2'})
                 ])
+            self.addActivity = function () {
+                self.activity.push({ name: "New at " + new Date() });
+            };
+
+            self.removeActivity = function () {
+                self.activity.remove(this);
+            }
 
         }
         ko.applyBindings(new ActivityOverviewVM());
