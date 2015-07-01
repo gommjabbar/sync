@@ -11,7 +11,7 @@
         <div class='col-lg-3'>Nume:</div>
 
         <div class='col-lg-8 noPadding'>
-            <input type='text' class="form-control" data-bind="attr: { placeholder: name}" />
+            <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
         </div>
 
         <div class='col-lg-1 noPadding'>
@@ -37,7 +37,7 @@
 
 
 <h3>Activity</h3>
-<ul data-bind="foreach: getAllActivities">
+<ul data-bind="foreach: allActivities">
     <li>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
@@ -57,8 +57,7 @@
         
         function Activity(data) {
             var self = this;
-
-            self.name = ko.observable(data.name || '');
+            self.name = ko.observable(data.Name || '');
             self.dueDate = ko.observable(data.dueDate || '');
           
         }
@@ -67,11 +66,7 @@
         function ActivityOverviewVM() {
             var self = this;
             self.newActivity = ko.observable(new Activity({ name: 'test' }));
-            self.allActivities = ko.observableArray(
-                [
-                    new Activity({ name: 'test1' }),
-                    new Activity({ name: 'test2'})
-                ])
+            self.allActivities = ko.observableArray();
 
             self.addNewActivity = function () {
                 $.ajax({
@@ -89,27 +84,17 @@
             }
 
             self.getAllActivities = function () {
-                $.ajax({
-                    url: "/api/activities",
-                    method: "GET",
-                    async: false,
-                    data: disable
-                }).done(function (result) {
-                    alert(result)
-                })
-            }
-
-           
-            self.getAllActivitie = function () {
                 $.getJSON("/api/activities", function (data) {
-                   ko.observableArray([
+                    self.allActivities(
                     $.each(data, function (index, value) {
-                        return value.name();
+                        return new Activity(value);
                     })
-                   ])
+                   )
                     
                 })
             }
+            self.getAllActivities();
+
             self.addActivity = function () {
                 self.allActivities.push(new Activity({ name: 'test3' }));
             };

@@ -33,7 +33,8 @@ namespace Sinq.Models
             return new SyncDbContext();
         }
 
-        public DbSet<Activity> Activities { get; set; } 
+        public DbSet<Activity> Activities { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

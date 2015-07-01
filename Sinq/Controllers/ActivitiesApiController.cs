@@ -57,23 +57,25 @@ namespace Sinq.Controllers
         // GET: Activities 
         [Route("api/activities")]
         [HttpGet]
-        public IEnumerable < Activity> Get()
+        public IEnumerable<Activity> Get()
         {
             if (ModelState.IsValid)
             {
-                //in metoda update din repository
-                //db.Entry(activity).State = EntityState.Modified;
-                
-              //  activityRepository.GetActivities();
-                
-                //db.SaveChanges();
-               // activityRepository.SaveChanges();
                 return activityRepository.GetActivities();
-                
             }
             return null;
         }
 
-
+        // DELETE: api/activities/1
+        [Route("api/activities/{id}")]
+        [HttpDelete]
+        public IEnumerable<Activity> Delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                //return activityRepository.GetActivities();
+            }
+            return null;
+        }
     }
 }
