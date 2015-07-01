@@ -37,7 +37,7 @@
 
 
 <h3>Activity</h3>
-<ul data-bind="foreach: allActivities">
+<ul data-bind="foreach: getAllActivities">
     <li>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
@@ -48,11 +48,6 @@
 <button data-bind="click: addActivity">AddActivity</button>
 
 
-<ul data-bind="foreach: allActivities">
-    <li>
-        <span data-bind="text: name"> </span>
-    </li>
-</ul>
 
 
 
@@ -93,6 +88,28 @@
                 })
             }
 
+            self.getAllActivities = function () {
+                $.ajax({
+                    url: "/api/activities",
+                    method: "GET",
+                    async: false,
+                    data: disable
+                }).done(function (result) {
+                    alert(result)
+                })
+            }
+
+           
+            self.getAllActivitie = function () {
+                $.getJSON("/api/activities", function (data) {
+                   ko.observableArray([
+                    $.each(data, function (index, value) {
+                        return value.name();
+                    })
+                   ])
+                    
+                })
+            }
             self.addActivity = function () {
                 self.allActivities.push(new Activity({ name: 'test3' }));
             };
