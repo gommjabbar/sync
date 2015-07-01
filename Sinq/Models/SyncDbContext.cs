@@ -40,5 +40,28 @@ namespace Sinq.Models
             base.OnModelCreating(modelBuilder);
         }
 
+        //override SaveChanges() method
+
+        public override int SaveChanges()
+        {
+            DateTimeOffset saveTime = DateTimeOffset.Now;
+
+            foreach (var entry in this.ChangeTracker.Entries().Where(e => (e.State == EntityState.Added || e.State == EntityState.Modified)))
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Property("Add").CurrentValue = saveTime;
+                        break;
+                    case EntityState.Modified:
+                        entry.Property("Update").CurrentValue = saveTime;
+                        break;
+                }
+            }
+
+            return base.SaveChanges();
+
+        }
+
     }
 }
