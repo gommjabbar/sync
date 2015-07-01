@@ -11,84 +11,61 @@
 </p>
 
 <div class="container ">
-    <div class='col-lg-3'>Nume:</div>
-        
-    <div class='col-lg-8 noPadding'>
-        <input type='text' class="form-control" id="Nume" />
-    </div>
+    <div class='col-lg-6'>
+        <div class='col-lg-3'>Nume:</div>
 
-    <div class='col-lg-1 noPadding'>
-
-        <div class="form-group">
-
-            <div class='input-group date' id='datetimepicker'>
-
-                <input type='hidden' class="form-control" id="dueDate" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
+        <div class='col-lg-8 noPadding'>
+            <input type='text' class="form-control" id="name" />
         </div>
 
+        <div class='col-lg-1 noPadding'>
+
+            <div class="form-group">
+
+                <div class='input-group date' id='datetimepicker'>
+                    <input type='hidden' class="form-control" id="dueDate" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class='col-lg-2'>
+        <input type="button" value="Add" id="btnAddActivity" onclick="btnAddActivity_onclick()" />
     </div>
+</div>
 
-        <!--  <th>
-                    <div class="container">
-                        <div class="row">
-                            <div class='col-sm-1'>
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker'>
-                                        <input type='hidden' class="form-control" id="dueDate"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-
-        </th>
-
-                  -->
-        <!--
-        <th>
-            Html.DisplayNameFor(model => model.CreateDate)
-        </th>
-        <th>
-
-            Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th></th>
-               -->
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
 @section Scripts {
     <script type="text/javascript">
         $('#datetimepicker').datetimepicker();
         $('#Name').attr("placeholder", "Type activity name here");
+
+        // weird javascript code
+        //function test() { return { prop: "asd" }};
+        //test['a'] = function () { alert(3) } ;
+        //test['a']()
+        //test.a();
+        //alert(test().prop);
+
+        function btnAddActivity_onclick() {
+            var name = $('#name').val();
+            var dueDate = $('#dueDate').val();
+            
+            alert(name + ' _ ' + dueDate);
+            $.ajax({
+                url: "/activities/create",
+                method: "POST",
+                async: false,
+                data: {
+                    Id: -1,
+                    Name: name,
+                    DueDate: dueDate
+                }
+            }).done(function (result) {
+                alert('test')
+            })
+        }
     </script>
 }

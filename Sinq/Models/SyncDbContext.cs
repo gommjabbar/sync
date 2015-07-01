@@ -51,10 +51,10 @@ namespace Sinq.Models
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Property("Add").CurrentValue = saveTime;
+                        entry.Property("CreateDate").CurrentValue = saveTime;
                         break;
                     case EntityState.Modified:
-                        entry.Property("Update").CurrentValue = saveTime;
+                        entry.Property("UpdateDate").CurrentValue = saveTime;
                         break;
                 }
             }
