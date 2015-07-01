@@ -24,10 +24,13 @@ namespace Sinq.Models
     public class SyncDbContext : DbContext
     {
         public SyncDbContext()
-            : base("SyncDBConnectionString")
+            : base("SyncDbConnectionString")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<SyncDbContext, SyncDataLayer.Migrations.Configuration>("SyncDBConnectionString"));
 
+        }
+        public static SyncDbContext Create()
+        {
+            return new SyncDbContext();
         }
 
         public DbSet<Activity> Activities { get; set; } 
