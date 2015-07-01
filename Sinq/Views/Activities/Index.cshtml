@@ -41,7 +41,7 @@
     <li>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
-        <a href="#" data-bind="click: $parent.removeActivity">Remove</a>
+        <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
         </li>
 </ul>
 
@@ -59,6 +59,7 @@
             var self = this;
             self.name = ko.observable(data.Name || '');
             self.dueDate = ko.observable(data.dueDate || '');
+            self.id = ko.observable(data.Id || '');
           
         }
 
@@ -99,8 +100,15 @@
                 self.allActivities.push(new Activity({ name: 'test3' }));
             };
 
-            self.removeActivity = function () {
-                self.allActivities.remove(this);
+            self.removeActivity = function (id) {
+                //self.allActivities.remove(this);
+                $.ajax({
+                    url: "/api/activities/"+id,
+                    method: "Delete",
+                    async: false,
+                }).done(function (result) {
+                    //alert(result)
+                })
             }
 
         }
