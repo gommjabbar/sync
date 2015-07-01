@@ -29,7 +29,7 @@
     </div>
 
     <div class='col-lg-2'>
-        <input type="button" value="Add" id="btnAddActivity" onclick="btnAddActivity_onclick()" />
+        <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.addNewActivity" />
     </div>
 </div>
 
@@ -77,12 +77,28 @@
                     new Activity({ name: 'test1' }),
                     new Activity({ name: 'test2'})
                 ])
+
+            self.addNewActivity = function () {
+                $.ajax({
+                    url: "/api/activities",
+                    method: "POST",
+                    async: false,
+                    data: {
+                        Id: -1,
+                        Name: self.newActivity().name(),
+                        DueDate: undefined
+                    }
+                }).done(function (result) {
+                    alert(result)
+                })
+            }
+
             self.addActivity = function () {
-                self.activity.push({ name: "New at " + new Date() });
+                self.allActivities.push(new Activity({ name: 'test3' }));
             };
 
             self.removeActivity = function () {
-                self.activity.remove(this);
+                self.allActivities.remove(this);
             }
 
         }
@@ -101,22 +117,6 @@
         //test.a();
         //alert(test().prop);
 
-        function btnAddActivity_onclick() {
-            var name = $('#name').val();
-            var dueDate = $('#dueDate').val();
-            
-            $.ajax({
-                url: "/activities/create",
-                method: "POST",
-                async: false,
-                data: {
-                    Id: -1,
-                    Name: name,
-                    DueDate: dueDate
-                }
-            }).done(function (result) {
-                alert('test')
-            })
-        }
+        
     </script>
 }
