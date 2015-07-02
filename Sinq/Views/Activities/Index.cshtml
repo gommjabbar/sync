@@ -36,12 +36,12 @@
 
 
 
-<h3>Activity</h3>
+<h3>Activities</h3>
 <ul data-bind="foreach: allActivities">
     <li>
+        <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
-        <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
         </li>
 </ul>
@@ -49,7 +49,20 @@
 <button data-bind="click: addActivity">AddActivity</button>
 
 
+<div class="container "> 
+    <div class='col-lg-6' data-bind="with: showActivity">
+        <div class='col-lg-3'>Activity:</div>
+        <div class='col-lg-9 noPadding'>
+            <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
+        </div>
 
+        <div class='col-lg-3'>DueDate:</div>
+        <div class='col-lg-9 noPadding'>
+            <input type='text' class="form-control" data-bind="value:dueDate, attr: { placeholder: dueDate}" />
+        </div>
+    </div>
+
+</div>
 
 
 @section Scripts {
@@ -62,6 +75,7 @@
             self.dueDate = ko.observable(data.dueDate || '');
             self.id = ko.observable(data.Id || '');
             self.complete = ko.observable(data.Complete || '');
+            self.shownActivity = ko.observable();
           
         }
 
@@ -118,8 +132,13 @@
                     method: "Put",
                     async: false,
                 }).done(function (result) {
+                    if (sefl.complet()!=self.complet()) {
+                        sefl.complete() = null;
+                    }
                 })
             }
+
+            self.showActivity = function () { }
         }
         ko.applyBindings(new ActivityOverviewVM());
 
