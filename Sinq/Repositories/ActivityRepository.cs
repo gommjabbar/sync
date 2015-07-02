@@ -77,7 +77,15 @@ namespace Sinq.Repositories
 
         public ActivityTime StartActivity(int id)
         {
-            return null; 
+            //var activity = this.FindActivityBy(id);
+            //var result = activity.ActivityTimes
+            //    .Where(activityTime => activityTime.EndDate != null);
+            //if (result.Count() != 0)
+            //{
+            //    throw new Exception("Activity already started");
+            //}
+            //activity.ActivityTimes.Add(new ActivityTime())
+            return null;
         }
         public ActivityTime EndActivity(int id)
         {
