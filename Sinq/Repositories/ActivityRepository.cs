@@ -28,7 +28,9 @@ namespace Sinq.Repositories
         //get a specified activity(by id)
         public Activity FindActivityBy(int? id)
         {
-            return db.Activities.Find(id);
+            var result = db.Activities.FirstOrDefault(activity => activity.Id == id);
+            return result;
+            // return db.Activities.Find(id);
         }
 
         //add an activity
