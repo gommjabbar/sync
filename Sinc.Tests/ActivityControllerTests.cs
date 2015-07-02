@@ -10,9 +10,7 @@ namespace Sinc.Tests
         [TestMethod]
         public void Details_IdIsNull_BadRequestReturned()
         {
-            var controller = new ActivitiesController();
-
-            var result = controller.Edit((int?)null);
+            var t = new LambdaExamples();
 
             
         }

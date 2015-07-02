@@ -37,9 +37,14 @@ namespace Sinq.Repositories
         //delete an activity
         public void Remove(int activityID)
         {
-            Activity activity = db.Activities.Find(activityID);
-            db.Activities.Remove(activity);
-        }
+            //var result = db.Activities
+            //    .Where(activity => activity.Id == activityID)
+            //    .FirstOrDefault();
+            var result = db.Activities.FirstOrDefault(activity => activity.Id == activityID);
+
+            db.Activities.Remove(result);
+        }        
+
 
         //update an activity
         public void Update(Activity activity)

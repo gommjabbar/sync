@@ -41,7 +41,7 @@
     <li>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
-        <label><input type="checkbox" data-bind="checkedValue: $data,checked: $parent.completedActivity.bind(undefined,id)  "></label>
+        <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
         </li>
 </ul>
@@ -111,9 +111,9 @@
               })
             }
 
-            self.completedActivity = function (id) {
+            self.completeActivity = function (activity) {
                 $.ajax({
-                    url: "/api/activities/" + id,
+                    url: "/api/activities/" + activity.id(),
                     method: "Put",
                     async: false,
                 }).done(function (result) {
