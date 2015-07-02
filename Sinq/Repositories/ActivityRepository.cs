@@ -11,7 +11,10 @@ namespace Sinq.Repositories
     {
         private SyncDbContext db;
 
-
+        public ActivityRepository()
+        {
+            db = new SyncDbContext();
+        }
         public ActivityRepository(SyncDbContext db) {
             this.db = db;
         }
@@ -68,7 +71,17 @@ namespace Sinq.Repositories
 
         public Activity FindActivityBy(int id)
         {
-            throw new NotImplementedException();
+            var result = db.Activities.FirstOrDefault(activity => activity.Id == id);
+            return result;
+        }
+
+        public ActivityTime StartActivity(int id)
+        {
+            return null; 
+        }
+        public ActivityTime EndActivity(int id)
+        {
+            return null;
         }
     }
 }
