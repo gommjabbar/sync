@@ -38,7 +38,7 @@
 
 <h3>Activities</h3>
 <ul data-bind="foreach: allActivities">
-    <li data-bind="ondblclick : $parent.showActivity.bind(undefined,$data)">
+    <li data-bind="singleOrDoubleClick: { dblclick: $root.showActivity.bind(undefined,$data) } ">
         <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
@@ -51,7 +51,7 @@
 
 
 <div class="container "> 
-    <div class='col-lg-6' data-bind="with: showActivity">
+    <div class='col-lg-6' data-bind="with: shownActivity">
         <div class='col-lg-3'>Activity:</div>
         <div class='col-lg-9 noPadding'>
             <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
@@ -140,7 +140,7 @@
             }
 
             self.showActivity = function (activity) {
-                visible: showActivity;
+                debugger;
             }
         }
         ko.applyBindings(new ActivityOverviewVM());
@@ -148,7 +148,36 @@
         $('#datetimepicker').datetimepicker();
         $('#Name').attr("placeholder", "Type activity name here");
 
-        
+        ko.bindingHandlers.singleOrDoubleClick = {
+            init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                var singleHandler = valueAccessor().click,
+                    doubleHandler = valueAccessor().dblclick,
+                    delay = valueAccessor().delay || 200,
+                    clicks = 0;
+
+                $(element).click(function (event) {
+                    clicks++;
+                    if (clicks === 1) {
+                        setTimeout(function () {
+                            if (clicks === 1) {
+                                // Call the single click handler - passing viewModel as this 'this' object
+                                // you may want to pass 'this' explicitly
+                                if (singleHandler !== undefined) {
+                                    singleHandler.call(viewModel, bindingContext.$data, event);
+                                }
+                            } else {
+                                // Call the double click handler - passing viewModel as this 'this' object
+                                // you may want to pass 'this' explicitly
+                                if (doubleHandler !== undefined) {
+                                    doubleHandler.call(viewModel, bindingContext.$data, event);
+                                }
+                            }
+                            clicks = 0;
+                        }, delay);
+                    }
+                });
+            }
+        };
        
 
         // weird javascript code
