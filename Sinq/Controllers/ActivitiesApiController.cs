@@ -66,16 +66,46 @@ namespace Sinq.Controllers
             return null;
         }
 
-        // DELETE: api/activities/1
+
+        // Delete activities
         [Route("api/activities/{id}")]
         [HttpDelete]
-        public IEnumerable<Activity> Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             if (ModelState.IsValid)
             {
-                //return activityRepository.GetActivities();
+                // Activity activity = db.Activities.Find(id);
+                // Activity activity = ActivityRepository.FindActivityBy(id);
+                //db.Activities.Remove(activity);
+                activityRepository.Remove(id);
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
             }
             return null;
         }
+
+
+        // Put activities
+        [Route("api/activities/{id}/complete")]
+        [HttpPut]
+        public IHttpActionResult Put(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                // Activity activity = db.Activities.Find(id);
+                // Activity activity = ActivityRepository.FindActivityBy(id);
+                //db.Activities.Remove(activity);
+                activityRepository.FindActivityBy(id);
+                if (activityRepository == null)
+                {
+                    return NotFound();
+                }
+
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
+            }
+            return null; 
+        }
+
     }
 }

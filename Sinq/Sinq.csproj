@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201507010646094_BaseEntity.Designer.cs">
       <DependentUpon>201507010646094_BaseEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507011530266_completed.cs" />
+    <Compile Include="Migrations\201507011530266_completed.Designer.cs">
+      <DependentUpon>201507011530266_completed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -505,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507010646094_BaseEntity.resx">
       <DependentUpon>201507010646094_BaseEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507011530266_completed.resx">
+      <DependentUpon>201507011530266_completed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
