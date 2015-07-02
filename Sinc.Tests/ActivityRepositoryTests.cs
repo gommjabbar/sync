@@ -94,9 +94,11 @@ namespace Sinc.Tests
             var repo = new ActivityRepository();
             var res = repo.FindActivityBy(5555);
             var res2 = repo.StartActivity(5555);
+            var res3 = repo.EndActivity(5555);
             if (res == null)
             {
                 Assert.IsNull(res2);
+                Assert.IsNull(res3);
             }
         }
 
