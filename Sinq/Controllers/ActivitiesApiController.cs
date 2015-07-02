@@ -85,28 +85,46 @@ namespace Sinq.Controllers
         }
 
 
-        /// <summary>
-        /// Marks an activity as complete
-        /// </summary>
-        /// <param name="id">The id of the activity</param>
-        /// <returns>True if the operation succeded</returns>
+        // Delete activities
         [Route("api/activities/{id}/complete")]
-        [HttpPut]
+        [HttpDelete]
         public IHttpActionResult Put(int id)
         {
             if (ModelState.IsValid)
             {
-                activityRepository.FindActivityBy(id);
-                
                 if (activityRepository == null)
                 {
                     return NotFound();
                 }
 
+                //db.SaveChanges();
+                activityRepository.SaveChanges();
+            }
+            return null;
+        }
+
+
+        /*
+        // Put activities
+        [Route("api/activities/{id}/complete")]
+        [HttpPut]
+        public IHttpActionResult Puut(int idd)
+        {
+            if (ModelState.IsValid)
+            {
+                // Activity activity = db.Activities.Find(id);
+                //Activity activity = ActivityRepository.FindActivityBy(id);
+                activityRepository.FindActivityBy(id);
+                if (activityRepository == null)
+                {
+                    return NotFound();
+                }
+
+                //db.SaveChanges();
                 activityRepository.SaveChanges();
             }
             return null; 
         }
-
+        */
     }
 }

@@ -11,8 +11,6 @@ namespace Sinc.Tests
         public void Details_IdIsNull_BadRequestReturned()
         {
             var t = new LambdaExamples();
-
-            
         }
     }
 }
