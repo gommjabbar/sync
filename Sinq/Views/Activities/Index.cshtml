@@ -42,8 +42,10 @@
         <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
+        <button data-bind="click: $parent.changeState.bind(undefined,$data)">Start</button>
         
-
+       
+        
     </li>
 </ul>
 
@@ -89,6 +91,7 @@
             self.complete = ko.observable(data.Complete || '');
             self.shownActivity = ko.observable();
             self.assignedTime = ko.observable(data.assignedTime || '');
+            self.changeState = ko.observable();
           
         }
 
@@ -151,6 +154,16 @@
                 })
             }
 
+           self.changeState= function (activity) {
+               debugger;
+               var url = "/api/activities/" + activity.id();
+               $.ajax({
+                   url: url,
+                   //method:,
+                   async: false,
+               }).done(function (result){
+               })
+               }
             self.showActivity = function (activity) {
                 debugger;
             }
