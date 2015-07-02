@@ -38,12 +38,13 @@
 
 <h3>Activities</h3>
 <ul data-bind="foreach: allActivities">
-    <li>
+    <li data-bind="ondblclick : $parent.showActivity.bind(undefined,$data)">
         <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
         <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
-        </li>
+
+    </li>
 </ul>
 
 <button data-bind="click: addActivity">AddActivity</button>
@@ -138,7 +139,9 @@
                 })
             }
 
-            self.showActivity = function () { }
+            self.showActivity = function (activity) {
+                visible: showActivity;
+            }
         }
         ko.applyBindings(new ActivityOverviewVM());
 
