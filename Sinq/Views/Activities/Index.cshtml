@@ -42,7 +42,7 @@
         <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
-        <a href="#" data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</a>
+        
 
     </li>
 </ul>
@@ -52,15 +52,26 @@
 
 <div class="container "> 
     <div class='col-lg-6' data-bind="with: shownActivity">
-        <div class='col-lg-3'>Activity:</div>
-        <div class='col-lg-9 noPadding'>
+        <div class='col-lg-4'>Activity:</div>
+        <div class='col-lg-8 noPadding'>
             <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
         </div>
-
-        <div class='col-lg-3'>DueDate:</div>
-        <div class='col-lg-9 noPadding'>
+        
+        <div class='col-lg-4'>DueDate:</div>
+        <div class='col-lg-8 noPadding'>
             <input type='text' class="form-control" data-bind="value:dueDate, attr: { placeholder: dueDate}" />
         </div>
+        
+        <div class ='col-lg-4'>Assigned time(in minutes):</div>
+        <div calss='col-lg-8 noPadding'>
+            <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}"> 
+        </div>
+       <br>
+
+        <div>
+            <button data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</button>
+        </div>
+        
     </div>
 
 </div>
@@ -77,6 +88,7 @@
             self.id = ko.observable(data.Id || '');
             self.complete = ko.observable(data.Complete || '');
             self.shownActivity = ko.observable();
+            self.assignedTime = ko.observable(data.assignedTime || '');
           
         }
 
