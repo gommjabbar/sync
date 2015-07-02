@@ -3,6 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sinq.Repositories;
+using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sinq.Controllers;
+using Sinq.Models;
 
 namespace Sinc.Tests
 {
@@ -12,9 +16,9 @@ namespace Sinc.Tests
     [TestClass]
     public class ActivityRepositoryTests
     {
+        
         public ActivityRepositoryTests()
-        {
-            //
+        {    //
             // TODO: Add constructor logic here
             //
         }
@@ -63,7 +67,10 @@ namespace Sinc.Tests
         public void FindActivityById_EntityExists_EntityFound()
         {
             var repo = new ActivityRepository();
-            var res = repo.FindActivityBy(3);
+            var act = new Activity();
+            act.Id = 4;
+            repo.Add(act);
+            var res = repo.FindActivityBy(act.Id);
             Assert.IsNotNull(res);
         }
 
@@ -71,26 +78,31 @@ namespace Sinc.Tests
         {
             var repo = new ActivityRepository();
             var res = repo.FindActivityBy(5459);
-            Assert.IsNull(res);
+            if (res==null)
+            {
+                Assert.IsNull(res);
+            }
         }
-
 
         public void StartActivity_EntityExists_EntityFound()
         {
-            //Daca imi gaseste o activitate ->> start de activitate
-            //tre' sa fie diferit de null (orice activitate tre' sa inceapa)
-            var repo = new ActivityRepository();
-            var res = repo.FindActivityBy(3);
-            var res2 = repo.StartActivity(3);
-            if (res != null)
+            //Daca ∃ start ->> ∃ act <> null ( ∀ activitate tre' sa inceapa)
+            var act = new Activity();
+            act.Id = 4;
+            ActivityRepository repo = new ActivityRepository();
+            repo.Add(act);
+            var res = repo.FindActivityBy(act.Id);
+            var result = repo.StartActivity(act.Id);
+            if (result != null)
             {
-                Assert.IsNotNull(res2);
+                Assert.IsNotNull(res);       
             }
+
         }
 
         public void StartActivity_EntityExists_EntityNotFound()
         {
-            //Daca nu imi gaseste o activitate ->> nu exista start
+            //Daca nu imi gaseste o activitate ->> nu exista start si nici end
             var repo = new ActivityRepository();
             var res = repo.FindActivityBy(5555);
             var res2 = repo.StartActivity(5555);
@@ -102,18 +114,75 @@ namespace Sinc.Tests
             }
         }
 
-        
+
         public void EndActivity_EntityExists_EntityFound()
         {
-            var repo = new ActivityRepository();
-            var res = repo.FindActivityBy(3);
-            if (res != null) {
- 
-            
-            }
+            //verific daca ∃ end act =>> trebuie sa ∃ activitatea respectiva =>> ∃ start 
+            // nu poate ∃ end fara start 
+            var act = new Activity();
+            act.Id = 4;
+            ActivityRepository repo = new ActivityRepository();
+            repo.Add(act);
+            var result = repo.EndActivity(act.Id);
+            var res = repo.FindActivityBy(act.Id);
+            if (result != null) 
+            {
+                if (result != null) { 
+                    var rez = repo.StartActivity(act.Id);
+                    Assert.IsNotNull(rez);
+                }
+            }     
+        }
 
+        [TestMethod]
+        public void GetActivities_EntityExists_EntityFound(){
+            var repo = new ActivityRepository();
+            
+            var act = new Activity();
+            act.Id = 4;
+            repo.Add(act);
+            
+            var act2 = new Activity();
+            act2.Id = 5;
+            repo.Add(act2);
+
+            var rez = repo.GetActivities();
+            Assert.IsNotNull(rez);
+        }
+
+        
+        public void RemoveActivityById_EntityExists_EntityFound()
+        {
+            var repo = new ActivityRepository();
+            var act = new Activity();
+            act.Id = 4;
+            repo.Add(act);
+            var res = repo.FindActivityBy(act.Id);
+            if (res != null)
+            {
+                repo.Remove(act.Id);
+                var res2 = repo.FindActivityBy(4);
+                Assert.IsNull(res2);
+            }
+        }
+
+
+        public void Add_ActivityGoodData()
+        {
+            var repo = new ActivityRepository();
+            //var a1 = new ActivityTime();
+            var act = new Activity();
+
+            act.Id = 1;
+            //act.EndDate = DateTimeOffset.Now;
+            //a1.Activity = act;
+            //a1.ActivityId = 1;
+            //a1.StartDate = DateTimeOffset.MinValue;
+             repo.Add(act);
+            //Assert.IsNotInstanceOfType(result, typeof(Nullable));
             
         }
 
+        
     }
 }

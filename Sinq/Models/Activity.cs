@@ -12,7 +12,7 @@ namespace Sinq.Models
         public DateTime CompletedAt { get; set; }
         public string Name { get; set; }
         public DateTimeOffset? DueDate { get; set; }
-        public virtual ICollection<ActivityTime> ActivityTimes { get; set; }
+        public virtual ICollection <ActivityTime> ActivityTimes { get; set; }
 
     }
 }

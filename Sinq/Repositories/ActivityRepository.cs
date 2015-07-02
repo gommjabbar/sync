@@ -61,7 +61,6 @@ namespace Sinq.Repositories
             db.SaveChanges();
         }
 
-       
 
         public void Dispose()
         {
@@ -77,19 +76,28 @@ namespace Sinq.Repositories
 
         public ActivityTime StartActivity(int id)
         {
-            //var activity = this.FindActivityBy(id);
-            //var result = activity.ActivityTimes
-            //    .Where(activityTime => activityTime.EndDate != null);
-            //if (result.Count() != 0)
-            //{
-            //    throw new Exception("Activity already started");
-            //}
-            //activity.ActivityTimes.Add(new ActivityTime())
+            var activity = this.FindActivityBy(id);
+            var result = activity.ActivityTimes
+                .Where(activityTime => activityTime.EndDate != null);
+            if (result.Count() != 0)
+            {
+                throw new Exception("Activity already started");
+            }
+            activity.ActivityTimes.Add(new ActivityTime());
             return null;
         }
+
         public ActivityTime EndActivity(int id)
         {
             return null;
         }
+
+        /*
+        public void Add(ActivityTime activity)
+        {
+            db.Activities.Add(activity);
+        }
+*/        
+
     }
 }

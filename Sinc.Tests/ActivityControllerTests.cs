@@ -8,9 +8,13 @@ namespace Sinc.Tests
     public class ActivityControllerTests
     {
         [TestMethod]
+       
         public void Details_IdIsNull_BadRequestReturned()
         {
             var t = new LambdaExamples();
         }
+
+
+
     }
 }
