@@ -246,6 +246,10 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
     <Compile Include="Repositories\IActivityRepository.cs" />
+    <Compile Include="Response\GenericResponse.cs" />
+    <Compile Include="Response\JsonContent.cs" />
+    <Compile Include="Response\JsonNamedCollectionResponse.cs" />
+    <Compile Include="Response\JsonResponse.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
