@@ -6,8 +6,10 @@
 
 <h2>Index</h2>
 
+@*Adding a new activity*@
+
 <div class="container ">
-    <div class='col-lg-6' data-bind="with: newActivity">
+    <div class='col-lg-6' data-bind="with: NewActivity">
         <div class='col-lg-3'>Nume:</div>
 
         <div class='col-lg-8 noPadding'>
@@ -34,19 +36,22 @@
 </div>
 
 
-
+@*The activities list*@
 
 <h3>Activities</h3>
-<ul data-bind="foreach: allActivities">
-    <li data-bind="singleOrDoubleClick: { dblclick: $root.showActivity.bind(undefined,$data) } ">
-        <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>        
+<ul data-bind="foreach: AllActivities">
+    <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
+        <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>        
         <span data-bind="text: Name"> </span>
-        <button data-bind="click: $parent.changeState.bind(undefined,$data)">Start</button>
+        <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
     </li>
 </ul>
 
+
+@*Show details for a selected activity*@
+
 <div class="container "> 
-    <div class='col-lg-6' data-bind="with: shownActivity">
+    <div class='col-lg-6' data-bind="with: ShownActivity">
         <div class='col-lg-4'>Activity:</div>
         <div class='col-lg-8 noPadding'>
             <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: Name}" />
@@ -64,7 +69,7 @@
        <br>
 
         <div>
-            <button data-bind="click: $parent.removeActivity.bind(undefined,id)">Remove</button>
+            <button data-bind="click: $parent.fnRemoveActivity.bind(undefined,id)">Remove</button>
         </div>
         
     </div>
@@ -92,9 +97,12 @@
         
         function ActivityOverviewVM() {
             var self = this;
-            self.newActivity = ko.observable(new Activity({}));
-            self.allActivities = ko.observableArray();
-            self.shownActivity = ko.observable();
+            self.NewActivity = ko.observable(new Activity({}));
+            self.AllActivities = ko.observableArray();
+            self.ShownActivity = ko.observable();
+
+
+            // The function adds a new activity
             self.fnAddNewActivity = function () {
                 $.ajax({
                     url: "/api/activities",
@@ -110,9 +118,11 @@
                 })
             }
 
-            self.getAllActivities = function () {
+
+            //The function get the list of all activities
+            self.fnGetAllActivities = function () {
                 $.getJSON("/api/activities", function (data) {
-                    self.allActivities(
+                    self.AllActivities(
                     $.each(data.result, function (index, value) {
                         return new Activity(value);
                     })
@@ -120,13 +130,11 @@
                     
                 })
             }
-            self.getAllActivities();
+            self.fnGetAllActivities();
 
-            self.addActivity = function () {
-                //self.allActivities.push(new Activity({ name: 'test3' }));
-            };
 
-            self.removeActivity = function (id) {
+            //The function removes an activity
+            self.fnRemoveActivity = function (id) {
                 $.ajax({
                     url: "/api/activities/"+id,
                     method: "Delete",
@@ -135,7 +143,9 @@
               })
             }
 
-            self.completeActivity = function (activity) {
+
+            //The function changes the 'Completed' proprety of an action
+            self.fnCompleteActivity = function (activity) {
                 var url = "/api/activities/" + activity.id() + "/complete";
                 $.ajax({
                     url: url,
@@ -148,18 +158,9 @@
                 })
             }
 
-            self.changeState = function (text) {
-                debugger;
-                $(".pushme").click(function () {
-                    var $element = $(this);
-                    $element.text(function (i, text) {
-                        return text == $element.data('default-text') ? $element.data('new-text')
-                        : $element.data('default-text');
-                    });
-                });
-            }
-
-           self.changesState= function (activity) {
+          
+           //The function changes the current state of an action 
+           self.fnChangeState= function (activity) {
                debugger;
                var url = "/api/activities/" + activity.id();
                $.ajax({
@@ -168,16 +169,23 @@
                    async: false,
                }).done(function (result){
                })
-            }
-            self.showActivity = function (activity) {
+           }
+
+
+            //The function makes visible the details of a selected activity
+            self.fnShowActivity = function (activity) {
                 debugger;
             }
+
+
         }
         ko.applyBindings(new ActivityOverviewVM());
 
         $('#datetimepicker').datetimepicker();
         $('#Name').attr("placeholder", "Type activity name here");
 
+
+        //Used for the click envent
         ko.bindingHandlers.singleOrDoubleClick = {
             init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
                 var singleHandler = valueAccessor().click,
