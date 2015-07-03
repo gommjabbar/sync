@@ -6,7 +6,6 @@ using Sinq.Repositories;
 using System.Diagnostics;
 using Sinq.Controllers;
 using Sinq.Models;
-
 namespace Sinc.Tests
 {
     /// <summary>
