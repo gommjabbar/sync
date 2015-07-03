@@ -13,7 +13,7 @@ namespace Sinq.Controllers
 {
     public class ActivitiesController : Controller
     {
-       // private SyncDbContext db = new SyncDbContext();
+      
         private IActivityRepository activityRepository;
 
         public ActivitiesController() {
@@ -34,7 +34,7 @@ namespace Sinq.Controllers
         // GET: Activities
         public ActionResult Index()
         {
-           // return View(db.Activities.ToList());
+       
             return View(activityRepository.GetActivities());
         }
 
@@ -45,7 +45,7 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           // Activity activity = db.Activities.Find(id);
+         
             Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
@@ -68,9 +68,9 @@ namespace Sinq.Controllers
         {
             if (ModelState.IsValid)
             {
-               // db.Activities.Add(activity);
+               
                 activityRepository.Add(activity);
-               // db.SaveChanges();
+              
                 activityRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,7 +85,7 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Activity activity = db.Activities.Find(id);
+           
             Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
@@ -103,11 +103,9 @@ namespace Sinq.Controllers
         {
             if (ModelState.IsValid)
             {
-                //in metoda update din repository
-                //db.Entry(activity).State = EntityState.Modified;
+                
                 activityRepository.Update(activity);
 
-                //db.SaveChanges();
                 activityRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -121,7 +119,7 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Activity activity = db.Activities.Find(id);
+          
             Activity activity = activityRepository.FindActivityBy(id);
             if (activity == null)
             {
@@ -135,23 +133,13 @@ namespace Sinq.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-           // Activity activity = db.Activities.Find(id);
-           // Activity activity = ActivityRepository.FindActivityBy(id);
-            //db.Activities.Remove(activity);
+          
             activityRepository.Remove(id);
-            //db.SaveChanges();
+         
             activityRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
-      /*  protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-            
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }*/
+    
     }
 }
