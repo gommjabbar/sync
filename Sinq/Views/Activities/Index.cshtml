@@ -43,9 +43,11 @@
         Name at position <span data-bind="text: $index"> </span>:
         <span data-bind="text: name"> </span>
         <button data-bind="click: $parent.changeState.bind(undefined,$data)">Start</button>
-        
        
+        <button class='pushme' data-default-text="PUSH ME" data-new-text="DON'T PUSH ME" data-bind="click: $parent.changeState.bind(undefined,text)" >PUSH ME</button>
+
         
+
     </li>
 </ul>
 
@@ -154,7 +156,18 @@
                 })
             }
 
-           self.changeState= function (activity) {
+            self.changeState = function (text) {
+                debugger;
+                $(".pushme").click(function () {
+                    var $element = $(this);
+                    $element.text(function (i, text) {
+                        return text == $element.data('default-text') ? $element.data('new-text')
+                        : $element.data('default-text');
+                    });
+                });
+            }
+
+           self.changesState= function (activity) {
                debugger;
                var url = "/api/activities/" + activity.id();
                $.ajax({
