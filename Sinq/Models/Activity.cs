@@ -8,12 +8,17 @@ namespace Sinq.Models
 {
     public class Activity : BaseEntity
     {
+        public Activity()
+        {
+            ActivityTimes = new List<ActivityTime>();
+        }
+
         public int Id { get; set; }
         public bool Completed { get; set; }
         public DateTime CompletedAt { get; set; }
         public string Name { get; set; }
         public DateTimeOffset? DueDate { get; set; }
-        public virtual ICollection <ActivityTime> ActivityTimes { get; set; }
+        public virtual ICollection<ActivityTime> ActivityTimes { get; set; }
 
     }
 }

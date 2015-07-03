@@ -79,6 +79,7 @@ namespace Sinq.Repositories
         public ActivityTime StartActivity(int id)
         {
             var activity = this.FindActivityBy(id);
+            
             var result = activity.ActivityTimes
                 .Where(activityTime => activityTime.EndDate != null);
             if (result.Count() != 0)

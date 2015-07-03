@@ -165,6 +165,31 @@ namespace Sinc.Tests
                 Assert.IsNull(res2);
             }
         }
+        [TestMethod]
+        public void StartToEndFlow()
+        {
+            var repo = new ActivityRepository();
+            var act = new Activity()
+            {
+                Name="test",
+                DueDate = DateTimeOffset.Now.AddHours(2),
+                CompletedAt = DateTime.Now
+            };
+
+            repo.Add(act);
+            repo.SaveChanges();
+            var startedActivityTime = repo.StartActivity(act.Id);
+            repo.SaveChanges();
+            Assert.IsNotNull(startedActivityTime);
+            Assert.IsTrue(DateTimeOffset.Now > startedActivityTime.StartDate);
+
+            var endedActivityTime = repo.EndActivity(act.Id);
+            repo.SaveChanges();
+            Assert.IsNotNull(endedActivityTime);
+            Assert.IsNotNull(endedActivityTime.EndDate);
+            Assert.IsTrue(DateTimeOffset.Now > startedActivityTime.EndDate);
+            Assert.AreEqual(startedActivityTime.StartDate, endedActivityTime.StartDate);
+        }
 
 
         
