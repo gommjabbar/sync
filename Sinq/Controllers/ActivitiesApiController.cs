@@ -50,11 +50,11 @@ namespace Sinq.Controllers
         {
             return new JsonCollectionResponse<Activity>(Request, () => {
                 var activities = _activityUnitOfWork.ActivityRepository.Get();
-                var resultDTOList = activities.Select(a => new ActivityDTO()
-                    {
-                        Id = a.Id,
-                        Name = a.Name
-                    });
+             //   var resultDTOList = activities.Select(a => new ActivityDTO()
+             //       {
+             //           Id = a.Id,
+             //           Name = a.Name
+              //      });
                 return activities.ToList();            
             });
         }
