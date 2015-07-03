@@ -7,13 +7,13 @@ namespace Sinq.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class CompletedAt : IMigrationMetadata
+    public sealed partial class ActivityTimeBase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CompletedAt));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ActivityTimeBase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201507030935262_CompletedAt"; }
+            get { return "201507031132005_ActivityTimeBase"; }
         }
         
         string IMigrationMetadata.Source

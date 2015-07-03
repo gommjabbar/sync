@@ -233,9 +233,9 @@
     <Compile Include="Migrations\201507021009269_ActivityTime.Designer.cs">
       <DependentUpon>201507021009269_ActivityTime.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507030935262_CompletedAt.cs" />
-    <Compile Include="Migrations\201507030935262_CompletedAt.Designer.cs">
-      <DependentUpon>201507030935262_CompletedAt.cs</DependentUpon>
+    <Compile Include="Migrations\201507031132005_ActivityTimeBase.cs" />
+    <Compile Include="Migrations\201507031132005_ActivityTimeBase.Designer.cs">
+      <DependentUpon>201507031132005_ActivityTimeBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -530,8 +530,8 @@
     <EmbeddedResource Include="Migrations\201507021009269_ActivityTime.resx">
       <DependentUpon>201507021009269_ActivityTime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507030935262_CompletedAt.resx">
-      <DependentUpon>201507030935262_CompletedAt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507031132005_ActivityTimeBase.resx">
+      <DependentUpon>201507031132005_ActivityTimeBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
