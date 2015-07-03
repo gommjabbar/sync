@@ -167,22 +167,6 @@ namespace Sinc.Tests
         }
 
 
-        public void Add_ActivityGoodData()
-        {
-            var repo = new ActivityRepository();
-            //var a1 = new ActivityTime();
-            var act = new Activity();
-
-            act.Id = 1;
-            //act.EndDate = DateTimeOffset.Now;
-            //a1.Activity = act;
-            //a1.ActivityId = 1;
-            //a1.StartDate = DateTimeOffset.MinValue;
-             repo.Add(act);
-            //Assert.IsNotInstanceOfType(result, typeof(Nullable));
-            
-        }
-
         
     }
 }

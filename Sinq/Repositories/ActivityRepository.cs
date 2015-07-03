@@ -91,6 +91,8 @@ namespace Sinq.Repositories
 
         public ActivityTime EndActivity(int id)
         {
+            var activity = this.FindActivityBy(id);
+            activity.ActivityTimes.Add(new ActivityTime());
             return null;
         }
 

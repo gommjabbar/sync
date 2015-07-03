@@ -49,7 +49,6 @@ namespace Sinq.Controllers
 
              // return Mapper.Map<Activity>(activity);
                 return activity;
-
             });
         }
         
