@@ -13,29 +13,24 @@ namespace Sinq.Controllers
 {
     public class ActivitiesController : Controller
     {
-      
-        private IActivityRepository activityRepository;
+        private IActivityUnitOfWork _activityUnitOfWork;
 
         public ActivitiesController() {
 
-             this.activityRepository = new ActivityRepository(new SyncDbContext());
-       }
+             this._activityUnitOfWork = new ActivityUnitOfWork();
+        }
 
-        public ActivitiesController(IActivityRepository activityRepository){
-         
-            this.activityRepository = activityRepository;
-      }
-
-
-      
-
+        public ActivitiesController(IActivityUnitOfWork activityUnitOfWork)
+        {
+            this._activityUnitOfWork = activityUnitOfWork;
+        }
 
 
         // GET: Activities
         public ActionResult Index()
         {
        
-            return View(activityRepository.GetActivities());
+            return View(_activityUnitOfWork.ActivityRepository.Get());
         }
 
         // GET: Activities/Details/5
@@ -46,7 +41,7 @@ namespace Sinq.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
          
-            Activity activity = activityRepository.FindActivityBy(id);
+            Activity activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -69,9 +64,9 @@ namespace Sinq.Controllers
             if (ModelState.IsValid)
             {
                
-                activityRepository.Add(activity);
+                _activityUnitOfWork.ActivityRepository.Insert(activity);
               
-                activityRepository.SaveChanges();
+                _activityUnitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -86,7 +81,7 @@ namespace Sinq.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
            
-            Activity activity = activityRepository.FindActivityBy(id);
+            Activity activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -103,10 +98,10 @@ namespace Sinq.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                activityRepository.Update(activity);
 
-                activityRepository.SaveChanges();
+                _activityUnitOfWork.ActivityRepository.Update(activity);
+
+                _activityUnitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(activity);
@@ -119,8 +114,8 @@ namespace Sinq.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-          
-            Activity activity = activityRepository.FindActivityBy(id);
+
+            Activity activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
             if (activity == null)
             {
                 return HttpNotFound();
@@ -128,18 +123,7 @@ namespace Sinq.Controllers
             return View(activity);
         }
 
-        // POST: Activities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-          
-            activityRepository.Remove(id);
-         
-            activityRepository.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+        
     
     }
 }

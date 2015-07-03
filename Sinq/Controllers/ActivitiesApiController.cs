@@ -13,11 +13,11 @@ namespace Sinq.Controllers
 {
     public class ActivitiesApiController : ApiController
     {
-         private IActivityRepository activityRepository;
+         private IActivityUnitOfWork _activityUnitOfWork;
 
          public ActivitiesApiController()
          {
-             this.activityRepository = new ActivityRepository(new SyncDbContext());
+             this._activityUnitOfWork = new ActivityUnitOfWork();
          }
 
 
@@ -32,8 +32,8 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<Activity>(Request, () =>
             {
-                activityRepository.Add(activity);
-                activityRepository.SaveChanges();
+                _activityUnitOfWork.ActivityRepository.Insert(activity);
+                _activityUnitOfWork.Save();
                 return activity;
             });
         }
@@ -48,7 +48,7 @@ namespace Sinq.Controllers
         public JsonCollectionResponse<Activity> Get()
         {
             return new JsonCollectionResponse<Activity>(Request, () => {
-                var activities = activityRepository.GetActivities();
+                var activities = _activityUnitOfWork.ActivityRepository.Get();
                 return activities.ToList();            
             });
         }
@@ -66,11 +66,11 @@ namespace Sinq.Controllers
             return new JsonResponse<bool>(Request, () =>
            {
                Activity activity = new Activity();
-               activity = activityRepository.FindActivityBy(id);
+               activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                if (activity != null)
                {
-                   activityRepository.Remove(id);
-                   activityRepository.SaveChanges();
+                   _activityUnitOfWork.ActivityRepository.Delete(id);
+                   _activityUnitOfWork.Save();
                    return true;
                }
       
@@ -92,11 +92,11 @@ namespace Sinq.Controllers
             return new JsonResponse<bool>(Request, () =>
             {
                 Activity activity= new Activity();
-                activity = activityRepository.FindActivityBy(id);
+                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                 if (activity != null)
                 {
-                    activityRepository.Update(activity);
-                    activityRepository.SaveChanges();
+                    _activityUnitOfWork.ActivityRepository.Update(activity);
+                    _activityUnitOfWork.Save();
                     return true;
                 }
                 else { return false; }
@@ -104,7 +104,16 @@ namespace Sinq.Controllers
 
             });
         }
-
+        [Route("api/activities/{id}/start")]
+        [HttpPost]
+        public JsonResponse<bool> StartActivity(int id)
+        {
+            return new JsonResponse<bool>(Request, () =>
+            {
+                var activityTime = _activityUnitOfWork.StartActivity(id);
+                return true;
+            });
+        }
         /// <summary>
         /// This method will search an activity specified by Id in the database.
         /// </summary>
@@ -116,7 +125,7 @@ namespace Sinq.Controllers
             return new JsonResponse<Activity>(Request, () =>
            {
                Activity activity = new Activity();
-               activity = activityRepository.FindActivityBy(id);
+               activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                return activity;
            });
         }

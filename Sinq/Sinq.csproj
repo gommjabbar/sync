@@ -250,7 +250,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
-    <Compile Include="Repositories\IActivityRepository.cs" />
+    <Compile Include="Repositories\ActivityUnitOfWork.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IActivityUnitOfWork.cs" />
     <Compile Include="Response\GenericResponse.cs" />
     <Compile Include="Response\JsonContent.cs" />
     <Compile Include="Response\JsonNamedCollectionResponse.cs" />

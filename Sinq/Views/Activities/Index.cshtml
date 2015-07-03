@@ -87,7 +87,7 @@
             self.Completed = ko.observable(Activity.Completed || '');
             self.CompletedAt = ko.observable(Activity.CompletedAt || '');
             self.Name = ko.observable(Activity.Name || '');
-            self.DueDate = ko.observableArray(Activity.DueDate || undefined);
+            self.DueDate = ko.observable(Activity.DueDate || undefined);
             self.ActivityTimes = ko.observableArray(Activity.ActivityTimes || []);
             self.placeholderText = Activity.placeholderText || 'Type the name of the activity';
         }
@@ -122,8 +122,15 @@
             //The function get the list of all activities
             self.fnGetAllActivities = function () {
                 $.getJSON("/api/activities", function (data) {
+                    debugger;
+                    var t = $.each(data.result, function (index, value) {
+
+                        return new Activity(value);
+                    });
+                    
                     self.AllActivities(
                     $.each(data.result, function (index, value) {
+
                         return new Activity(value);
                     })
                    )
