@@ -10,6 +10,7 @@ namespace Sinq.DTO
         public int Id { get; set; }
         public bool Completed { get; set; }
         public string Name { get; set; }
+        public int ElapsedTime { get; set; }
         public DateTimeOffset? DueDate { get; set; }
         public bool IsStarted { get; set; }
 

@@ -64,5 +64,24 @@ namespace Sinq.Repositories
             return newActivityTime;
         }
 
+
+        public ActivityTime EndActivity(int id)
+        {
+            var activity = _activityRepository.GetByID(id);
+            if (activity == null) { 
+                throw new Exception("Activity not found");
+            } 
+            var newActivityTime = new ActivityTime()// _activityTimeRepository.dbSet.Create();
+            {
+                StartDate = DateTimeOffset.MinValue,
+                EndDate = DateTimeOffset.Now,
+                ActivityId = activity.Id
+            };
+            activity.ActivityTimes.Add(newActivityTime);
+            Save();
+            return newActivityTime;
+        }
+
+
     }
 }

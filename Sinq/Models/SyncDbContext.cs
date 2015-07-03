@@ -34,6 +34,7 @@ namespace Sinq.Models
         }
 
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityTime> ActivitiesTime { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
