@@ -89,12 +89,31 @@ namespace Sinq.Repositories
             return null;
         }
 
+
+        /*   Tre' verificat
+        public ActivityTime EndActivity(int id)
+        {
+            ActivityRepository repo = new ActivityRepository();
+            var activity = this.FindActivityBy(id);
+            if(activity != null)
+            {
+                    var rez = repo.StartActivity(activity.Id);
+                    if (rez != null){
+                          activity.ActivityTimes.Add(new ActivityTime());
+                    }     
+                }
+            }
+           // return null;
+        }
+       */ 
+     
         public ActivityTime EndActivity(int id)
         {
             var activity = this.FindActivityBy(id);
             activity.ActivityTimes.Add(new ActivityTime());
             return null;
         }
+
 
         /*
         public void Add(ActivityTime activity)
