@@ -50,28 +50,28 @@
 
 @*Show details for a selected activity*@
 
-<div class="container "> 
-    <div class='col-lg-6' data-bind="with: ShownActivity">
+<div class="container" data-bind="if:DisplayActivity, show:DisplayActivity">
+    <div class='col-lg-6' data-bind="with: shownActivity">
         <div class='col-lg-4'>Activity:</div>
         <div class='col-lg-8 noPadding'>
-            <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: Name}" />
+            <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
         </div>
-        
+
         <div class='col-lg-4'>DueDate:</div>
         <div class='col-lg-8 noPadding'>
             <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
         </div>
-        
+
         @*<div class ='col-lg-4'>Assigned time(in minutes):</div>
-        <div calss='col-lg-8 noPadding'>
-            <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}"> 
-        </div>*@
-       <br>
+            <div calss='col-lg-8 noPadding'>
+                <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
+            </div>*@
+        <br>
 
         <div>
             <button data-bind="click: $parent.fnRemoveActivity.bind(undefined,id)">Remove</button>
         </div>
-        
+
     </div>
 
 </div>
@@ -99,8 +99,8 @@
             var self = this;
             self.NewActivity = ko.observable(new Activity({}));
             self.AllActivities = ko.observableArray();
-            self.ShownActivity = ko.observable();
-
+            self.shownActivity = undefined;
+            self.DisplayActivity = ko.observable(false);
 
             // The function adds a new activity
             self.fnAddNewActivity = function () {
@@ -122,19 +122,12 @@
             //The function get the list of all activities
             self.fnGetAllActivities = function () {
                 $.getJSON("/api/activities", function (data) {
-                    debugger;
-                    var t = $.each(data.result, function (index, value) {
-
-                        return new Activity(value);
-                    });
-                    
                     self.AllActivities(
-                    $.each(data.result, function (index, value) {
+                        $.each(data.result, function (index, value) {
 
-                        return new Activity(value);
-                    })
+                            return new Activity(value);
+                        })
                    )
-                    
                 })
             }
             self.fnGetAllActivities();
@@ -181,7 +174,8 @@
 
             //The function makes visible the details of a selected activity
             self.fnShowActivity = function (activity) {
-                debugger;
+                self.shownActivity = activity;
+                self.DisplayActivity(true);
             }
 
 

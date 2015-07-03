@@ -20,5 +20,9 @@ namespace Sinq.Models
         public DateTimeOffset? DueDate { get; set; }
         public virtual ICollection<ActivityTime> ActivityTimes { get; set; }
 
+        public bool IsStarted()
+        {
+            return this.ActivityTimes.Any(a => a.EndDate != null);
+        }
     }
 }

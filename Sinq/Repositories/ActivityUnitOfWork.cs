@@ -49,7 +49,7 @@ namespace Sinq.Repositories
             if (activity == null)
                 throw new Exception("Activity not found");
 
-            if (activity.ActivityTimes.Any(a => a.EndDate != null))
+            if (activity.IsStarted())
                 throw new Exception("Activity is already started");
 
             var newActivityTime = new ActivityTime()// _activityTimeRepository.dbSet.Create();

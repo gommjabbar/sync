@@ -1,4 +1,5 @@
-﻿using Sinq.Models;
+﻿using Sinq.DTO;
+using Sinq.Models;
 using Sinq.Repositories;
 using Sinq.Response;
 using System;
@@ -49,6 +50,11 @@ namespace Sinq.Controllers
         {
             return new JsonCollectionResponse<Activity>(Request, () => {
                 var activities = _activityUnitOfWork.ActivityRepository.Get();
+                var resultDTOList = activities.Select(a => new ActivityDTO()
+                    {
+                        Id = a.Id,
+                        Name = a.Name
+                    });
                 return activities.ToList();            
             });
         }
