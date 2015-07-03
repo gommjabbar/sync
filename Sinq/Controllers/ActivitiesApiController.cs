@@ -61,19 +61,11 @@ namespace Sinq.Controllers
         [HttpGet]
         public JsonCollectionResponse<Activity> Get()
         {
-          /*  if (ModelState.IsValid)
-            {
-                return activityRepository.GetActivities();
-            }
-            return null;*/
-
             return new JsonCollectionResponse<Activity>(Request, () => {
                 var activities = activityRepository.GetActivities();
-               // return activities.Select(Mapper.Map<Activity>).ToList();
                 return activities.ToList();            
             });
         }
-
 
         //trebuie verificat daca e ok
         /// <summary>
@@ -101,11 +93,13 @@ namespace Sinq.Controllers
                    activityRepository.SaveChanges();
                    return true;
                }
+      
                else { return false; }   
            });
 
         }
 
+      
 
         //trebuie verificat daca e ok asa
         /// <summary>

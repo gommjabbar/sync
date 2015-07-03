@@ -11,7 +11,7 @@
         <div class='col-lg-3'>Nume:</div>
 
         <div class='col-lg-8 noPadding'>
-            <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
+            <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
         </div>
 
         <div class='col-lg-1 noPadding'>
@@ -29,7 +29,7 @@
     </div>
 
     <div class='col-lg-2'>
-        <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.addNewActivity" />
+        <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
     </div>
 </div>
 
@@ -39,37 +39,28 @@
 <h3>Activities</h3>
 <ul data-bind="foreach: allActivities">
     <li data-bind="singleOrDoubleClick: { dblclick: $root.showActivity.bind(undefined,$data) } ">
-        <label><input type="checkbox" data-bind="checked: completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>
-        Name at position <span data-bind="text: $index"> </span>:
-        <span data-bind="text: name"> </span>
+        <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.completeActivity.bind(undefined,$data)} "></label>        
+        <span data-bind="text: Name"> </span>
         <button data-bind="click: $parent.changeState.bind(undefined,$data)">Start</button>
-       
-        <button class='pushme' data-default-text="PUSH ME" data-new-text="DON'T PUSH ME" data-bind="click: $parent.changeState.bind(undefined,text)" >PUSH ME</button>
-
-        
-
     </li>
 </ul>
-
-<button data-bind="click: addActivity">AddActivity</button>
-
 
 <div class="container "> 
     <div class='col-lg-6' data-bind="with: shownActivity">
         <div class='col-lg-4'>Activity:</div>
         <div class='col-lg-8 noPadding'>
-            <input type='text' class="form-control" data-bind="value:name, attr: { placeholder: name}" />
+            <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: Name}" />
         </div>
         
         <div class='col-lg-4'>DueDate:</div>
         <div class='col-lg-8 noPadding'>
-            <input type='text' class="form-control" data-bind="value:dueDate, attr: { placeholder: dueDate}" />
+            <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
         </div>
         
-        <div class ='col-lg-4'>Assigned time(in minutes):</div>
+        @*<div class ='col-lg-4'>Assigned time(in minutes):</div>
         <div calss='col-lg-8 noPadding'>
             <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}"> 
-        </div>
+        </div>*@
        <br>
 
         <div>
@@ -85,25 +76,26 @@
     @Scripts.Render("~/bundles/knockout")
     <script type="text/javascript">
         
-        function Activity(data) {
+        function Activity(Activity) {
             var self = this;
-            self.name = ko.observable(data.Name || '');
-            self.dueDate = ko.observable(data.dueDate || '');
-            self.id = ko.observable(data.Id || '');
-            self.complete = ko.observable(data.Complete || '');
-            self.shownActivity = ko.observable();
-            self.assignedTime = ko.observable(data.assignedTime || '');
-            self.changeState = ko.observable();
-          
+            self.id = Activity.Id;
+            self.Completed = ko.observable(Activity.Completed || '');
+            self.CompletedAt = ko.observable(Activity.CompletedAt || '');
+            self.Name = ko.observable(Activity.Name || '');
+            self.DueDate = ko.observableArray(Activity.DueDate || undefined);
+            self.ActivityTimes = ko.observableArray(Activity.ActivityTimes || []);
+            self.placeholderText = Activity.placeholderText || 'Type the name of the activity';
         }
+
+
 
         
         function ActivityOverviewVM() {
             var self = this;
-            self.newActivity = ko.observable(new Activity({ name: 'test' }));
+            self.newActivity = ko.observable(new Activity({}));
             self.allActivities = ko.observableArray();
-
-            self.addNewActivity = function () {
+            self.shownActivity = ko.observable();
+            self.fnAddNewActivity = function () {
                 $.ajax({
                     url: "/api/activities",
                     method: "POST",
@@ -121,7 +113,7 @@
             self.getAllActivities = function () {
                 $.getJSON("/api/activities", function (data) {
                     self.allActivities(
-                    $.each(data, function (index, value) {
+                    $.each(data.result, function (index, value) {
                         return new Activity(value);
                     })
                    )
@@ -131,7 +123,7 @@
             self.getAllActivities();
 
             self.addActivity = function () {
-                self.allActivities.push(new Activity({ name: 'test3' }));
+                //self.allActivities.push(new Activity({ name: 'test3' }));
             };
 
             self.removeActivity = function (id) {
@@ -176,7 +168,7 @@
                    async: false,
                }).done(function (result){
                })
-               }
+            }
             self.showActivity = function (activity) {
                 debugger;
             }
