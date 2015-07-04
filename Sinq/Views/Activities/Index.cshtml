@@ -50,8 +50,8 @@
 
 @*Show details for a selected activity*@
 
-<div class="container" data-bind="if:DisplayActivity, show:DisplayActivity">
-    <div class='col-lg-6' data-bind="with: shownActivity">
+<div class="container" >
+    <div class='col-lg-6' data-bind="with: ShownActivity">
         <div class='col-lg-4'>Activity:</div>
         <div class='col-lg-8 noPadding'>
             <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
@@ -99,7 +99,7 @@
             var self = this;
             self.NewActivity = ko.observable(new Activity({}));
             self.AllActivities = ko.observableArray();
-            self.shownActivity = undefined;
+            self.ShownActivity = ko.observable();
             self.DisplayActivity = ko.observable(false);
 
             // The function adds a new activity
@@ -174,8 +174,9 @@
 
             //The function makes visible the details of a selected activity
             self.fnShowActivity = function (activity) {
-                self.shownActivity = activity;
+                self.ShownActivity() = activity;
                 self.DisplayActivity(true);
+                
             }
 
 

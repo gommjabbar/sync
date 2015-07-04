@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 
 
 namespace Sinq.Controllers
@@ -29,9 +30,9 @@ namespace Sinq.Controllers
         /// <returns>activity</returns>
         [Route("api/activities")]
         [HttpPost]
-         public JsonResponse<Activity> Create(Activity activity)
+         public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
         {
-            return new JsonResponse<Activity>(Request, () =>
+            return new JsonResponse<ActivityDTO>(Request, () =>
             {
                 _activityUnitOfWork.ActivityRepository.Insert(activity);
                 _activityUnitOfWork.Save();
@@ -48,7 +49,7 @@ namespace Sinq.Controllers
         [HttpGet]
         public JsonCollectionResponse<Activity> Get()
         {
-            return new JsonCollectionResponse<Activity>(Request, () => {
+            return new JsonCollectionResponse<ActivityDTO>(Request, () => {
                 var activities = _activityUnitOfWork.ActivityRepository.Get();
              //   var resultDTOList = activities.Select(a => new ActivityDTO()
              //       {
