@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using AutoMapper;
+using Sinq.DTO;
 
 namespace Sinq.Repositories
 {
@@ -55,6 +57,7 @@ namespace Sinq.Repositories
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);
+            
         }
 
         public virtual void Delete(object id)
@@ -77,5 +80,6 @@ namespace Sinq.Repositories
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
+
     }
 }
