@@ -34,9 +34,10 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
             {
-                _activityUnitOfWork.ActivityRepository.Insert(activity);
+                ActivityDTO activityDTO = Mapper.Map<ActivityDTO>(activity);
+                _activityUnitOfWork.ActivityRepository.Insert(activityDTO);
                 _activityUnitOfWork.Save();
-                return activity;
+                return Mapper.Map<ActivityDTO>(activity);
             });
         }
         
@@ -47,16 +48,16 @@ namespace Sinq.Controllers
         /// <returns>The list off all activities from the database.</returns>
         [Route("api/activities")]
         [HttpGet]
-        public JsonCollectionResponse<Activity> Get()
+        public JsonCollectionResponse<ActivityDTO> Get()
         {
             return new JsonCollectionResponse<ActivityDTO>(Request, () => {
-                var activities = _activityUnitOfWork.ActivityRepository.Get();
-             //   var resultDTOList = activities.Select(a => new ActivityDTO()
-             //       {
-             //           Id = a.Id,
-             //           Name = a.Name
-              //      });
-                return activities.ToList();            
+                var activitiesDTO = _activityUnitOfWork.ActivityRepository.Get();
+                var resultDTOList = activitiesDTO.Select(a => new ActivityDTO()
+                    {
+                       Id = a.Id,
+                       Name = a.Name
+                    });
+                return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();           
             });
         }
 
@@ -72,7 +73,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
            {
-               Activity activity = new Activity();
+               ActivityDTO activity = new ActivityDTO();
                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                if (activity != null)
                {
@@ -98,7 +99,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
             {
-                Activity activity= new Activity();
+                ActivityDTO activity= new ActivityDTO();
                 activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                 if (activity != null)
                 {
@@ -129,11 +130,11 @@ namespace Sinq.Controllers
         // GET: Activities/Details/5
         public JsonResponse<Activity> FindActivityById(int? id)
         {
-            return new JsonResponse<Activity>(Request, () =>
+            return new JsonResponse<ActivityDTO>(Request, () =>
            {
-               Activity activity = new Activity();
+               ActivityDTO activity = new ActivityDTO();
                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
-               return activity;
+               return Mapper.Map<ActivityDTO>(activity);
            });
         }
 

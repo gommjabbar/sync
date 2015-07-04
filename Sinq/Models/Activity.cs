@@ -19,6 +19,7 @@ namespace Sinq.Models
         public string Name { get; set; }
         public DateTimeOffset? DueDate { get; set; }
         public virtual ICollection<ActivityTime> ActivityTimes { get; set; }
+       
 
         public bool IsStarted()
         {
