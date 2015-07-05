@@ -9,6 +9,8 @@ namespace Sinq.Repositories
         void Save();
 
         ActivityTime StartActivity(int id);
-        ActivityTime EndActivity(int id);
+        ActivityTime StopActivity(int id);
+
+    
     }
 }

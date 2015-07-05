@@ -43,7 +43,7 @@
     <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
         <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>        
         <span data-bind="text: Name"> </span>
-        <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
+        <button name="ActivityState" data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
     </li>
 </ul>
 
@@ -68,7 +68,7 @@
             </div>*@
         <div class ='col-lg-4'>Elasped time(in minutes):</div>
         <div calss='col-lg-8 noPadding'>
-            <input type='text' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
+            <input type='text' class="form-inline" data-bind="value:ElaspedTime, attr:{placeholder: ElaspedTime}">
         </div>
         <br>
 
@@ -94,6 +94,7 @@
             self.DueDate = ko.observable(Activity.DueDate || undefined);
             self.ActivityTimes = ko.observableArray(Activity.ActivityTimes || []);
             self.placeholderText = Activity.placeholderText || 'Type the name of the activity';
+            self.ElaspedTime = ko.observable(Activity.ElaspedTime || '');
         }
 
 
@@ -166,12 +167,24 @@
            //The function changes the current state of an action 
            self.fnChangeState= function (activity) {
                debugger;
-               var url = "/api/activities/" + activity.id();
+               var url = "/api/activities/" + activity.id() + "/start";
                $.ajax({
                    url: url,
-                   //method:,
+                   method:"Post",
                    async: false,
-               }).done(function (result){
+               }).done(function (result) {
+                   if (result != true) {
+                       ("ActivityState").val("Start");
+                       var url = "/api/activities/" + activity.id() + "/stop";
+                       $.ajax({
+                           url: url,
+                           method: "Post",
+                           async: false,
+                       }).done(function (result) { })
+
+                   } else {
+                       ("ActivityState").val("Stop");
+                   }
                })
            }
 

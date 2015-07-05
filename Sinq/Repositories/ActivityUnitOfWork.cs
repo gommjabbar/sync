@@ -65,7 +65,7 @@ namespace Sinq.Repositories
         }
 
 
-        public ActivityTime EndActivity(int id)
+        public ActivityTime StopActivity(int id)
         {
             var activity = _activityRepository.GetByID(id);
             if (activity == null) { 

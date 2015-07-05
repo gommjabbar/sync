@@ -112,6 +112,12 @@ namespace Sinq.Controllers
 
             });
         }
+
+        /// <summary>
+        /// This method will set the state of the activity as 'started'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true if the satate of the activity is set to 'StartTime'</returns>
         [Route("api/activities/{id}/start")]
         [HttpPost]
         public JsonResponse<bool> StartActivity(int id)
@@ -122,6 +128,23 @@ namespace Sinq.Controllers
                 return true;
             });
         }
+
+
+        /// <summary>
+        /// This method will set the state of the activity as 'stoped'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true if the state of the activity is set to 'StopTime'</returns>
+        [Route("api/activities/{id}/stop")]
+        [HttpPost]
+        public JsonResponse<bool> StopActivity(int id) {
+            return new JsonResponse<bool>(Request, () =>
+            {
+                var activityTime = _activityUnitOfWork.StopActivity(id);
+                return true;
+            });
+        }
+
         /// <summary>
         /// This method will search an activity specified by Id in the database.
         /// </summary>
