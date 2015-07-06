@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Sinq.App_Start;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -10,6 +11,7 @@ namespace Sinq
     {
         protected void Application_Start()
         {
+            AutoMapperConfig.Configure();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

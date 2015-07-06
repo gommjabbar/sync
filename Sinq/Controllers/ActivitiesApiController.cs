@@ -57,6 +57,7 @@ namespace Sinq.Controllers
                  //      Id = a.Id,
                   //     Name = a.Name
                   //  });
+                var T = activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();
                 return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();           
             });
         }
