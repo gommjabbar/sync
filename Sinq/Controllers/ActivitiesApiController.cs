@@ -151,7 +151,7 @@ namespace Sinq.Controllers
         /// <param name="id"></param>
         /// <returns>activity</returns>
         // GET: Activities/Details/5
-        public JsonResponse<Activity> FindActivityById(int? id)
+        public JsonResponse<ActivityDTO> FindActivityById(int? id)
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
            {
