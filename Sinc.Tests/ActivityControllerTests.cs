@@ -10,10 +10,10 @@ using Sinq.Models;
 namespace Sinc.Tests
 {
     [TestClass]
-    public class ActivityControllerTests
+    public class ActivityAPIControllerTests
     {
         Mock<IActivityUnitOfWork> _unitOfWork;
-        public ActivityControllerTests()
+        public ActivityAPIControllerTests()
         {
             AutoMapperConfig.Configure();
             _unitOfWork = new Mock<IActivityUnitOfWork>();
@@ -56,6 +56,19 @@ namespace Sinc.Tests
             response.ExecuteAsync(new CancellationToken(true));
 
             Assert.IsTrue(response.Result);
+        }
+
+        [TestMethod]
+        public void StartActivity_ActivityIsNotStarted_ActivityStarted()
+        {
+            _unitOfWork.Setup(unitOfWork => unitOfWork.StartActivity(It.IsAny<int>()))
+               .Returns(new ActivityTime());
+
+            var controller = new ActivitiesApiController(_unitOfWork.Object);
+            var response = controller.StartActivity(1);
+            response.ExecuteAsync(new CancellationToken(true));
+
+            Assert.IsTrue(response.Result != null);
         }
     }
 }

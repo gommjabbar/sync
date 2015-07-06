@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="ActivityControllerTests.cs" />
     <Compile Include="ActivityRepositoryTests.cs" />
+    <Compile Include="ActivityUnitOfWorkTests.cs" />
     <Compile Include="LambdaExamples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

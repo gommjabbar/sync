@@ -118,12 +118,12 @@ namespace Sinq.Controllers
         /// <returns>true if the satate of the activity is set to 'StartTime'</returns>
         [Route("api/activities/{id}/start")]
         [HttpPost]
-        public JsonResponse<bool> StartActivity(int id)
+        public JsonResponse<DateTimeOffset> StartActivity(int id)
         {
-            return new JsonResponse<bool>(Request, () =>
+            return new JsonResponse<DateTimeOffset>(Request, () =>
             {
                 var activityTime = _activityUnitOfWork.StartActivity(id);
-                return true;
+                return activityTime.StartDate;
             });
         }
 
