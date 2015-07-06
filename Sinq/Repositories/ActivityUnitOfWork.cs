@@ -45,7 +45,7 @@ namespace Sinq.Repositories
 
         public ActivityTime StartActivity(int id)
         {
-            var activity = _activityRepository.GetByID(id);
+            var activity = ActivityRepository.GetByID(id);
             if (activity == null)
                 throw new Exception("Activity not found");
 

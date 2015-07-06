@@ -43,7 +43,7 @@
     <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
         <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>        
         <span data-bind="text: Name"> </span>
-        <button name="ActivityState" data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
+        <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
     </li>
 </ul>
 
@@ -95,6 +95,7 @@
             self.ActivityTimes = ko.observableArray(Activity.ActivityTimes || []);
             self.placeholderText = Activity.placeholderText || 'Type the name of the activity';
             self.ElaspedTime = ko.observable(Activity.ElaspedTime || '');
+            self.ActivityState = ko.computed(function () { return Activity.IsStarted });
         }
 
 
@@ -127,12 +128,11 @@
             //The function get the list of all activities
             self.fnGetAllActivities = function () {
                 $.getJSON("/api/activities", function (data) {
-                    self.AllActivities(
-                        $.each(data.result, function (index, value) {
+                    var resultArray = $.map(data.result, function (value) {
 
-                            return new Activity(value);
-                        })
-                   )
+                        return new Activity(value);
+                    })
+                    self.AllActivities(resultArray);
                 })
             }
             self.fnGetAllActivities();
@@ -157,8 +157,7 @@
                     method: "Put",
                     async: false,
                 }).done(function (result) {
-                    if (sefl.complet()!=self.complet()) {
-                        sefl.complete() = null;
+                    if (sefl.complet(!self.complet())) {
                     }
                 })
             }
@@ -166,26 +165,40 @@
           
            //The function changes the current state of an action 
            self.fnChangeState= function (activity) {
-               debugger;
-               var url = "/api/activities/" + activity.id() + "/start";
+              /* var url = "/api/activities/" + activity.id + "/start";
                $.ajax({
                    url: url,
-                   method:"Post",
+                   method:"Put",
                    async: false,
                }).done(function (result) {
                    if (result != true) {
                        ("ActivityState").val("Start");
-                       var url = "/api/activities/" + activity.id() + "/stop";
+                       var url = "/api/activities/" + activity.id + "/stop";
                        $.ajax({
                            url: url,
-                           method: "Post",
+                           method: "Put",
                            async: false,
                        }).done(function (result) { })
 
                    } else {
                        ("ActivityState").val("Stop");
                    }
-               })
+               })*/
+               if (activity.ActivityState == true) {
+                   var url = "/api/activities/" + activity.id + "/start";
+                   $.ajax({
+                       url: url,
+                       method: "Put",
+                       async: false,
+                   }).done(function (result) { })
+               } else {
+                   var url = "/api/activities/" + activity.id + "/stop";
+                   $.ajax({
+                       url: url,
+                       method: "Put",
+                       async: false,
+                   }).done(function (result) { })
+               }
            }
 
 
