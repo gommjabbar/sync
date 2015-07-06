@@ -13,109 +13,111 @@
    
     <div class='col-lg-3'>Folders:
         <ul data-bind="foreach: AllFolders">
-            <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivitiesFromFolder.bind(undefined,$data) } ">
-             @*when it is selected*@
-            <span data-bind="text: Name"> </span>
-             @*butoon delete- visible only if doubleclick*@
-                
+            <li data-bind="singleOrDoubleClick: {click: $root.fnShowActivitiesFromFolder.bind(undefined,$data) } ">
+                <span data-bind="text: Name"> </span>
+                @*butoon delete- visible only if doubleclick*@
+                <button data-bind="click: $parent.fnDeleteFolder.bind(undefined,$data)">Delete</button>
+
             </li>
         </ul>
     @*Add a new folder*@
     <div class='col-lg-12'>
         <div class='col-lg-3'>Name:</div>
-        <div class='col-lg-7'></div>
+        <div class='col-lg-7'>
+            <input type='text' class="form-control" data-bind="value:FName, attr: { placeholder: placeholderText}" />
+        </div>
         <div class='col-lg-2'>
-            <input type="button" value="Add" id="btnAddFolder" data-bind="click: $root.fnAddNewFolder" />
+            <input type="button" value="Add" id="btnAddFolder" data-bind="click: $root.fnAddNewFolder.bind(undefined,$data)" />
         </div>
     </div>
     </div>
                 
 
     @*Activities*@
-    <div class='col-lg-9'>
-    Folders' activities:
-    <div calss='col-lg-10'>
-        @*Adding a new activity*@
-        <div class='col-lg-8' data-bind="with: NewActivity">
-            <div class='col-lg-3'>Nume:</div>
+    <div class='col-lg-9' data-bind="with: ShowFolderActivities">
+        Folders' activities:
+        <div calss='col-lg-10'>
+            @*Adding a new activity*@
+            <div class='col-lg-8' data-bind="with: NewActivity">
+                <div class='col-lg-3'>Nume:</div>
 
-            <div class='col-lg-8 noPadding'>
-                <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
+                <div class='col-lg-8 noPadding'>
+                    <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
+                </div>
+
+                <div class='col-lg-1 noPadding'>
+
+                    <div class="form-group">
+
+                        <div class='input-group date' id='datetimepicker'>
+                            <input type='hidden' class="form-control" id="dueDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                @*The activities list*@
+                <div class='col-lg-12'>
+                    <ul data-bind="foreach: AllActivities">
+                        <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
+                            <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>
+                            <span data-bind="text: Name"> </span>
+                            <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
-            <div class='col-lg-1 noPadding'>
+            <div class='col-lg-2'>
+                <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
+            </div>
 
-                <div class="form-group">
 
-                    <div class='input-group date' id='datetimepicker'>
-                        <input type='hidden' class="form-control" id="dueDate" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+
+
+
+        </div>
+
+        @*Show details for a selected activity*@
+
+        <div class='col-lg-2' data-bind="with: ShownActivity">
+            Activity details:
+            @*<div class='col-lg-6' data-bind=" with shownactivity">*@
+            <div class="row">
+                <div class='col-lg-6'>Activity:</div>
+                <div class='col-lg-6 '>
+                    <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
                 </div>
             </div>
 
-            @*The activities list*@
-            <div class='col-lg-12'>
-                <ul data-bind="foreach: AllActivities">
-                    <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
-                        <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>
-                        <span data-bind="text: Name"> </span>
-                        <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
-                    </li>
-                </ul>
+            <div class="row">
+                <div class='col-lg-6'>DueDate:</div>
+                <div class='col-lg-6 '>
+                    <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
+                </div>
             </div>
-            
+
+            @*<div class ='col-lg-4'>Assigned time(in minutes):</div>
+                <div calss='col-lg-8 noPadding'>
+                    <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
+                </div>*@
+            <div class="row">
+                <div class='col-lg-9'>ElaspedTime:</div>
+                <div calss='col-lg-3 '>
+                    <input type='text' class="form-inline" data-bind="value:ElaspedTime, attr:{placeholder: ElaspedTime}">
+                </div>
+            </div>
+            <br>
+
+            <div>
+                <button data-bind="click: $parent.fnRemoveActivity.bind(undefined,id)">Remove</button>
+            </div>
+
         </div>
-
-     <div class='col-lg-2'>
-        <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
     </div>
-
-
-
-       
-       
-    </div>
-
-    @*Show details for a selected activity*@
-
-   <div class='col-lg-2' data-bind="with: ShownActivity">
-    Activity details:
-       @*<div class='col-lg-6' data-bind=" with shownactivity">*@
-       <div class="row">
-           <div class='col-lg-6'>Activity:</div>
-           <div class='col-lg-6 '>
-               <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
-           </div>
-           </div>
-
-           <div class="row">
-               <div class='col-lg-6'>DueDate:</div>
-               <div class='col-lg-6 '>
-                   <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
-               </div>
-           </div>
-
-           @*<div class ='col-lg-4'>Assigned time(in minutes):</div>
-            <div calss='col-lg-8 noPadding'>
-                <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
-            </div>*@
-           <div class="row">
-               <div class='col-lg-9'>ElaspedTime:</div>
-               <div calss='col-lg-3 '>
-                   <input type='text' class="form-inline" data-bind="value:ElaspedTime, attr:{placeholder: ElaspedTime}">
-               </div>
-           </div>
-           <br>
-
-           <div>
-               <button data-bind="click: $parent.fnRemoveActivity.bind(undefined,id)">Remove</button>
-           </div>
-
-       </div>
-</div>
 </div>
 
 
@@ -126,7 +128,7 @@
         function Folder(Folder) {
             var self = this;
             self.idF = Folder.Id;
-            self.NumeF = ko.observable(Folder.Name || '');
+            self.FName = ko.observable(Folder.Name || '');
         }
         
         function Activity(Activity) {
@@ -153,6 +155,9 @@
             self.DisplayActivity = ko.observable(false);
             self.AllFolders = ko.observableArray();
             self.ShowActivitiesFromFolder = ko.observable();
+            self.ShowFolderActivities = ko.observable();
+            self.DisplayFolderActivities = ko.observable(false);
+            self.NewFolder = ko.observable(new Folder({}));
 
             // The function adds a new activity
             self.fnAddNewActivity = function () {
@@ -162,7 +167,7 @@
                     async: false,
                     data: {
                         Id: -1,
-                        Name: self.newActivity().name(),
+                        Name: self.NewActivity().name(),
                         DueDate: undefined
                     }
                 }).done(function (result) {
@@ -181,7 +186,7 @@
                     self.AllActivities(resultArray);
                 })
             }
-            self.fnGetAllActivities();
+        //    self.fnGetAllActivities();
 
 
             //The function removes an activity
@@ -267,6 +272,36 @@
             }
             self.fnGetAllFolders();
 
+            //The function gets the list of all activities from a selected folder
+            self.fnShowActivitiesFromFolder = function (folder) {
+                self.ShowFolderActivities() = folder;
+                self.DisplayFolderActivities(true);
+            }
+
+            //The function adds a new folder
+            self.fnAddNewFolder = function (folder) {
+                $.ajax({
+                    url: "/api/folders",
+                    method: "POST",
+                    async: false,
+                    data: {
+                        Id: -1,
+                        Name: self.NewFolder().FName()
+                    }
+                }).done(function (result) {
+                    alert(result)
+                })
+            }
+
+            //The function deletes a folder
+            self.fnDeleteFolder = function (folder) {
+                $.ajax({
+                    url: "/api/folders/" + folder.idF,
+                    method: "FolderDelete",@*???*@
+                    async: false,
+                }).done(function (result) {
+                })
+            }
 
         }
         ko.applyBindings(new ActivityOverviewVM());
