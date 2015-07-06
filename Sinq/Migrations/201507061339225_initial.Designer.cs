@@ -7,13 +7,13 @@ namespace Sinq.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class ActivitiesSet : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ActivitiesSet));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506300901116_ActivitiesSet"; }
+            get { return "201507061339225_initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -20,9 +20,9 @@ namespace Sinq.Models
         public DateTimeOffset? DueDate { get; set; }
         public virtual ICollection<ActivityTime> ActivityTimes { get; set; }
 
-        //[ForeignKey("Folder")]
-        //public int FolderId { get; set; }
-        //public virtual Folder Folder { get; set; }
+        [ForeignKey("Folder")]
+        public int FolderId { get; set; }
+        public virtual Folder Folder { get; set; }
 
         public bool IsStarted()
         {

@@ -24,7 +24,7 @@ namespace Sinq.Models
     public class SyncDbContext : DbContext
     {
         public SyncDbContext()
-            : base("SyncDbConnectionString")
+            : base("DefaultConnection")
         {
 
         }
@@ -34,6 +34,7 @@ namespace Sinq.Models
         }
 
         public DbSet<Activity> Activities { get; set; }
+        public DbSet  <Folder> Folders { get; set; }
         public DbSet<ActivityTime> ActivitiesTime { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -214,36 +214,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesApiController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\FoldersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
-    <Compile Include="fonts\ActivityDTO.cs" />
+    <Compile Include="Migrations\201507061339225_initial.cs" />
+    <Compile Include="Migrations\201507061339225_initial.Designer.cs">
+      <DependentUpon>201507061339225_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\fonts\ActivityDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506300901116_ActivitiesSet.cs" />
-    <Compile Include="Migrations\201506300901116_ActivitiesSet.Designer.cs">
-      <DependentUpon>201506300901116_ActivitiesSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506300926014_ActivityOptionalDueDate.cs" />
-    <Compile Include="Migrations\201506300926014_ActivityOptionalDueDate.Designer.cs">
-      <DependentUpon>201506300926014_ActivityOptionalDueDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507010646094_BaseEntity.cs" />
-    <Compile Include="Migrations\201507010646094_BaseEntity.Designer.cs">
-      <DependentUpon>201507010646094_BaseEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507011530266_completed.cs" />
-    <Compile Include="Migrations\201507011530266_completed.Designer.cs">
-      <DependentUpon>201507011530266_completed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507021009269_ActivityTime.cs" />
-    <Compile Include="Migrations\201507021009269_ActivityTime.Designer.cs">
-      <DependentUpon>201507021009269_ActivityTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507031132005_ActivityTimeBase.cs" />
-    <Compile Include="Migrations\201507031132005_ActivityTimeBase.Designer.cs">
-      <DependentUpon>201507031132005_ActivityTimeBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -251,9 +232,11 @@
     <Compile Include="Models\ActivityTime.cs" />
     <Compile Include="Models\BaseEnt.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeViewModels.cs" />
+    <Compile Include="Models\SinqContext.cs" />
     <Compile Include="Models\SyncDbContext.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -262,8 +245,10 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
     <Compile Include="Repositories\ActivityUnitOfWork.cs" />
+    <Compile Include="Repositories\FolderRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IActivityUnitOfWork.cs" />
+    <Compile Include="Repositories\IFolderRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Response\GenericResponse.cs" />
     <Compile Include="Response\JsonContent.cs" />
@@ -349,7 +334,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
@@ -579,6 +564,11 @@
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
     <Content Include="Views\Activities\IndexJq.cshtml" />
+    <Content Include="Views\Folders\Create.cshtml" />
+    <Content Include="Views\Folders\Delete.cshtml" />
+    <Content Include="Views\Folders\Details.cshtml" />
+    <Content Include="Views\Folders\Edit.cshtml" />
+    <Content Include="Views\Folders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -586,30 +576,15 @@
     <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Migrations\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506300901116_ActivitiesSet.resx">
-      <DependentUpon>201506300901116_ActivitiesSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506300926014_ActivityOptionalDueDate.resx">
-      <DependentUpon>201506300926014_ActivityOptionalDueDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507010646094_BaseEntity.resx">
-      <DependentUpon>201507010646094_BaseEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507011530266_completed.resx">
-      <DependentUpon>201507011530266_completed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507021009269_ActivityTime.resx">
-      <DependentUpon>201507021009269_ActivityTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507031132005_ActivityTimeBase.resx">
-      <DependentUpon>201507031132005_ActivityTimeBase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507061339225_initial.resx">
+      <DependentUpon>201507061339225_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

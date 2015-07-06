@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
+using System.Web;
 
 namespace Sinq.Models
 {
     public class Folder : BaseEntity
     {
-
-        public Folder()
-        {
-            Activities = new List<Activity>();
-        }
-
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
-        ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
+              
     }
 }
