@@ -34,7 +34,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
             {
-                ActivityDTO activityDTO = Mapper.Map<ActivityDTO>(activity);
+                var activityDTO = Mapper.Map<Activity>(activity);
                 _activityUnitOfWork.ActivityRepository.Insert(activityDTO);
                 _activityUnitOfWork.Save();
                 return Mapper.Map<ActivityDTO>(activity);
@@ -52,11 +52,11 @@ namespace Sinq.Controllers
         {
             return new JsonCollectionResponse<ActivityDTO>(Request, () => {
                 var activitiesDTO = _activityUnitOfWork.ActivityRepository.Get();
-                var resultDTOList = activitiesDTO.Select(a => new ActivityDTO()
-                    {
-                       Id = a.Id,
-                       Name = a.Name
-                    });
+              //  var resultDTOList = activitiesDTO.Select(a => new ActivityDTO()
+                 //   {
+                 //      Id = a.Id,
+                  //     Name = a.Name
+                  //  });
                 return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();           
             });
         }
@@ -73,7 +73,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
            {
-               ActivityDTO activity = new ActivityDTO();
+               Activity activity = new Activity();
                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                if (activity != null)
                {
@@ -99,7 +99,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
             {
-                ActivityDTO activity= new ActivityDTO();
+                Activity activity= new Activity();
                 activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                 if (activity != null)
                 {
@@ -155,7 +155,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
            {
-               ActivityDTO activity = new ActivityDTO();
+               Activity activity = new Activity();
                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                return Mapper.Map<ActivityDTO>(activity);
            });

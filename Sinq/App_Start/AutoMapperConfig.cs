@@ -16,19 +16,20 @@ namespace Sinq.App_Start
             .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(x => x.Completed, opt => opt.MapFrom(src => src.Completed))
             .ForMember(x => x.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(x => x.ElapsedTime, opt => opt.MapFrom(src => src.ActivityTime.Sum(activityTime => (activityTime.EndDate - activityTime.StartDate).TotalSeconds)))
-            .ForMember(x => x.DueDate, opt => opt.MapFrom(src => src.DueDate))
-            .ForMember(x => x.IsStarted, opt => opt.MapFrom(src => src.IsStarted));
+            .ForMember(x => x.DueDate, opt => opt.MapFrom(src => src.DueDate));
 
 
-
+            
             Mapper.CreateMap<Activity, ActivityDTO>()
+                
             .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(x => x.Completed, opt => opt.MapFrom(src => src.Completed))
             .ForMember(x => x.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(x => x.ActivityTime.Sum(activityTime => (activityTime.EndDate - activityTime.StartDate).TotalSeconds), opt => opt.MapFrom(src => src.ElaspedTime))
+            .ForMember(x => x.ElapsedTime, opt => opt.MapFrom(
+                src => src.ActivityTimes
+                    .Sum(activityTime => ((activityTime.EndDate ?? DateTimeOffset.Now) - activityTime.StartDate).TotalSeconds)))
             .ForMember(x => x.DueDate, opt => opt.MapFrom(src => src.DueDate))
-            .ForMember(x => x.IsStarted, opt => opt.MapFrom(src => src.IsStarted)); 
+            .ForMember(x => x.IsStarted, opt => opt.MapFrom(src => src.IsStarted())); 
 
             
         }
