@@ -11,7 +11,7 @@ namespace Sinq.Response
         /// <summary>
         /// Named result
         /// </summary>
-        public IEnumerable<T> Result { get; set; }
+        public IEnumerable<T> Result { get { return _responseObject as IEnumerable<T>; } }
 
         public JsonCollectionResponse(HttpRequestMessage request, Func<IEnumerable<T>> getResponseCollection, string collectionName = null)
             : base(request, getResponseCollection)

@@ -15,13 +15,18 @@ namespace Sinq.Controllers
 {
     public class ActivitiesApiController : ApiController
     {
-         private IActivityUnitOfWork _activityUnitOfWork;
 
-         public ActivitiesApiController()
-         {
-             this._activityUnitOfWork = new ActivityUnitOfWork();
-         }
+        private IActivityUnitOfWork _activityUnitOfWork;
 
+        public ActivitiesApiController()
+        {
+            this._activityUnitOfWork = new ActivityUnitOfWork();
+        }
+
+        public ActivitiesApiController(IActivityUnitOfWork activityUnitOfWork)
+        {
+            _activityUnitOfWork = activityUnitOfWork;
+        }
 
         /// <summary>
         /// This method will add a new activity in the database.
@@ -30,7 +35,7 @@ namespace Sinq.Controllers
         /// <returns>activity</returns>
         [Route("api/activities")]
         [HttpPost]
-         public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
+        public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
             {
@@ -40,7 +45,7 @@ namespace Sinq.Controllers
                 return Mapper.Map<ActivityDTO>(activity);
             });
         }
-        
+
 
         /// <summary>
         /// This method will return all activities.
@@ -48,21 +53,17 @@ namespace Sinq.Controllers
         /// <returns>The list off all activities from the database.</returns>
         [Route("api/activities")]
         [HttpGet]
-        public JsonCollectionResponse<ActivityDTO> Get()
+        public JsonCollectionResponse<ActivityDTO> GetAllActivities()
         {
-            return new JsonCollectionResponse<ActivityDTO>(Request, () => {
-                var activitiesDTO = _activityUnitOfWork.ActivityRepository.Get();
-              //  var resultDTOList = activitiesDTO.Select(a => new ActivityDTO()
-                 //   {
-                 //      Id = a.Id,
-                  //     Name = a.Name
-                  //  });
-                var T = activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();
-                return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();           
+            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+            {
+                var activitiesDTO = _activityUnitOfWork.ActivityRepository.GetAll();
+
+                return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();
             });
         }
 
-      
+
         /// <summary>
         /// This method will delete the given activity.
         /// </summary>
@@ -75,20 +76,16 @@ namespace Sinq.Controllers
             return new JsonResponse<bool>(Request, () =>
            {
                Activity activity = new Activity();
-               activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
-               if (activity != null)
-               {
-                   _activityUnitOfWork.ActivityRepository.Delete(id);
+
+               var result = _activityUnitOfWork.ActivityRepository.Delete(id);
+               if (result)
                    _activityUnitOfWork.Save();
-                   return true;
-               }
-      
-               else { return false; }   
+               return result;
            });
 
         }
 
-      
+
         /// <summary>
         /// This method will update the 'Completed' proprety of a given activity.
         /// </summary>
@@ -100,7 +97,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
             {
-                Activity activity= new Activity();
+                Activity activity = new Activity();
                 activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
                 if (activity != null)
                 {
@@ -109,7 +106,7 @@ namespace Sinq.Controllers
                     return true;
                 }
                 else { return false; }
-                
+
 
             });
         }
@@ -138,7 +135,8 @@ namespace Sinq.Controllers
         /// <returns>true if the state of the activity is set to 'StopTime'</returns>
         [Route("api/activities/{id}/stop")]
         [HttpPost]
-        public JsonResponse<bool> StopActivity(int id) {
+        public JsonResponse<bool> StopActivity(int id)
+        {
             return new JsonResponse<bool>(Request, () =>
             {
                 var activityTime = _activityUnitOfWork.StopActivity(id);

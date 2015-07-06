@@ -264,6 +264,7 @@
     <Compile Include="Repositories\ActivityUnitOfWork.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IActivityUnitOfWork.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Response\GenericResponse.cs" />
     <Compile Include="Response\JsonContent.cs" />
     <Compile Include="Response\JsonNamedCollectionResponse.cs" />

@@ -4,8 +4,8 @@ namespace Sinq.Repositories
 {
     public interface IActivityUnitOfWork
     {
-        GenericRepository<Sinq.Models.Activity> ActivityRepository { get; }
-        GenericRepository<Sinq.Models.ActivityTime> ActivityTimeRepository { get; }
+        IGenericRepository<Sinq.Models.Activity> ActivityRepository { get; }
+        IGenericRepository<Sinq.Models.ActivityTime> ActivityTimeRepository { get; }
         void Save();
 
         ActivityTime StartActivity(int id);

@@ -10,7 +10,7 @@ using Sinq.DTO;
 
 namespace Sinq.Repositories
 {
-    public class GenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         internal SyncDbContext context;
         internal DbSet<TEntity> dbSet;
@@ -20,7 +20,10 @@ namespace Sinq.Repositories
             this.context = context;
             this.dbSet = context.Set<TEntity>();
         }
-
+        public virtual IEnumerable<TEntity> GetAll()
+        {
+            return dbSet.Select(ent => ent).ToList();
+        }
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
@@ -60,10 +63,14 @@ namespace Sinq.Repositories
             
         }
 
-        public virtual void Delete(object id)
+        public virtual bool Delete(object id)
         {
             TEntity entityToDelete = dbSet.Find(id);
+            if (entityToDelete == null)
+                return false;
+
             Delete(entityToDelete);
+            return true;
         }
 
         public virtual void Delete(TEntity entityToDelete)

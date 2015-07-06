@@ -9,11 +9,11 @@ namespace Sinq.Repositories
     public class ActivityUnitOfWork : Sinq.Repositories.IActivityUnitOfWork
     {
         private SyncDbContext context = new SyncDbContext();
-        private GenericRepository<Activity> _activityRepository;
-        private GenericRepository<ActivityTime> _activityTimeRepository;
+        private IGenericRepository<Activity> _activityRepository;
+        private IGenericRepository<ActivityTime> _activityTimeRepository;
 
 
-        public GenericRepository<Activity> ActivityRepository
+        public IGenericRepository<Activity> ActivityRepository
         {
             get
             {
@@ -25,7 +25,7 @@ namespace Sinq.Repositories
                 return _activityRepository;
             }
         }
-        public GenericRepository<ActivityTime> ActivityTimeRepository
+        public IGenericRepository<ActivityTime> ActivityTimeRepository
         {
             get
             {

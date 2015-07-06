@@ -107,7 +107,7 @@ namespace Sinq.Response
             // wrap response object around a property 
             var result = new ExpandoObject() as IDictionary<string, Object>;
             result.Add(ResultPropertyName, _responseObject); // set up the result property
-
+            
             var jsonContent = new JsonContent(result, _contractResolver);
 
             var response = new HttpResponseMessage()

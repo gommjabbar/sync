@@ -12,6 +12,11 @@ namespace Sinq.Response
     /// <typeparam name="T">The type of the SingleObjectResponse Result property</typeparam>
     public class JsonResponse<T> : GenericResponse<T>
     {
+        /// <summary>
+        /// Named result
+        /// </summary>
+        public T Result { get { return (T)_responseObject; } }
+
         public JsonResponse(HttpRequestMessage request, Func<T> getResponseValueMethod)
             : base(request)
         {
