@@ -42,7 +42,7 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<Folder>(Request, () =>
             {
-                var Folder = Mapper.Map<Activity>(folder);
+                var Folder = Mapper.Map<Folder>(folder);
                 _fd.Insert(folder);
                 _fd.Save();
                 return Mapper.Map<Folder>(folder);
@@ -76,7 +76,8 @@ namespace Sinq.Controllers
                 }
                 else {
                     throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
-                } 
+                }
+                return false;
             });
         }
 
