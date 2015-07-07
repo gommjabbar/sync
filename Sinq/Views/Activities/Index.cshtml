@@ -38,11 +38,23 @@
         Folders' activities:
         <div calss='col-lg-10'>
             @*Adding a new activity*@
-            <div class='col-lg-8' data-bind="with: NewActivity">
-                <div class='col-lg-3'>Nume:</div>
+            <div class='col-lg-10' data-bind="with: NewActivity">
+                <div class='col-lg-3'>Name:</div>
 
-                <div class='col-lg-8 noPadding'>
+                <div class='col-lg-6 noPadding'>
                     <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
+                    <br>
+                    @*The activities list*@
+                    <div class='col-lg-12'>
+                        <ul data-bind="foreach: AllActivities">
+                            <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
+                                <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>
+                                <span data-bind="text: Name"> </span>
+                                <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
 
                 <div class='col-lg-1 noPadding'>
@@ -58,34 +70,26 @@
                     </div>
                 </div>
 
-                @*The activities list*@
-                <div class='col-lg-12'>
-                    <ul data-bind="foreach: AllActivities">
-                        <li data-bind="singleOrDoubleClick: { dblclick: $root.fnShowActivity.bind(undefined,$data) } ">
-                            <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(undefined,$data)} "></label>
-                            <span data-bind="text: Name"> </span>
-                            <button data-bind="click: $parent.fnChangeState.bind(undefined,$data)">Start</button>
-                        </li>
-                    </ul>
+                <div class='col-lg-2'>
+                    <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
+                </div>
                 </div>
 
+                
+           
+
+
+
+
             </div>
-
-            <div class='col-lg-2'>
-                <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
-            </div>
-
-
-
-
-
-        </div>
+       
+   
+       
 
         @*Show details for a selected activity*@
 
         <div class='col-lg-2' data-bind="with: ShownActivity">
             Activity details:
-            @*<div class='col-lg-6' data-bind=" with shownactivity">*@
             <div class="row">
                 <div class='col-lg-6'>Activity:</div>
                 <div class='col-lg-6 '>
@@ -117,15 +121,10 @@
             </div>
 
         </div>
-    </div>
-</div>
+ </div>
+
 
 
 @section Scripts {
-    @*Scripts.Render("~/bundles/knockout")*@
-        @*   <script type="text/javascript">*@
-
     <script type="text/javascript" src="index.js"></script>
-
-
 }
