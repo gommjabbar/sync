@@ -20,10 +20,6 @@ namespace Sinq.Repositories
             this.context = context;
             this.dbSet = context.Set<TEntity>();
         }
-        public GenericRepository()
-        {
-
-          }
         public virtual IEnumerable<TEntity> GetAll()
         {
             return dbSet.Select(ent => ent).ToList();

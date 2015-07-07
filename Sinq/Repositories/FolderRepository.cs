@@ -14,7 +14,7 @@ namespace Sinq.Repositories
         
         }
 
-         public FolderRepository()
+         public FolderRepository() : base(new SyncDbContext())
          {
              // TODO: Complete member initialization
          }

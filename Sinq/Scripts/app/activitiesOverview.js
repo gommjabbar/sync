@@ -138,7 +138,7 @@ function ActivityOverviewVM() {
 
     //The function gets the list of all folders
     self.fnGetAllFolders = function () {
-        $.getJSON("/api/folders", function (data) {
+        $.getJSON("api/folders", function (data) {
             var resultArray = $.map(data.result, function (value) {
 
                 return new Folder(value);
@@ -155,14 +155,15 @@ function ActivityOverviewVM() {
     }
 
     //The function adds a new folder
-    self.fnAddNewFolder = function (folder) {
+    self.fnAddNewFolder = function () {
+        //debugger;
         $.ajax({
-            url: "/api/folders",
-            method: "POST",
+            url: "api/folders",
+            method: "Post",
             async: false,
             data: {
                 Id: -1,
-                Name: self.NewFolder().FName()
+                Name: self.NewFolder().Name
             }
         }).done(function (result) {
             alert(result)
