@@ -43,11 +43,22 @@ namespace Sinq.Controllers
             return new JsonResponse<Folder>(Request, () =>
             {
                 var Folder = Mapper.Map<Folder>(folder);
+                //folder.Name = "Inbox";
+                
+                //if(default (Folder).Name.Equals("Inbox")){
                 _fd.Insert(folder);
                 _fd.Save();
+                //}
                 return Mapper.Map<Folder>(folder);
             });
         }
+
+        //public void Adaugare()
+        //{
+        //    Folder folder = new Folder();
+        //    MethodName(default(Folder folder.Name="Inbox"));// call overload
+        //}
+       
 
         //Nu stiu daca e ok delete-ul !!!
         [Route("api/folders/{id}")]
