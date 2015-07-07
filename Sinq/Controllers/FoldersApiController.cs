@@ -87,8 +87,12 @@ namespace Sinq.Controllers
             return new JsonResponse<bool>(Request, () =>
             {
                 Folder folder = new Folder();
-                if (folder.Name != "Inbox")
-                {
+                folder = _fd.GetByID(folder.Id);
+                
+                if (folder.Name.Equals("Inbox")) {
+                    throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
+                }
+                else{
                     Activity activity = new Activity();
                     ActivityTime act = new ActivityTime();
 
@@ -104,9 +108,6 @@ namespace Sinq.Controllers
                             _fd.Save();
                         return result;
                     }
-                }
-                else {
-                    throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
                 }
                 return false;
             });
