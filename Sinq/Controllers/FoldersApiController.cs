@@ -36,19 +36,48 @@ namespace Sinq.Controllers
 
 
 
+        //[Route("api/folders")]
+        //[HttpPost]
+        //public JsonResponse<Folder> Create(Folder folder)
+        //{
+        //    return new JsonResponse<Folder>(Request, () =>
+        //    {
+        //        if (FindFolderByName("Inbox") == null)
+        //        {
+        //            var Folder = Mapper.Map<Folder>(folder);
+        //            _fd.Insert(folder);
+        //            _fd.Save();
+        //            return Mapper.Map<Folder>(folder);
+               
+        //        }
+        //        else {
+        //            var Folder = Mapper.Map<Folder>(folder);
+        //            _fd.Insert(folder);
+        //            _fd.Save();
+        //        }
+        //        });
+        //}
+
         [Route("api/folders")]
         [HttpPost]
         public JsonResponse<Folder> Create(Folder folder)
         {
             return new JsonResponse<Folder>(Request, () =>
             {
-                var Folder = Mapper.Map<Folder>(folder);
-                _fd.Insert(folder);
-                _fd.Save();
-                return Mapper.Map<Folder>(folder);
-                });
+                if (folder.Name != "Inbox")
+                {
+                    var Folder = Mapper.Map<Folder>(folder);
+                    _fd.Insert(folder);
+                    _fd.Save();
+                    return Mapper.Map<Folder>(folder);
+                }
+                else {
+                    throw new Exception("Incerci sa adaugi una cu Inbox deja");
+                }
+            });
         }
-               
+
+
 
         //Nu stiu daca e ok delete-ul !!!
         [Route("api/folders/{id}")]
@@ -90,6 +119,19 @@ namespace Sinq.Controllers
             {
                 Folder folder = new Folder();
                 folder = _fd.GetByID(id);
+                return Mapper.Map<Folder>(folder);
+            });
+        }
+
+        public JsonResponse<Folder> FindFolderByName(string Name)
+        {
+            return new JsonResponse<Folder>(Request, () =>
+            {
+                Folder folder = new Folder();
+                if (folder.Name.Equals(Name)!=null) { 
+                    var fold = _fd.GetByID(folder.Id);
+                    return Mapper.Map<Folder>(fold);
+                }
                 return Mapper.Map<Folder>(folder);
             });
         }
