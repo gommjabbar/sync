@@ -223,7 +223,7 @@
     <Compile Include="Migrations\201507061339225_initial.Designer.cs">
       <DependentUpon>201507061339225_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\fonts\ActivityDTO.cs" />
+    <Compile Include="DTO\ActivityDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -337,8 +337,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Index.js" />
-    <Content Include="Migrations\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\activitiesOverview.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -576,13 +577,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DTO\" />
     <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Migrations\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Migrations\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Migrations\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
