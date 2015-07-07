@@ -1,5 +1,6 @@
 namespace Sinq.Migrations
 {
+    using Sinq.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,14 @@ namespace Sinq.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-        }
+            context.Folders.AddOrUpdate(
+                f => f.Name,
+                new Folder { Name = "Inbox" }
+                );
+
+            //Folder folder = new Folder();
+            //folder.Name = "Inbox";
+     
+          }
     }
 }
