@@ -3,6 +3,7 @@ function Folder(Folder) {
     var self = this;
     self.id = Folder.Id;
     self.Name = ko.observable(Folder.Name || '');
+    self.FolderActivities = ko.observable(Folder.Activities);
 }
 
 function Activity(Activity) {
@@ -34,9 +35,9 @@ function ActivityOverviewVM() {
     self.NewFolder  = ko.observable(new Folder({}));
 
     // The function adds a new activity
-    self.fnAddNewActivity = function () {
+    self.fnAddNewActivity = function (folder) {
         $.ajax({
-            url: "/api/activities",
+            url: "/api/activities" + folder.id,
             method: "POST",
             async: false,
             data: {
@@ -51,8 +52,8 @@ function ActivityOverviewVM() {
 
 
     //The function get the list of all activities
-    self.fnGetAllActivities = function () {
-        $.getJSON("/api/activities", function (data) {
+    self.fnGetAllActivities = function (folder) {
+        $.getJSON("/api/activities" + folder.id, function (data) {
             var resultArray = $.map(data.result, function (value) {
 
                 return new Activity(value);
@@ -92,25 +93,6 @@ function ActivityOverviewVM() {
 
     //The function changes the current state of an action 
     self.fnChangeState = function (activity) {
-        /* var url = "/api/activities/" + activity.id + "/start";
-         $.ajax({
-             url: url,
-             method:"Put",
-             async: false,
-         }).done(function (result) {
-             if (result != true) {
-                 ("ActivityState").val("Start");
-                 var url = "/api/activities/" + activity.id + "/stop";
-                 $.ajax({
-                     url: url,
-                     method: "Put",
-                     async: false,
-                 }).done(function (result) { })
-
-             } else {
-                 ("ActivityState").val("Stop");
-             }
-         })*/
         if (activity.ActivityState == true) {
             var url = "/api/activities/" + activity.id + "/start";
             $.ajax({
@@ -152,6 +134,7 @@ function ActivityOverviewVM() {
     self.fnShowActivitiesFromFolder = function (folder) {
         self.ShowFolderActivities() = folder;
         self.DisplayFolderActivities(true);
+        self.fnGetAllActivities();
     }
 
     //The function adds a new folder
@@ -173,10 +156,12 @@ function ActivityOverviewVM() {
     //The function deletes a folder
     self.fnDeleteFolder = function (folder) {
         $.ajax({
-            url: "/api/folders/" + folder.idF,
-            method: "FolderDelete",
+            url: "/api/folders/" + folder.id,
+            method: "Delete",
             async: false,
         }).done(function (result) {
+            alert(result)
+            self.fnGetAllFolders();
         })
     }
 
