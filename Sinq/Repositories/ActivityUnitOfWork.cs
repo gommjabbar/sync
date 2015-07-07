@@ -11,6 +11,7 @@ namespace Sinq.Repositories
         private SyncDbContext context = new SyncDbContext();
         private IGenericRepository<Activity> _activityRepository;
         private IGenericRepository<ActivityTime> _activityTimeRepository;
+   
         private IGenericRepository<Folder> _folderRepository;
 
         public IGenericRepository<Activity> ActivityRepository

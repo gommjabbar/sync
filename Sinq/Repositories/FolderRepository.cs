@@ -1,4 +1,5 @@
 ﻿using Sinq.Models;
+using Sinq.Models.Folder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace Sinq.Repositories
         {
         
         }
+
+         public FolderRepository()
+         {
+             // TODO: Complete member initialization
+         }
+         public void Save() { 
+            context.SaveChanges(); 
+         }
 
     }
 }

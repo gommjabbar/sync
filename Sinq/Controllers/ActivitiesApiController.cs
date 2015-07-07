@@ -106,8 +106,7 @@ namespace Sinq.Controllers
                     return true;
                 }
                 else { return false; }
-
-
+               
             });
         }
 

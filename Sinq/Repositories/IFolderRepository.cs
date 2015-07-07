@@ -9,5 +9,6 @@ namespace Sinq.Repositories
 {
     public interface IFolderRepository : IGenericRepository<Folder>
     {
+        void Save();
     }
 }
