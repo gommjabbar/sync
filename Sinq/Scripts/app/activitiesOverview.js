@@ -166,7 +166,7 @@ function ActivityOverviewVM() {
                 Name: self.NewFolder().Name
             }
         }).done(function (result) {
-            alert(result)
+            self.fnGetAllFolders();
         })
     }
 
