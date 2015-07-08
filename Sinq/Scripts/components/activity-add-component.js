@@ -9,7 +9,7 @@
         })
 
         // The function adds a new activity
-        self.SelectedFolder.fnAddNewActivity (function (folder) {
+        self.fnAddNewActivity=self.SelectedFolder (function (folder) {
             $.ajax({
                 url: "/api/folder" + folder.id + "/activities",
                 method: "POST",

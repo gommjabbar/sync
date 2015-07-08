@@ -4,14 +4,15 @@
         self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
         self.AllActivities = ko.observableArray();
         self.Completed = ko.observable(Activity.Completed || '');
+        self.ShowActivityList = ko.observable();
         
 
-        self.SelectedFolder.subscribe(function (newFolder) {
-            alert(newFolder.Name());
-        })
+       // self.SelectedFolder.subscribe(function (newFolder) {
+       //     alert(newFolder.Name());
+       // })
 
         //The function get the list of all activities
-        self.SelectedFolder.fnGetAllActivities ( function (folder) {
+        self.fnGetAllActivities=self.SelectedFolder(function (folder) {
             $.getJSON("/api/folder/" + folder.id+"/activities", function (data) {
                 var resultArray = $.map(data.result, function (value) {
     
