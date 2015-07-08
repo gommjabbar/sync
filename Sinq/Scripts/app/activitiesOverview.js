@@ -31,7 +31,11 @@ function ActivityOverviewVM() {
     self.ShowActivitiesFromFolder = ko.observable();
     self.ShowFolderActivities = ko.observable();
     self.DisplayFolderActivities = ko.observable(false);
+    self.SelectedFolder = ko.observable();
 
+    self.SelectedFolder.subscribe(function (newFolder) {
+        //alert(newFolder.Name());
+    })
     // The function adds a new activity
     self.fnAddNewActivity = function (folder) {
         $.ajax({

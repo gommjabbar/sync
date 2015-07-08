@@ -442,7 +442,7 @@
     <Content Include="Content\less\_bootstrap-datetimepicker.less" />
     <Content Include="bin\Sinq.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\components\folders-list-component.js" />
+    <Content Include="Scripts\components\folder-list-component.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\ko\common\knockout-3.3.0.debug.js" />

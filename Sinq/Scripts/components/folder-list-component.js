@@ -1,18 +1,24 @@
 ﻿ko.components.register('folder-list', {
     viewModel: function(params) {
         var self = this;
-
+        self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
         self.NewFolder = ko.observable(new Folder({}));
         self.AllFolders = ko.observableArray();
 
         self.fnGetAllFolders = function () {
             $.getJSON("api/folders", function (data) {
                 var resultArray = $.map(data.result, function (value) {
-
                     return new Folder(value);
                 })
+                if (resultArray.length > 0){
+                    self.SelectedFolder(resultArray[0]);
+                }
                 self.AllFolders(resultArray);
             })
+        }
+
+        self.fnSelectFolder = function (folder) {
+            self.SelectedFolder(folder);
         }
         //The function adds a new folder
         self.fnAddNewFolder = function () {

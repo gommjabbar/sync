@@ -1,10 +1,10 @@
 ﻿<div class='col-lg-3'>
     Folders:
     <ul data-bind="foreach: AllFolders">
-        <li data-bind="singleOrDoubleClick: {click: $root.fnShowActivitiesFromFolder.bind(undefined,$data) } ">
+        <li data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} ">
             <span data-bind="text: Name"> </span>
             <!--butoon delete- visible only if doubleclick-->
-            <button data-bind="click: $parent.fnDeleteFolder.bind(undefined,$data)">Delete</button>
+            <button data-bind="click: $parent.fnDeleteFolder">Delete</button>
 
         </li>
     </ul>

@@ -102,6 +102,7 @@ namespace Sinq.Controllers
                         _fd.Delete(act.Id);
                     }
                     var  result = _fd.Delete(folder.Id);
+                    _fd.Save();
                     if (result) {
                         return true;
                     }
