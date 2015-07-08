@@ -19,6 +19,8 @@ namespace Sinq.Controllers
     public class FoldersApiController : ApiController
     {
         private IFolderRepository _fd = new FolderRepository();
+        private IActivityUnitOfWork _auow;
+
 
         /// <summary>
         // Returneaza toate folderele
@@ -104,9 +106,32 @@ namespace Sinq.Controllers
             });
         }
 
+        //Create activity in functie de id folderului
+        [Route("api/folders/{folderId}/activities")]
+        [HttpPost]
+        public JsonResponse<ActivityDTO> Create(int id, ActivityDTO activity)
+        {
+            return new JsonResponse<ActivityDTO>(Request, () =>
+            {
+               var folder = _fd.GetByID(id);
+                if (folder != null)
+                {
+                    //var activityDTO = Mapper.Map<Activity>(activity);
+                    //_fd.Insert(activityDTO);
+                    //_fd.Save();
+                    //return Mapper.Map<ActivityDTO>(activity);
+                    var activityDTO = Mapper.Map<Activity>(activity);
+                    _auow.ActivityRepository.Insert(activityDTO);
+                    _auow.Save();
+                    return Mapper.Map<ActivityDTO>(activity);
+                }
+                return null;
+            });
+        }
 
 
-        //Nu stiu daca e ok delete-ul !!!
+
+        
         [Route("api/folders/{id}")]
         [HttpDelete]
         public JsonResponse<bool> Delete(int id)
