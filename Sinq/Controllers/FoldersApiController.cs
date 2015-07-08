@@ -87,26 +87,23 @@ namespace Sinq.Controllers
             return new JsonResponse<bool>(Request, () =>
             {
                 Folder folder = new Folder();
-                folder = _fd.GetByID(folder.Id);
-                
-                if (folder.Name.Equals("Inbox")) {
+                folder = _fd.GetByID(id);
+                if (folder.Name.Equals("Inbox")) 
+                {
                     throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
                 }
                 else{
-                    Activity activity = new Activity();
-                    ActivityTime act = new ActivityTime();
-
-                    //var res = _fd.Get(activity).Delete(id);
-
-                    var re = _fd.Delete(act.ActivityId);
-                    var res = _fd.Delete(activity.Id);
-                    
-                    if ((re==true)&&(res==true)) 
-                    {
-                        var result = _fd.Delete(id);
-                        if (result)
-                            _fd.Save();
-                        return result;
+                    var activities = folder.Activities;
+                    foreach (var act in activities) {
+                        var actTimes = act.ActivityTimes;
+                        foreach (var actT in actTimes) {
+                            _fd.Delete(actT.Id);
+                        }
+                        _fd.Delete(act.Id);
+                    }
+                    var  result = _fd.Delete(folder.Id);
+                    if (result) {
+                        return true;
                     }
                 }
                 return false;
