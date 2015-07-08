@@ -19,9 +19,9 @@ namespace Sinq.Controllers
     public class FoldersApiController : ApiController
     {
         private IFolderRepository _fd = new FolderRepository();
-        private IActivityUnitOfWork _auow;
+        private IActivityUnitOfWork _auow = new ActivityUnitOfWork()  ;
 
-
+        
         /// <summary>
         // Returneaza toate folderele
         /// </summary>
