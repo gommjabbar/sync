@@ -8,6 +8,19 @@
         self.ShowActivityList = ko.observable();
        
 
+        //The function gets the list of all activities from a selected folder
+        self.fnShowActivitiesFromFolder = function (folder) {
+            self.ShowFolderActivities() = folder;
+            alert('test')
+            self.DisplayFolderActivities(true);
+            self.fnGetAllActivities();
+        }
+        self.fnShowActivitiesFromFolder();
+
+        self.fnSelectActivity = function (activity) {
+            self.SelectedActivity(activity);
+        }
+
         //The function get the list of all activities
         self.fnGetAllActivities = function (folder) {
             $.getJSON("/api/folders/" + folder.id+"/activities", function (data) {

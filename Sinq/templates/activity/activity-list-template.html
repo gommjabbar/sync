@@ -4,7 +4,7 @@
     <!-- The activities list -->
     <div class='col-lg-12'>
         <ul data-bind="foreach: AllActivities">
-            <li data-bind="singleOrDoubleClick: { dblclick: $parent.fnShowActivity } ">
+            <li data-bind="singleOrDoubleClick: { dblclick: $parent.fnSelectActivity} ">
                 <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity} "></label>
                 <span data-bind="text: Name"> </span>
                 <button data-bind="click: $parent.fnChangeState">Start</button>
