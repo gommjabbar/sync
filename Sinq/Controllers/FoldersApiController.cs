@@ -56,7 +56,8 @@ namespace Sinq.Controllers
 
 
         [HttpGet]
-        [Route("api/folders/{folderId}/activities?completed=false‏")]
+        //[Route("api/folders/{folderId}/activities?completed=false‏")]
+        [Route("api/folders/{folderId}/activities/completed=false‏")]
         public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int id)
         {
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
