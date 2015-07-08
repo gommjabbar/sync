@@ -32,6 +32,7 @@ function ActivityOverviewVM() {
     self.ShowFolderActivities = ko.observable();
     self.DisplayFolderActivities = ko.observable(false);
     self.SelectedFolder = ko.observable();
+    self.SelectedActivity = ko.observable();
 
     self.SelectedFolder.subscribe(function (newFolder) {
         //alert(newFolder.Name());
