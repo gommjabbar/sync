@@ -442,6 +442,9 @@
     <Content Include="Content\less\_bootstrap-datetimepicker.less" />
     <Content Include="bin\Sinq.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\components\activity-add-component.js" />
+    <Content Include="Scripts\components\activity-details-component.js" />
+    <Content Include="Scripts\components\activity-list-component.js" />
     <Content Include="Scripts\components\folder-list-component.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -526,6 +529,9 @@
     <Content Include="Scripts\app\app.viewmodel.js" />
     <Content Include="Scripts\app\common.js" />
     <Content Include="Scripts\app\home.viewmodel.js" />
+    <Content Include="templates\activity\activity-add-template.html" />
+    <Content Include="templates\activity\activity-details-template.html" />
+    <Content Include="templates\activity\activity-list-template.html" />
     <Content Include="templates\folder\folder-list-template.html" />
     <Content Include="Views\Activities\index.js" />
     <Content Include="Views\_ViewStart.cshtml" />

@@ -36,81 +36,18 @@ function ActivityOverviewVM() {
     self.SelectedFolder.subscribe(function (newFolder) {
         //alert(newFolder.Name());
     })
-    // The function adds a new activity
-    self.fnAddNewActivity = function (folder) {
-        $.ajax({
-            url: "/api/activities" + folder.id,
-            method: "POST",
-            async: false,
-            data: {
-                Id: -1,
-                Name: self.NewActivity().name(),
-                DueDate: undefined
-            }
-        }).done(function (result) {
-            alert(result)
-        })
-    }
+   
 
 
-    //The function get the list of all activities
-    self.fnGetAllActivities = function (folder) {
-        /*$.getJSON("/api/activities" + folder.id, function (data) {
-            var resultArray = $.map(data.result, function (value) {
+   
 
-                return new Activity(value);
-            })
-            debugger;
-
-            self.AllActivities(resultArray);
-        })*/
-    }
-    //    self.fnGetAllActivities();
+    
 
 
-    //The function removes an activity
-    self.fnRemoveActivity = function (id) {
-        $.ajax({
-            url: "/api/activities/" + id,
-            method: "Delete",
-            async: false,
-        }).done(function (result) {
-        })
-    }
+    
 
 
-    //The function changes the 'Completed' proprety of an action
-    self.fnCompleteActivity = function (activity) {
-        var url = "/api/activities/" + activity.id() + "/complete";
-        $.ajax({
-            url: url,
-            method: "Put",
-            async: false,
-        }).done(function (result) {
-            if (sefl.complet(!self.complet())) {
-            }
-        })
-    }
-
-
-    //The function changes the current state of an action 
-    self.fnChangeState = function (activity) {
-        if (activity.ActivityState == true) {
-            var url = "/api/activities/" + activity.id + "/start";
-            $.ajax({
-                url: url,
-                method: "Put",
-                async: false,
-            }).done(function (result) { })
-        } else {
-            var url = "/api/activities/" + activity.id + "/stop";
-            $.ajax({
-                url: url,
-                method: "Put",
-                async: false,
-            }).done(function (result) { })
-        }
-    }
+    
 
 
     //The function makes visible the details of a selected activity
@@ -120,7 +57,7 @@ function ActivityOverviewVM() {
 
     }
 
-    //The function gets the list of all folders
+   
     
     
 

@@ -1,0 +1,34 @@
+﻿<div class='col-lg-9'>
+    Add a new activity:
+    <div calss='col-lg-10'>
+        <div class='col-lg-10' data-bind="with: NewActivity">
+            <div class='col-lg-3'>Name:</div>
+
+            <div class='col-lg-6 noPadding'>
+                <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
+                <br>
+
+
+            </div>
+
+            <div class='col-lg-1 noPadding'>
+
+                <div class="form-group">
+
+                    <div class='input-group date' id='datetimepicker'>
+                        <input type='hidden' class="form-control" id="dueDate" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class='col-lg-2'>
+                <input type="button" value="Add" id="btnAddActivity" data-bind="click: $parent.fnAddNewActivity" />
+            </div>
+        </div>
+    </div>
+</div>
+   
+

@@ -5,6 +5,7 @@
         self.NewFolder = ko.observable(new Folder({}));
         self.AllFolders = ko.observableArray();
 
+        //The function gets the list of all folders
         self.fnGetAllFolders = function () {
             $.getJSON("api/folders", function (data) {
                 var resultArray = $.map(data.result, function (value) {

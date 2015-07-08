@@ -13,75 +13,16 @@
     <folder-list params="SelectedFolder: SelectedFolder"></folder-list>
     
     @*Activities*@
-    <div class='col-lg-9'  >
-        Folders' activities:
-        <div calss='col-lg-10'>
-            @*Adding a new activity*@
-            <div class='col-lg-10' data-bind="with: NewActivity">
-                <div class='col-lg-3'>Name:</div>
 
-                <div class='col-lg-6 noPadding'>
-                    <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
-                    <br>
+    @*List the activities off a selected folder*@
+    <activity-list params="SelectedFolder: SelectedFolder"></activity-list>
 
+    @*Add a new activity in a folder*@
+    <activity-add params="SelectedFolder: SelectedFolder"></activity-add>
 
-                </div>
+    @*Show the details for a selected activity*@
+    <activity-details params="SelectedActivity: SelectedActivity"></activity-details>
 
-                <div class='col-lg-1 noPadding'>
-
-                    <div class="form-group">
-
-                        <div class='input-group date' id='datetimepicker'>
-                            <input type='hidden' class="form-control" id="dueDate" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class='col-lg-2'>
-                    <input type="button" value="Add" id="btnAddActivity" data-bind="click: $root.fnAddNewActivity" />
-                </div>
-                </div>
-
-         </div>
-        @*Show details for a selected activity*@
-
-        <div class='col-lg-2' data-bind="with: ShownActivity">
-            Activity details:
-            <div class="row">
-                <div class='col-lg-6'>Activity:</div>
-                <div class='col-lg-6 '>
-                    <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class='col-lg-6'>DueDate:</div>
-                <div class='col-lg-6 '>
-                    <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
-                </div>
-            </div>
-
-            @*<div class ='col-lg-4'>Assigned time(in minutes):</div>
-                <div calss='col-lg-8 noPadding'>
-                    <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
-                </div>*@
-            <div class="row">
-                <div class='col-lg-9'>ElaspedTime:</div>
-                <div calss='col-lg-3 '>
-                    <input type='text' class="form-inline" data-bind="value:ElaspedTime, attr:{placeholder: ElaspedTime}">
-                </div>
-            </div>
-            <br>
-
-            <div>
-                <button data-bind="click: $parent.fnRemoveActivity.bind(undefined,id)">Remove</button>
-            </div>
-
-        </div>
- </div>
  </div>
 
 

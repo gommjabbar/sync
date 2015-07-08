@@ -1,0 +1,34 @@
+﻿<div class='col-lg-2'>
+    Activity details:
+    <div class="row">
+        <div class='col-lg-6'>Activity:</div>
+        <div class='col-lg-6 '>
+            <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col-lg-6'>DueDate:</div>
+        <div class='col-lg-6 '>
+            <input type='text' class="form-control" data-bind="value:DueDate, attr: { placeholder: DueDate}" />
+        </div>
+    </div>
+
+    @*<div class='col-lg-4'>Assigned time(in minutes):</div>
+    <div calss='col-lg-8 noPadding'>
+        <input type='number' class="form-inline" data-bind="value:assignedTime, attr:{placeholder: assignedTime}">
+    </div>*@
+    <div class="row">
+        <div class='col-lg-9'>ElaspedTime:</div>
+        <div calss='col-lg-3 '>
+            <input type='text' class="form-inline" data-bind="value:ElaspedTime, attr:{placeholder: ElaspedTime}">
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <button data-bind="click: $parent.fnRemoveActivity">Remove</button>
+    </div>
+
+</div>
+ 
