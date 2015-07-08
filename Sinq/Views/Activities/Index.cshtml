@@ -10,28 +10,9 @@
 <div class="container">
 
     @*Folders*@
-   
-    <div class='col-lg-3'>Folders:
-        <ul data-bind="foreach: AllFolders">
-            <li data-bind="singleOrDoubleClick: {click: $root.fnShowActivitiesFromFolder.bind(undefined,$data) } ">
-                <span data-bind="text: Name"> </span>
-                @*butoon delete- visible only if doubleclick*@
-                <button data-bind="click: $parent.fnDeleteFolder.bind(undefined,$data)">Delete</button>
+    <folder-list ></folder-list>
+    
 
-            </li>
-        </ul>
-    @*Add a new folder*@
-    <div class='col-lg-12'data-bind="with: NewFolder">
-        <div class='col-lg-3'>Name:</div>
-        <div class='col-lg-7'>
-            <input type='text' class="form-control" data-bind="value:Name" />
-        </div>
-        <div class='col-lg-2'>
-            <input type="button" value="Add" id="btnAddFolder" data-bind="click: $root.fnAddNewFolder.bind(undefined,$data)" />
-        </div>
-    </div>
-    </div>
-                
 
     @*Activities*@
     <div class='col-lg-9'  >
@@ -44,7 +25,7 @@
                 <div class='col-lg-6 noPadding'>
                     <input type='text' class="form-control" data-bind="value:Name, attr: { placeholder: placeholderText}" />
                     <br>
-                   
+
 
                 </div>
 
@@ -108,6 +89,5 @@
 
 
 @section Scripts {
-   @Scripts.Render("~/bundles/knockout")
     <script type="text/javascript" src="/Scripts/app/activitiesOverview.js"></script>
 }

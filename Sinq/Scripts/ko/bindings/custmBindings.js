@@ -53,4 +53,4 @@ var fromHtmlTemplateLoader = {
 };
 
 // Register it
-//ko.components.loaders.unshift(fromHtmlTemplateLoader);
+ko.components.loaders.unshift(fromHtmlTemplateLoader);

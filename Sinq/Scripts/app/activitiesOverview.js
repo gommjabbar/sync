@@ -28,11 +28,9 @@ function ActivityOverviewVM() {
     self.AllActivities = ko.observableArray();
     self.ShownActivity = ko.observable();
     self.DisplayActivity = ko.observable(false);
-    self.AllFolders = ko.observableArray();
     self.ShowActivitiesFromFolder = ko.observable();
     self.ShowFolderActivities = ko.observable();
     self.DisplayFolderActivities = ko.observable(false);
-    self.NewFolder  = ko.observable(new Folder({}));
 
     // The function adds a new activity
     self.fnAddNewActivity = function (folder) {
@@ -119,51 +117,21 @@ function ActivityOverviewVM() {
     }
 
     //The function gets the list of all folders
-    self.fnGetAllFolders = function () {
-        $.getJSON("api/folders", function (data) {
-            var resultArray = $.map(data.result, function (value) {
-
-                return new Folder(value);
-            })
-            self.AllFolders(resultArray);
-        })
-    }
-    self.fnGetAllFolders();
+    
+    
 
     //The function gets the list of all activities from a selected folder
-    self.fnShowActivitiesFromFolder = function (folder) {
-      //  self.ShowFolderActivities() = folder;
+    self.fnShowActivitiesFromFolder = function (folder) {        
+        //  self.ShowFolderActivities() = folder;
+        alert('test')
         self.DisplayFolderActivities(true);
         self.fnGetAllActivities();
     }
 
-    //The function adds a new folder
-    self.fnAddNewFolder = function () {
-        //debugger;
-        $.ajax({
-            url: "api/folders",
-            method: "Post",
-            async: false,
-            data: {
-                Id: -1,
-                Name: self.NewFolder().Name
-            }
-        }).done(function (result) {
-            self.fnGetAllFolders();
-        })
-    }
+    
+    
 
-    //The function deletes a folder
-    self.fnDeleteFolder = function (folder) {
-        $.ajax({
-            url: "/api/folders/" + folder.id,
-            method: "Delete",
-            async: true,
-        }).done(function (result) {
-            alert(result)
-            self.fnGetAllFolders();
-        })
-    }
+    
 
 }
 ko.applyBindings(new ActivityOverviewVM());

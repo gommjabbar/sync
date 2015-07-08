@@ -445,9 +445,9 @@
     <Content Include="Scripts\components\folders-list-component.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\ko\common\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\ko\common\knockout-3.3.0.js" />
     <Content Include="Scripts\ko\bindings\custmBindings.js" />
-    <Content Include="Scripts\ko\common\knockout-2.3.0.debug.js" />
-    <Content Include="Scripts\ko\common\knockout-2.3.0.js" />
     <Content Include="Scripts\ko\common\knockout.validation.debug.js" />
     <Content Include="Scripts\ko\common\knockout.validation.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -526,6 +526,7 @@
     <Content Include="Scripts\app\app.viewmodel.js" />
     <Content Include="Scripts\app\common.js" />
     <Content Include="Scripts\app\home.viewmodel.js" />
+    <Content Include="templates\folder\folder-list-template.html" />
     <Content Include="Views\Activities\index.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
