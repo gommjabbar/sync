@@ -86,8 +86,8 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
             {
-                Folder folder = new Folder();
-                folder = _fd.GetByID(id);
+               // Folder folder = new Folder();
+                var folder = _fd.GetByID(id);
                 if (folder.Name.Equals("Inbox")) 
                 {
                     throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");

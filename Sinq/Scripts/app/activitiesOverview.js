@@ -53,7 +53,7 @@ function ActivityOverviewVM() {
 
     //The function get the list of all activities
     self.fnGetAllActivities = function (folder) {
-        $.getJSON("/api/activities" + folder.id, function (data) {
+        /*$.getJSON("/api/activities" + folder.id, function (data) {
             var resultArray = $.map(data.result, function (value) {
 
                 return new Activity(value);
@@ -61,7 +61,7 @@ function ActivityOverviewVM() {
             debugger;
 
             self.AllActivities(resultArray);
-        })
+        })*/
     }
     //    self.fnGetAllActivities();
 
@@ -132,7 +132,7 @@ function ActivityOverviewVM() {
 
     //The function gets the list of all activities from a selected folder
     self.fnShowActivitiesFromFolder = function (folder) {
-        self.ShowFolderActivities() = folder;
+      //  self.ShowFolderActivities() = folder;
         self.DisplayFolderActivities(true);
         self.fnGetAllActivities();
     }
@@ -158,7 +158,7 @@ function ActivityOverviewVM() {
         $.ajax({
             url: "/api/folders/" + folder.id,
             method: "Delete",
-            async: false,
+            async: true,
         }).done(function (result) {
             alert(result)
             self.fnGetAllFolders();
