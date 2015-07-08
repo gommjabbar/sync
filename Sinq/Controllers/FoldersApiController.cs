@@ -12,6 +12,7 @@ using Sinq.Models;
 using Sinq.Repositories;
 using Sinq.Response;
 using AutoMapper;
+using Sinq.DTO;
 
 namespace Sinq.Controllers
 {
@@ -20,14 +21,14 @@ namespace Sinq.Controllers
         private IFolderRepository _fd = new FolderRepository();
 
         /// <summary>
-        /// This method will return all projects. If there are no projects an empty page will be returned.
+        // Returneaza toate folderele
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("api/folders")]
         public JsonCollectionResponse<Folder> GetAll()
         {
-            return new JsonCollectionResponse<Folder>(Request, () =>
+         return new JsonCollectionResponse<Folder>(Request, () =>
             {
                 var allFolders = _fd.GetAll();
                 return allFolders.Select(Mapper.Map<Folder>).ToList();
@@ -35,28 +36,51 @@ namespace Sinq.Controllers
         }
 
 
+        [HttpGet]
+        [Route("api/folders/{folderId}‏")]
+        public JsonCollectionResponse<ActivityDTO> GetActFromFolder(int id)
+        {
+            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+            {
+                var folder = _fd.GetByID(id);
+                if (folder != null)
+                {
+                    var activity = folder.Activities;
+                    return activity.Select(Mapper.Map<ActivityDTO>).ToList();
 
-        //[Route("api/folders")]
-        //[HttpPost]
-        //public JsonResponse<Folder> Create(Folder folder)
-        //{
-        //    return new JsonResponse<Folder>(Request, () =>
-        //    {
-        //        if (FindFolderByName("Inbox") == null)
-        //        {
-        //            var Folder = Mapper.Map<Folder>(folder);
-        //            _fd.Insert(folder);
-        //            _fd.Save();
-        //            return Mapper.Map<Folder>(folder);
-               
-        //        }
-        //        else {
-        //            var Folder = Mapper.Map<Folder>(folder);
-        //            _fd.Insert(folder);
-        //            _fd.Save();
-        //        }
-        //        });
-        //}
+                }
+            });
+        }
+
+
+
+        [HttpGet]
+        [Route("api/folders/{folderId}/activities?completed=false‏")]
+        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int id)
+        {
+            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+            {
+                bool yes = false;
+                var folder = _fd.GetByID(id);
+                if (folder != null)
+                {
+                    var activities = folder.Activities;
+                    foreach (var act in activities)
+                    {
+                        if (!act.Completed)
+                        {
+                            yes = true;
+                        }
+                    }
+                    if (yes){
+                    return activities.Select(Mapper.Map<ActivityDTO>).ToList();
+                   }
+                }
+            });
+        }
+
+
+        
 
         [Route("api/folders")]
         [HttpPost]
