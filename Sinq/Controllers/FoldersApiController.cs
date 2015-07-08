@@ -49,6 +49,7 @@ namespace Sinq.Controllers
                     return activity.Select(Mapper.Map<ActivityDTO>).ToList();
 
                 }
+                return null;
             });
         }
 
@@ -76,6 +77,7 @@ namespace Sinq.Controllers
                     return activities.Select(Mapper.Map<ActivityDTO>).ToList();
                    }
                 }
+                return null;
             });
         }
 

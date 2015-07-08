@@ -8,6 +8,9 @@ namespace Sinq.Response
 {
     public class JsonCollectionResponse<T> : GenericResponse<IEnumerable<T>>
     {
+        private HttpRequestMessage Request;
+        private Func<IEnumerable<Models.Folder>> func;
+
         /// <summary>
         /// Named result
         /// </summary>
@@ -17,5 +20,12 @@ namespace Sinq.Response
             : base(request, getResponseCollection)
         {
         }
+
+        //public JsonCollectionResponse(HttpRequestMessage Request, Func<IEnumerable<Models.Folder>> func)
+        //{
+        //    // TODO: Complete member initialization
+        //    this.Request = Request;
+        //    this.func = func;
+        //}
     }
 }
