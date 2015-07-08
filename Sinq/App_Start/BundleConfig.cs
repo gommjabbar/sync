@@ -18,8 +18,12 @@ namespace Sinq
                 "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                "~/Scripts/knockout-{version}.js",
-                "~/Scripts/knockout.validation.js"));
+                "~/Scripts/ko/common/knockout-{version}.js",
+                "~/Scripts/ko/common/knockout.validation.js",
+                "~/Scripts/ko/bindings/*.js" ));
+
+            bundles.Add(new ScriptBundle("~/bundles/components").Include(
+                "~/Scripts/components/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/sammy-{version}.js",

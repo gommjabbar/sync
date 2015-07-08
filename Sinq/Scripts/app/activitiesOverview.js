@@ -173,37 +173,6 @@ $('#Name').attr("placeholder", "Type activity name here");
 
 
 //Used for the click envent
-ko.bindingHandlers.singleOrDoubleClick = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var singleHandler = valueAccessor().click,
-            doubleHandler = valueAccessor().dblclick,
-            delay = valueAccessor().delay || 200,
-            clicks = 0;
-
-        $(element).click(function (event) {
-            clicks++;
-            if (clicks === 1) {
-                setTimeout(function () {
-                    if (clicks === 1) {
-                        // Call the single click handler - passing viewModel as this 'this' object
-                        // you may want to pass 'this' explicitly
-                        if (singleHandler !== undefined) {
-                            singleHandler.call(viewModel, bindingContext.$data, event);
-                        }
-                    } else {
-                        // Call the double click handler - passing viewModel as this 'this' object
-                        // you may want to pass 'this' explicitly
-                        if (doubleHandler !== undefined) {
-                            doubleHandler.call(viewModel, bindingContext.$data, event);
-                        }
-                    }
-                    clicks = 0;
-                }, delay);
-            }
-        });
-    }
-};
-
 
 // weird javascript code
 //function test() { return { prop: "asd" }};

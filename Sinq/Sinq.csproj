@@ -442,12 +442,14 @@
     <Content Include="Content\less\_bootstrap-datetimepicker.less" />
     <Content Include="bin\Sinq.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\components\folders-list-component.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\knockout-2.3.0.debug.js" />
-    <Content Include="Scripts\knockout-2.3.0.js" />
-    <Content Include="Scripts\knockout.validation.debug.js" />
-    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\ko\bindings\custmBindings.js" />
+    <Content Include="Scripts\ko\common\knockout-2.3.0.debug.js" />
+    <Content Include="Scripts\ko\common\knockout-2.3.0.js" />
+    <Content Include="Scripts\ko\common\knockout.validation.debug.js" />
+    <Content Include="Scripts\ko\common\knockout.validation.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
@@ -577,7 +579,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
