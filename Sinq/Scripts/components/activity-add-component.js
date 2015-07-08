@@ -4,15 +4,11 @@
         self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
         self.NewActivity = ko.observable(new Activity({}));
 
-        self.SelectedFolder.subscribe(function (newFolder) {
-            //alert(newFolder.Name());
-        })
-
         // The function adds a new activity
         self.fnAddNewActivity=self.SelectedFolder (function (folder) {
             $.ajax({
-                url: "/api/folder" + folder.id + "/activities",
-                method: "POST",
+                url: "/api/folders/" + folder.id + "/activities",
+                method: "Post",
                 async: false,
                 data: {
                     Id: -1,

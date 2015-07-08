@@ -2,18 +2,15 @@
     viewModel: function(params) {
         var self = this;
         self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
+        self.SelectedActivity = params.SelectedActivity || ko.observable(new Activity({}));
         self.AllActivities = ko.observableArray();
         self.Completed = ko.observable(Activity.Completed || '');
         self.ShowActivityList = ko.observable();
-        
-
-       // self.SelectedFolder.subscribe(function (newFolder) {
-       //     alert(newFolder.Name());
-       // })
+       
 
         //The function get the list of all activities
-        self.fnGetAllActivities=self.SelectedFolder(function (folder) {
-            $.getJSON("/api/folder/" + folder.id+"/activities", function (data) {
+        self.fnGetAllActivities = function (folder) {
+            $.getJSON("/api/folders/" + folder.id+"/activities", function (data) {
                 var resultArray = $.map(data.result, function (value) {
     
                     return new Activity(value);
@@ -22,7 +19,7 @@
     
                 self.AllActivities(resultArray);
             })
-        })
+        }
            // self.fnGetAllActivities();
 
         //The function changes the 'Completed' proprety of an action
