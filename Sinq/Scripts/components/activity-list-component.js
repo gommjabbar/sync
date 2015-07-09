@@ -14,7 +14,6 @@
         })
         //The function gets the list of all activities from a selected folder
         self.fnShowActivitiesFromFolder = function () {
-           // self.ShowFolderActivities(self.SelectedFolder());
             self.DisplayFolderActivities(true);
             self.fnGetAllActivities();
         }
@@ -26,17 +25,17 @@
 
         //The function get the list of all activities
         self.fnGetAllActivities = function () {
-            var url= "api/folders/1/activities";//"/api/f/" + self.SelectedFolder().id + "/act"
+            var url = "/api/folders/" + self.SelectedFolder().id + "/activities";//"/api/f/" + self.SelectedFolder().id + "/act"
             $.ajax({
                 url: url,
                 method:"GET",
-                data: {completed: true}
+                data: {completed: false}
             }).done(function (data) {
                 var resultArray = $.map(data.result, function (value) {
     
                     return new Activity(value);
                 })
-            //    debugger;
+               debugger;
     
                 self.AllActivities(resultArray);
             })
