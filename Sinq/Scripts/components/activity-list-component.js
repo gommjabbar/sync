@@ -6,14 +6,16 @@
         self.AllActivities = ko.observableArray();
         self.Completed = ko.observable(Activity.Completed || '');
         self.ShowActivityList = ko.observable();
+        self.ShowFolderActivities = ko.observable(new Folder({}));
+        self.DisplayFolderActivities = ko.observable(false);
        
 
         //The function gets the list of all activities from a selected folder
         self.fnShowActivitiesFromFolder = function (folder) {
-          //  self.ShowFolderActivities() = folder;
+            self.ShowFolderActivities(folder);
             alert('test')
             self.DisplayFolderActivities(true);
-            self.fnGetAllActivities();
+            self.fnGetAllActivities;
         }
         self.fnShowActivitiesFromFolder();
 
