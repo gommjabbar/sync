@@ -28,6 +28,35 @@ namespace Sinq.Controllers
             _activityUnitOfWork = activityUnitOfWork;
         }
 
+        [Route("api/test‏")]
+        [HttpGet]
+        public JsonCollectionResponse<ActivityDTO> Test()
+        {
+            bool completed = false;
+            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+            {
+                bool yes = false;
+                //var folder = _activityUnitOfWork .GetByID(folderId);
+                //if (folder != null)
+                //{
+                //    var activities = folder.Activities;
+                //    foreach (var act in activities)
+                //    {
+                //        if (!act.Completed)
+                //        {
+                //            yes = true;
+                //        }
+                //    }
+                //    if (yes)
+                //    {
+                //        return activities.Select(Mapper.Map<ActivityDTO>).ToList();
+                //    }
+                //}
+                return null;
+            });
+        }
+
+
         /// <summary>
         /// This method will add a new activity in the database.
         /// </summary>

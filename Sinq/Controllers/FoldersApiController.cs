@@ -16,6 +16,7 @@ using Sinq.DTO;
 
 namespace Sinq.Controllers
 {
+    [RoutePrefix("api/folders")]
     public class FoldersApiController : ApiController
     {
         private IFolderRepository _fd = new FolderRepository();
@@ -23,11 +24,11 @@ namespace Sinq.Controllers
 
         
         /// <summary>
-        // Returneaza toate folderele
+        // The method returns the list with all folders.
         /// </summary>
         /// <returns></returns>
+        [Route("")]
         [HttpGet]
-        [Route("api/folders")]
         public JsonCollectionResponse<Folder> GetAll()
         {
          return new JsonCollectionResponse<Folder>(Request, () =>
@@ -38,34 +39,50 @@ namespace Sinq.Controllers
         }
 
 
+        //[Route("api/folders/{folderId}‏")]
+        //[HttpGet]
+        //public JsonCollectionResponse<ActivityDTO> GetActFromFolder(int id)
+        //{
+        //    return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+        //    {
+        //        var folder = _fd.GetByID(id);
+        //        if (folder != null)
+        //        {
+        //            var activity = folder.Activities;
+        //            return activity.Select(Mapper.Map<ActivityDTO>).ToList();
+
+        //        }
+        //        return null;
+        //    });
+        //}
+
+
+        //[Route("api/folders/test")]
+        //[HttpGet]
+        //public JsonCollectionResponse<ActivityDTO> GetActNotCompletedTest(int folderId)
+        //{
+        //    bool completed = false;
+        //    return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+        //    {
+        //        return null;
+        //    });
+        //}
+
+        /// <summary>
+        /// The method get the list of uncompleted activities.
+        /// </summary>
+        /// <param name="folderId"></param>
+        /// <param name="completed"></param>
+        /// <returns></returns>
+        [Route("{folderId:int}/activities")]
         [HttpGet]
-        [Route("api/folders/{folderId}‏")]
-        public JsonCollectionResponse<ActivityDTO> GetActFromFolder(int id)
+        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int folderId, bool completed)
         {
-            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
-            {
-                var folder = _fd.GetByID(id);
-                if (folder != null)
-                {
-                    var activity = folder.Activities;
-                    return activity.Select(Mapper.Map<ActivityDTO>).ToList();
-
-                }
-                return null;
-            });
-        }
-
-
-
-        [HttpGet]
-        //[Route("api/folders/{folderId}/activities?completed=false‏")]
-        [Route("api/folders/{folderId}/activities/completed=false‏")]
-        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int id)
-        {
+            //bool completed = false;
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
             {
                 bool yes = false;
-                var folder = _fd.GetByID(id);
+                var folder = _fd.GetByID(folderId);
                 if (folder != null)
                 {
                     var activities = folder.Activities;
@@ -85,11 +102,14 @@ namespace Sinq.Controllers
         }
 
 
-        
-
-        [Route("api/folders")]
+        /// <summary>
+        /// The method add a new folder.
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        [Route("")]
         [HttpPost]
-        public JsonResponse<Folder> Create(Folder folder)
+        public JsonResponse<Folder> CreateFolder(Folder folder)
         {
             return new JsonResponse<Folder>(Request, () =>
             {
@@ -101,19 +121,24 @@ namespace Sinq.Controllers
                     return Mapper.Map<Folder>(folder);
                 }
                 else {
-                    throw new Exception("Incerci sa adaugi una cu Inbox deja");
+                    throw new Exception("The Inbox folder already exists");
                 }
             });
         }
 
-        //Create activity in functie de id folderului
-        [Route("api/folders/{folderId}/activities")]
+        /// <summary>
+        /// The method add a new activity in the specified folder.
+        /// </summary>
+        /// <param name="folderId"></param>
+        /// <param name="activity"></param>
+        /// <returns></returns>
+        [Route("{folderId:int}/activities")]
         [HttpPost]
-        public JsonResponse<ActivityDTO> Create(int id, ActivityDTO activity)
+        public JsonResponse<ActivityDTO> CreateActivity(int folderId, ActivityDTO activity)
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
             {
-               var folder = _fd.GetByID(id);
+               var folder = _fd.GetByID(folderId);
                 if (folder != null)
                 {
                     //var activityDTO = Mapper.Map<Activity>(activity);
@@ -121,6 +146,7 @@ namespace Sinq.Controllers
                     //_fd.Save();
                     //return Mapper.Map<ActivityDTO>(activity);
                     var activityDTO = Mapper.Map<Activity>(activity);
+                    activityDTO.FolderId = folderId;
                     _auow.ActivityRepository.Insert(activityDTO);
                     _auow.Save();
                     return Mapper.Map<ActivityDTO>(activity);
@@ -131,15 +157,15 @@ namespace Sinq.Controllers
 
 
 
-        
-        [Route("api/folders/{id}")]
+
+        [Route("{folderId:int}")]
         [HttpDelete]
-        public JsonResponse<bool> Delete(int id)
+        public JsonResponse<bool> Delete(int folderId)
         {
             return new JsonResponse<bool>(Request, () =>
             {
                // Folder folder = new Folder();
-                var folder = _fd.GetByID(id);
+                var folder = _fd.GetByID(folderId);
                 if (folder.Name.Equals("Inbox")) 
                 {
                     throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
@@ -164,28 +190,28 @@ namespace Sinq.Controllers
         }
 
        
-        public JsonResponse <Folder> FindFolderById(int? id)
-        {
-            return new JsonResponse<Folder>(Request, () =>
-            {
-                Folder folder = new Folder();
-                folder = _fd.GetByID(id);
-                return Mapper.Map<Folder>(folder);
-            });
-        }
+        //public JsonResponse <Folder> FindFolderById(int? id)
+        //{
+        //    return new JsonResponse<Folder>(Request, () =>
+        //    {
+        //        Folder folder = new Folder();
+        //        folder = _fd.GetByID(id);
+        //        return Mapper.Map<Folder>(folder);
+        //    });
+        //}
 
-        public JsonResponse<Folder> FindFolderByName(string Name)
-        {
-            return new JsonResponse<Folder>(Request, () =>
-            {
-                Folder folder = new Folder();
-                if (folder.Name.Equals(Name)!=null) { 
-                    var fold = _fd.GetByID(folder.Id);
-                    return Mapper.Map<Folder>(fold);
-                }
-                return Mapper.Map<Folder>(folder);
-            });
-        }
+        //public JsonResponse<Folder> FindFolderByName(string Name)
+        //{
+        //    return new JsonResponse<Folder>(Request, () =>
+        //    {
+        //        Folder folder = new Folder();
+        //        if (folder.Name.Equals(Name)!=null) { 
+        //            var fold = _fd.GetByID(folder.Id);
+        //            return Mapper.Map<Folder>(fold);
+        //        }
+        //        return Mapper.Map<Folder>(folder);
+        //    });
+        //}
 
     }
 }

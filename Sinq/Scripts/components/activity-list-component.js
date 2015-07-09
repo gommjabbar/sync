@@ -9,14 +9,16 @@
         self.ShowFolderActivities = ko.observable(new Folder({}));
         self.DisplayFolderActivities = ko.observable(false);
        
-
+        self.SelectedFolder.subscribe(function (newSelectedFolder) {
+            self.fnShowActivitiesFromFolder();
+        })
         //The function gets the list of all activities from a selected folder
         self.fnShowActivitiesFromFolder = function () {
-            self.ShowFolderActivities(self.SelectedFolder());
+           // self.ShowFolderActivities(self.SelectedFolder());
             self.DisplayFolderActivities(true);
-            self.fnGetAllActivities;
+            self.fnGetAllActivities();
         }
-        self.fnShowActivitiesFromFolder();
+        
 
         self.fnSelectActivity = function (activity) {
             self.SelectedActivity(activity);
@@ -24,12 +26,17 @@
 
         //The function get the list of all activities
         self.fnGetAllActivities = function () {
-            $.getJSON("/api/folders/" + self.SelectedFolder().id + "/activities", function (data) {
+            var url= "api/folders/1/activities";//"/api/f/" + self.SelectedFolder().id + "/act"
+            $.ajax({
+                url: url,
+                method:"GET",
+                data: {completed: true}
+            }).done(function (data) {
                 var resultArray = $.map(data.result, function (value) {
     
                     return new Activity(value);
                 })
-                debugger;
+            //    debugger;
     
                 self.AllActivities(resultArray);
             })
