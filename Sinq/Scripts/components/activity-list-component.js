@@ -10,7 +10,7 @@
 
         //The function gets the list of all activities from a selected folder
         self.fnShowActivitiesFromFolder = function (folder) {
-            self.ShowFolderActivities() = folder;
+          //  self.ShowFolderActivities() = folder;
             alert('test')
             self.DisplayFolderActivities(true);
             self.fnGetAllActivities();

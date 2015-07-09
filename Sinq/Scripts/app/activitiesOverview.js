@@ -37,43 +37,6 @@ function ActivityOverviewVM() {
     self.SelectedFolder.subscribe(function (newFolder) {
         //alert(newFolder.Name());
     })
-   
-
-
-   
-
-    
-
-
-    
-
-
-    
-
-
-    //The function makes visible the details of a selected activity
-    self.fnShowActivity = function (activity) {
-        self.ShownActivity() = activity;
-        self.DisplayActivity(true);
-
-    }
-
-   
-    
-    
-
-    //The function gets the list of all activities from a selected folder
-    self.fnShowActivitiesFromFolder = function (folder) {        
-        //  self.ShowFolderActivities() = folder;
-        alert('test')
-        self.DisplayFolderActivities(true);
-        self.fnGetAllActivities();
-    }
-
-    
-    
-
-    
 
 }
 ko.applyBindings(new ActivityOverviewVM());
