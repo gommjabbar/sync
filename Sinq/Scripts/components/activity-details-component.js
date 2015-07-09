@@ -4,11 +4,11 @@
         self.SelectedActivity = params.SelectedActivity || ko.observable(new Activity({}));
         self.ShowDetails = ko.observable();
 
-  //      self.SelectedActivity(function (activity) { self.ShowDetails() = activity;})
+
         //The function removes an activity
-        self.fnRemoveActivity = function (activity) {
+        self.fnRemoveActivity = function () {
             $.ajax({
-                url: "/api/activities/" + activity.id,
+                url: "/api/activities/" + self.SelectedActivity().id,
                 method: "Delete",
                 async: false,
             }).done(function (result) {

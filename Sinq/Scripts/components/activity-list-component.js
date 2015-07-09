@@ -11,9 +11,8 @@
        
 
         //The function gets the list of all activities from a selected folder
-        self.fnShowActivitiesFromFolder = function (folder) {
-            self.ShowFolderActivities(folder);
-            alert('test')
+        self.fnShowActivitiesFromFolder = function () {
+            self.ShowFolderActivities(self.SelectedFolder());
             self.DisplayFolderActivities(true);
             self.fnGetAllActivities;
         }
@@ -24,8 +23,8 @@
         }
 
         //The function get the list of all activities
-        self.fnGetAllActivities = function (folder) {
-            $.getJSON("/api/folders/" + folder.id+"/activities", function (data) {
+        self.fnGetAllActivities = function () {
+            $.getJSON("/api/folders/" + self.SelectedFolder().id + "/activities", function (data) {
                 var resultArray = $.map(data.result, function (value) {
     
                     return new Activity(value);
@@ -35,7 +34,7 @@
                 self.AllActivities(resultArray);
             })
         }
-           // self.fnGetAllActivities();
+        //self.fnGetAllActivities();
 
         //The function changes the 'Completed' proprety of an action
         self.fnCompleteActivity = function (activity) {
