@@ -7,7 +7,7 @@
 
         //The function gets the list of all folders
         self.fnGetAllFolders = function () {
-            $.getJSON("api/folders", function (data) {
+            $.getJSON("/api/folders", function (data) {
                 var resultArray = $.map(data.result, function (value) {
                     return new Folder(value);
                 })

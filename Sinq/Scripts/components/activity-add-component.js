@@ -5,20 +5,18 @@
         self.NewActivity = ko.observable(new Activity({}));
 
         // The function adds a new activity
-        self.fnAddNewActivity=self.SelectedFolder (function (folder) {
-            $.ajax({
-                url: "/api/folders/" + folder.id + "/activities",
-                method: "Post",
-                async: false,
-                data: {
-                    Id: -1,
-                    Name: self.NewActivity().name(),
-                    DueDate: undefined
-                }
+        self.fnAddNewActivity = function () {
+            var route = "/api/folders/" + self.SelectedFolder().id + "/activities";
+            var data = {
+                Id: -1,
+                Name: self.NewActivity().Name(),
+                DueDate: undefined
+            }
+            $.ajax({url: route,method: "Post",async: false,data: data
             }).done(function (result) {
                 alert(result)
             })
-        })
+        }
 
     },
     template: { fromFileType: 'html' }

@@ -533,7 +533,6 @@
     <Content Include="templates\activity\activity-details-template.html" />
     <Content Include="templates\activity\activity-list-template.html" />
     <Content Include="templates\folder\folder-list-template.html" />
-    <Content Include="Views\Activities\index.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
