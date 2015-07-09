@@ -81,21 +81,11 @@ namespace Sinq.Controllers
             //bool completed = false;
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
             {
-                bool yes = false;
                 var folder = _fd.GetByID(folderId);
                 if (folder != null)
                 {
-                    var activities = folder.Activities;
-                    foreach (var act in activities)
-                    {
-                        if (!act.Completed)
-                        {
-                            yes = true;
-                        }
-                    }
-                    if (yes){
-                    return activities.Select(Mapper.Map<ActivityDTO>).ToList();
-                   }
+                    var activities = folder.Activities.Select(a => a.Completed == completed);
+                    return activities.Select(a=> Mapper.Map<ActivityDTO>(a)).ToList();
                 }
                 return null;
             });
@@ -145,9 +135,9 @@ namespace Sinq.Controllers
                     //_fd.Insert(activityDTO);
                     //_fd.Save();
                     //return Mapper.Map<ActivityDTO>(activity);
-                    var activityDTO = Mapper.Map<Activity>(activity);
-                    activityDTO.FolderId = folderId;
-                    _auow.ActivityRepository.Insert(activityDTO);
+                    var activityEO = Mapper.Map<Activity>(activity);
+                    activityEO.FolderId = folderId;
+                    _auow.ActivityRepository.Insert(activityEO);
                     _auow.Save();
                     return Mapper.Map<ActivityDTO>(activity);
                 }

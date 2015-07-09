@@ -43,7 +43,6 @@
                 method: "Delete",
                 async: true,
             }).done(function (result) {
-                alert(result)
                 self.fnGetAllFolders();
             })
         }
