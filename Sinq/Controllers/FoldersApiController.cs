@@ -131,10 +131,6 @@ namespace Sinq.Controllers
                var folder = _fd.GetByID(folderId);
                 if (folder != null)
                 {
-                    //var activityDTO = Mapper.Map<Activity>(activity);
-                    //_fd.Insert(activityDTO);
-                    //_fd.Save();
-                    //return Mapper.Map<ActivityDTO>(activity);
                     var activityEO = Mapper.Map<Activity>(activity);
                     activityEO.FolderId = folderId;
                     _auow.ActivityRepository.Insert(activityEO);
@@ -154,7 +150,6 @@ namespace Sinq.Controllers
         {
             return new JsonResponse<bool>(Request, () =>
             {
-               // Folder folder = new Folder();
                 var folder = _fd.GetByID(folderId);
                 if (folder.Name.Equals("Inbox")) 
                 {

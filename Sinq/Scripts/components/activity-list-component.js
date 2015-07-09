@@ -25,7 +25,7 @@
 
         //The function get the list of all activities
         self.fnGetAllActivities = function () {
-            var url = "/api/folders/" + self.SelectedFolder().id + "/activities";//"/api/f/" + self.SelectedFolder().id + "/act"
+            var url = "/api/folders/" + self.SelectedFolder().id + "/activities";
             $.ajax({
                 url: url,
                 method:"GET",
@@ -40,7 +40,7 @@
                 self.AllActivities(resultArray);
             })
         }
-        //self.fnGetAllActivities();
+       
 
         //The function changes the 'Completed' proprety of an action
         self.fnCompleteActivity = function (activity) {
