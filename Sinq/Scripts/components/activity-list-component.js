@@ -5,16 +5,15 @@
         self.SelectedActivity = params.SelectedActivity || ko.observable(new Activity({}));
         self.AllActivities = ko.observableArray();
         self.Completed = ko.observable(Activity.Completed || '');
-        self.ShowActivityList = ko.observable();
+        self.ShowActivityList = ko.observable(false);
         self.ShowFolderActivities = ko.observable(new Folder({}));
-        self.DisplayFolderActivities = ko.observable(false);
        
         self.SelectedFolder.subscribe(function (newSelectedFolder) {
             self.fnShowActivitiesFromFolder();
         })
         //The function gets the list of all activities from a selected folder
         self.fnShowActivitiesFromFolder = function () {
-            self.DisplayFolderActivities(true);
+            self.ShowActivityList(true);
             self.fnGetAllActivities();
         }
         
@@ -25,6 +24,7 @@
 
         //The function get the list of all activities
         self.fnGetAllActivities = function () {
+            //service.get("api/folders/{folderId}/activities",{folderId:self.SelectedFolder().id}, { completed: false});
             var url = "/api/folders/" + self.SelectedFolder().id + "/activities";
             $.ajax({
                 url: url,

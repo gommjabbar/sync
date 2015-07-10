@@ -1,6 +1,5 @@
-﻿<div class='col-lg-9' data-bind="with: ShowActivityList">
+﻿<div class='col-lg-9' data-bind="if: ShowActivityList, visible: ShowActivityList">
     <span>Folders' activities: </span><!-- <span data-bind="text: SelectedFolder().Name"></span> -->
-
     <!-- The activities list -->
     <div class='col-lg-12'>
         <ul data-bind="foreach: AllActivities">

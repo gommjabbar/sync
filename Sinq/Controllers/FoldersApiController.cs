@@ -82,6 +82,7 @@ namespace Sinq.Controllers
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
             {
                 var folder = _fd.GetByID(folderId);
+                
                 if (folder != null)
                 {
                     var factivities = folder.Activities.Count;
