@@ -32,11 +32,8 @@
                 data: {completed: false}
             }).done(function (data) {
                 var resultArray = $.map(data.result, function (value) {
-    
                     return new Activity(value);
                 })
-               debugger;
-    
                 self.AllActivities(resultArray);
             })
         }

@@ -76,16 +76,17 @@ namespace Sinq.Controllers
         /// <returns></returns>
         [Route("{folderId:int}/activities")]
         [HttpGet]
-        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int folderId, bool completed)
+        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int folderId, [FromBody]bool completed)
         {
-            //bool completed = false;
+           // bool completed = false;
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
             {
                 var folder = _fd.GetByID(folderId);
                 if (folder != null)
                 {
+                    var factivities = folder.Activities.Count;
                     var activities = folder.Activities.Select(a => a.Completed == completed);
-                    return activities.Select(a=> Mapper.Map<ActivityDTO>(a)).ToList();
+                    return activities.Select(a => Mapper.DynamicMap<ActivityDTO>(a)).ToList();
                 }
                 return null;
             });
