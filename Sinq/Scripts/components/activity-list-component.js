@@ -10,9 +10,11 @@
         self.ShowFolderActivities = ko.observable(new Folder({}));
         self.AllCompletedActivities = ko.observableArray();
        
+        //The function gets the list of activities from the selected folder and makes it visible
         self.SelectedFolder.subscribe(function (newSelectedFolder) {
             self.fnShowActivitiesFromFolder();
         })
+
         //The function gets the list of all uncompleted activities from a selected folder
         self.fnShowActivitiesFromFolder = function () {
             self.ShowActivityList(true);

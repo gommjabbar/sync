@@ -38,6 +38,70 @@ namespace Sinq.Controllers
             });
         }
 
+        /// <summary>
+        /// The method add a new folder.
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
+        [Route("")]
+        [HttpPost]
+        public JsonResponse<Folder> CreateFolder(Folder folder)
+        {
+            return new JsonResponse<Folder>(Request, () =>
+            {
+                if (folder.Name != "Inbox")
+                {
+                    var Folder = Mapper.Map<Folder>(folder);
+                    _fd.Insert(folder);
+                    _fd.Save();
+                    return Mapper.Map<Folder>(folder);
+                }
+                else
+                {
+                    throw new Exception("The Inbox folder already exists");
+                }
+            });
+        }
+
+        /// <summary>
+        /// The method delete a specified folder.
+        /// </summary>
+        /// <param name="folderId"></param>
+        /// <returns></returns>
+        [Route("{folderId:int}")]
+        [HttpDelete]
+        public JsonResponse<bool> DeleteFolder(int folderId)
+        {
+            return new JsonResponse<bool>(Request, () =>
+            {
+                var folder = _fd.GetByID(folderId);
+                if (folder.Name.Equals("Inbox"))
+                {
+                    throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
+                }
+                else
+                {
+                    var activities = folder.Activities;
+                    foreach (var act in activities)
+                    {
+                        var actTimes = act.ActivityTimes;
+                        foreach (var actT in actTimes)
+                        {
+                            _fd.Delete(actT.Id);
+                        }
+                        _fd.Delete(act.Id);
+                    }
+                    var result = _fd.Delete(folder.Id);
+                    _fd.Save();
+                    if (result)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
 
         //[Route("api/folders/{folderId}‏")]
         //[HttpGet]
@@ -93,33 +157,7 @@ namespace Sinq.Controllers
             });
         }
 
-     
-
-
-        /// <summary>
-        /// The method add a new folder.
-        /// </summary>
-        /// <param name="folder"></param>
-        /// <returns></returns>
-        [Route("")]
-        [HttpPost]
-        public JsonResponse<Folder> CreateFolder(Folder folder)
-        {
-            return new JsonResponse<Folder>(Request, () =>
-            {
-                if (folder.Name != "Inbox")
-                {
-                    var Folder = Mapper.Map<Folder>(folder);
-                    _fd.Insert(folder);
-                    _fd.Save();
-                    return Mapper.Map<Folder>(folder);
-                }
-                else {
-                    throw new Exception("The Inbox folder already exists");
-                }
-            });
-        }
-
+       
         /// <summary>
         /// The method add a new activity in the specified folder.
         /// </summary>
@@ -146,38 +184,7 @@ namespace Sinq.Controllers
         }
 
 
-
-
-        [Route("{folderId:int}")]
-        [HttpDelete]
-        public JsonResponse<bool> Delete(int folderId)
-        {
-            return new JsonResponse<bool>(Request, () =>
-            {
-                var folder = _fd.GetByID(folderId);
-                if (folder.Name.Equals("Inbox")) 
-                {
-                    throw new Exception("Nu puteti sterge folderul cu numele Inbox!!!");
-                }
-                else{
-                    var activities = folder.Activities;
-                    foreach (var act in activities) {
-                        var actTimes = act.ActivityTimes;
-                        foreach (var actT in actTimes) {
-                            _fd.Delete(actT.Id);
-                        }
-                        _fd.Delete(act.Id);
-                    }
-                    var  result = _fd.Delete(folder.Id);
-                    _fd.Save();
-                    if (result) {
-                        return true;
-                    }
-                }
-                return false;
-            });
-        }
-
+        
        
         //public JsonResponse <Folder> FindFolderById(int? id)
         //{
