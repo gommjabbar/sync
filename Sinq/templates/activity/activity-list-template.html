@@ -9,6 +9,12 @@
                 <button data-bind="click: $parent.fnChangeState">Start</button>
             </li>
         </ul>
+        <button data-bind="click: $parent.fnSelectCompletedActivity">View completed activities</button>
+        <ul data-bind="foreach: AllCompletedActivities">
+            <li>
+                <span data-bind="text: Name"></span>
+            </li>
+        </ul>
     </div>
 
 </div>

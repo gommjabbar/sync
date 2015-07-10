@@ -93,6 +93,8 @@ namespace Sinq.Controllers
             });
         }
 
+     
+
 
         /// <summary>
         /// The method add a new folder.
