@@ -140,7 +140,7 @@ namespace Sinq.Controllers
         /// <returns></returns>
         [Route("{folderId:int}/activities")]
         [HttpGet]
-        public JsonCollectionResponse<ActivityDTO> GetActNotCompleted(int folderId, [FromBody]bool completed)
+        public JsonCollectionResponse<ActivityDTO> GetFolderActivities(int folderId, [FromBody]bool completed)
         {
            // bool completed = false;
             return new JsonCollectionResponse<ActivityDTO>(Request, () =>
@@ -150,9 +150,9 @@ namespace Sinq.Controllers
                 if (folder != null)
                 {
                     var factivities = folder.Activities.Count;
-                    var activities = folder.Activities.Select(a => a.Completed == completed);
+                    var activities = folder.Activities.Select(a => a.Completed == completed);     
                     return activities.Select(a => Mapper.DynamicMap<ActivityDTO>(a)).ToList();
-                }
+                    }
                 return null;
             });
         }
