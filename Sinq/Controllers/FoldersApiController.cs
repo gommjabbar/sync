@@ -177,7 +177,7 @@ namespace Sinq.Controllers
                     activityEO.FolderId = folderId;
                     _auow.ActivityRepository.Insert(activityEO);
                     _auow.Save();
-                    return Mapper.Map<ActivityDTO>(activity);
+                    return Mapper.Map<ActivityDTO>(activityEO);
                 }
                 return null;
             });

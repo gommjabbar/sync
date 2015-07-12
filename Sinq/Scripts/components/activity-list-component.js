@@ -32,7 +32,8 @@
             var url = "/api/folders/" + self.SelectedFolder().id + "/activities";
             $.ajax({
                 url: url,
-                method:"GET",
+                method: "GET",
+                async: false,
                 data: {completed: false}
             }).done(function (data) {
                 var resultArray = $.map(data.result, function (value) {
@@ -50,8 +51,8 @@
             $.ajax({
                 url: url,
                 method: "Get",
-                data: {completed: true},
                 async: false,
+                data: {completed: true}
             }).done(function (data) {
                 var resultArray=$.map(data.result,function(value){
                     return new Activity(value);

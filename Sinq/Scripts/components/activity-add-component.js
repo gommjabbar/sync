@@ -9,7 +9,7 @@
             var route = "/api/folders/" + self.SelectedFolder().id + "/activities";
             var data = {
                 Id: -1,
-                Name: self.NewActivity().Name(),
+                Name: self.NewActivity().Name,
                 DueDate: undefined
             }
             $.ajax({url: route,method: "Post",async: false,data: data
