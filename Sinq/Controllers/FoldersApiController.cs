@@ -13,6 +13,7 @@ using Sinq.Repositories;
 using Sinq.Response;
 using AutoMapper;
 using Sinq.DTO;
+using Sinq.Converters;
 
 namespace Sinq.Controllers
 {
@@ -150,8 +151,10 @@ namespace Sinq.Controllers
                 if (folder != null)
                 {
                     var factivities = folder.Activities.Count;
-                    var activities = folder.Activities.Select(a => a.Completed == completed);     
-                    return activities.Select(a => Mapper.DynamicMap<ActivityDTO>(a)).ToList();
+                    var activities = folder.Activities.Where(a => a.Completed == completed);     
+                    var result = activities.Select(
+                        a => GenericConverter.Map<Activity, ActivityDTO>(a)).ToList();
+                    return result;
                     }
                 return null;
             });

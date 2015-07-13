@@ -14,7 +14,7 @@
             }
             $.ajax({url: route,method: "Post",async: false,data: data
             }).done(function (result) {
-                alert(result)
+                //alert(result)
             })
         }
 

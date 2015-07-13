@@ -39,7 +39,7 @@
                 var resultArray = $.map(data.result, function (value) {
                     return new Activity(value);
                 })
-                alert(resultArray);
+                //alert(resultArray);
                 debugger;
                 self.AllActivities(resultArray);
             })

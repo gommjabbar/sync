@@ -219,6 +219,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Converters\GenericConverter.cs" />
     <Compile Include="Migrations\201507061339225_initial.cs" />
     <Compile Include="Migrations\201507061339225_initial.Designer.cs">
       <DependentUpon>201507061339225_initial.cs</DependentUpon>
