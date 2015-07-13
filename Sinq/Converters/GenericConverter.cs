@@ -31,6 +31,7 @@ namespace Sinq.Converters
             return default(TDestination);
         }
         
+        //public static ActivityDTO
         public ActivityDTO Activity_FromModelToDTO(Activity model)
         {
             return new ActivityDTO()

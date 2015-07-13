@@ -186,7 +186,19 @@ namespace Sinq.Controllers
             });
         }
 
-
+        /// <summary>
+        /// This method will update the 'Completed' proprety of a given activity.
+        /// </summary>
+        /// <param name="folderId"></param>
+        /// <param name="activityId"></param>
+        /// <param name="completed"></param>
+        /// <returns>true - if the activity was updated; false - if the activity could not be deleted</returns>
+      /*  [Route("{folderId:int}/activities/{activityId:int}")]
+        [HttpPost]
+        public JsonResponse<bool> UpdateCompleted(int folderId,int activityId,bool completed) {
+            
+        
+        }*/
         
        
         //public JsonResponse <Folder> FindFolderById(int? id)
@@ -211,6 +223,6 @@ namespace Sinq.Controllers
         //        return Mapper.Map<Folder>(folder);
         //    });
         //}
-
+        
     }
 }

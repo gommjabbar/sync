@@ -13,6 +13,7 @@ using AutoMapper;
 
 namespace Sinq.Controllers
 {
+    [RoutePrefix("api/activities")]
     public class ActivitiesApiController : ApiController
     {
 
@@ -62,7 +63,7 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="activity"></param>
         /// <returns>activity</returns>
-        [Route("api/activities")]
+        [Route("")]
         [HttpPost]
         public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
         {
@@ -80,7 +81,7 @@ namespace Sinq.Controllers
         /// This method will return all activities.
         /// </summary>
         /// <returns>The list off all activities from the database.</returns>
-        [Route("api/activities")]
+        [Route("")]
         [HttpGet]
         public JsonCollectionResponse<ActivityDTO> GetAllActivities()
         {
@@ -98,7 +99,7 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true - if the activity was deleted; false - if the activity could not be deleted</returns>
-        [Route("api/activities/{id}")]
+        [Route("{id:int}")]
         [HttpDelete]
         public JsonResponse<bool> Delete(int id)
         {
@@ -120,7 +121,7 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true - if the activity was updated; false - if the activity could not be deleted</returns>
-        [Route("api/activities/{id}/complete")]
+        [Route("{id:int}/complete")]
         [HttpDelete]
         public JsonResponse<bool> Put(int id)
         {
@@ -144,7 +145,7 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true if the satate of the activity is set to 'StartTime'</returns>
-        [Route("api/activities/{id}/start")]
+        [Route("{id:int}/start")]
         [HttpPost]
         public JsonResponse<DateTimeOffset> StartActivity(int id)
         {
@@ -161,7 +162,7 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true if the state of the activity is set to 'StopTime'</returns>
-        [Route("api/activities/{id}/stop")]
+        [Route("{id:int}/stop")]
         [HttpPost]
         public JsonResponse<bool> StopActivity(int id)
         {

@@ -63,6 +63,7 @@
 
         //The function changes the 'Completed' proprety of an action
         self.fnCompleteActivity = function () {
+            //var url="api/folder/"+self.SelectedFolder().id+"/activities/"+slf.SelectedActivity().id+"/complete"
             var url = "/api/activities/" +self.SelectedActivity().id + "/complete";
             $.ajax({
                 url: url,
@@ -75,16 +76,16 @@
         }
 
         //The function changes the current state of an action 
-        self.fnChangeState = function (activity) {
-            if (activity.ActivityState == true) {
-                var url = "/api/activities/" + activity.id + "/start";
+        self.fnChangeState = function () {
+            if (SelectedActivity().ActivityState == true) {
+                var url = "/api/activities/" + SelectedActivity().id + "/start";
                 $.ajax({
                     url: url,
                     method: "Put",
                     async: false,
                 }).done(function (result) { })
             } else {
-                var url = "/api/activities/" + activity.id + "/stop";
+                var url = "/api/activities/" + SelectedActivity().id + "/stop";
                 $.ajax({
                     url: url,
                     method: "Put",
