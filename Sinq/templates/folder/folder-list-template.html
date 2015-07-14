@@ -2,13 +2,9 @@
     Folders:
     <ul data-bind="foreach: AllFolders">
         <li value="FolderName" data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} " >
-            <div value="FolderName" data-bind="singleOrDoubleClick: { click: $parent.fnUnSelectFolder }" onclick="    alert('{click: $parent.fnUnSelectFolder !')">
-            </div>
-            <span data-bind="text: Name"> </span>
+                        <span data-bind="text: Name"> </span>
             <!--butoon delete- visible only if doubleclick-->
-            <!--            <div class="btn-group" style="float:right; width:150px;height:20px;" data-bind="visible:ShowDelete">
-        -->
-
+         
 
             <div class="btn-group" style="float:right; display:block; margin: 0px;  width: 150px; height: 20px; " data-bind="visible:ShowDelete">
 

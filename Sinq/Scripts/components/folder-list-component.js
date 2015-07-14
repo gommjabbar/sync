@@ -21,14 +21,11 @@
 
         self.fnSelectFolder = function (folder) {
             folder.ShowDelete(true);
+            self.SelectedFolder().ShowDelete(false);
             self.SelectedFolder(folder);
         }
 
-        self.fnUnSelectFolder = function (folder) {
-            folder.ShowDelete(false);
-            self.SelectedFolder(folder);
-        }
-
+   
 
         //The function adds a new folder
         self.fnAddNewFolder = function () {
