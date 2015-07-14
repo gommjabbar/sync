@@ -4,6 +4,8 @@ function Folder(Folder) {
     self.id = Folder.Id;
     self.Name = ko.observable(Folder.Name || '');
     self.FolderActivities = ko.observable(Folder.Activities);
+    self.ShowDelete = ko.observable(false);
+
 }
 
 function Activity(Activity) {

@@ -2,6 +2,7 @@
     viewModel: function(params) {
         var self = this;
         self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
+        self.UnSelectedFolder = params.UnSelectedFolder || ko.observable(new Folder({}));
         self.NewFolder = ko.observable(new Folder({}));
         self.AllFolders = ko.observableArray();
 
@@ -19,8 +20,16 @@
         }
 
         self.fnSelectFolder = function (folder) {
+            folder.ShowDelete(true);
             self.SelectedFolder(folder);
         }
+
+        self.fnUnSelectFolder = function (folder) {
+            folder.ShowDelete(false);
+            self.SelectedFolder(folder);
+        }
+
+
         //The function adds a new folder
         self.fnAddNewFolder = function () {
             //debugger;
@@ -33,9 +42,16 @@
                     Name: self.NewFolder().Name
                 }
             }).done(function (result) {
+                self.NewFolder().Name('');
                 self.fnGetAllFolders();
             })
         }
+
+
+
+
+        //The function that clear from textbox - Add button for folders
+
         //The function deletes a folder
         self.fnDeleteFolder = function (folder) {
             $.ajax({

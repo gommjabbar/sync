@@ -2,28 +2,24 @@
     Folders:
     <ul data-bind="foreach: AllFolders">
         <li value="FolderName" data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} ">
+            <div value="FolderName" data-bind="singleOrDoubleClick: { click: $parent.fnUnSelectFolder }" onclick="    alert('{click: $parent.fnUnSelectFolder !')">
+            </div>
             <span data-bind="text: Name"  > </span>
             <!--butoon delete- visible only if doubleclick-->
    
-                <div class="btn-group">
-               
-                    <!--<button value="Delete" class="btn btn-primary pull-right btn-xs RbtnMargin" data-bind="click: $parent.fnDeleteFolder">Delete</button>
-                
+<!--            <div class="btn-group" style="float:right; width:150px;height:20px;" data-bind="visible:ShowDelete">    
+-->
+           
 
-                    <button class="btn btn-default btn-xs " type="button"   data-bind="click: $parent.fnDeleteFolder"> 
-                        Delete 
+                <div class="btn-group" style="float:right; display:block; margin: 0px;  width: 145px; height: 20px; " data-bind="visible:ShowDelete">
+
+                    <button class="btn btn-default btn-xs " type="button" data-bind="click: $parent.fnDeleteFolder">
+                        Delete
                     </button>
-            -->
-                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
-                        ...
-                       <!-- <span class="caret">  </span>  -->
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><span data-bind="click: $parent.fnDeleteFolder"> Delete </span></li>
-                        <li><span data-bind="click: $parent.fnSelectCompletedActivity"> Folders'activities </span></li>
-                    </ul>
+                    
                 </div>
-        </li>
+            
+                 </li>
     </ul>
 
 
@@ -40,7 +36,7 @@
             <!--
             <span data-bind=(label [id*="btnAddFolder" ]).text('')> </span>
             -->
-            <span data-bind="value:Name".empty() > </span>
+            <span data-bind=" optionsValue: $parent.fnClear" onfocus="clearInput(this)"> </span>
             
         </div>
     </div>

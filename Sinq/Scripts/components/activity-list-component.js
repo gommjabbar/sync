@@ -19,6 +19,7 @@
         self.fnShowActivitiesFromFolder = function () {
             self.ShowActivityList(true);
             self.fnGetAllActivities();
+            
         }
         
         //Select an activity
@@ -40,7 +41,7 @@
                     return new Activity(value);
                 })
                 //alert(resultArray);
-                debugger;
+                //debugger;
                 self.AllActivities(resultArray);
             })
         }
