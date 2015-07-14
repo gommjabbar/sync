@@ -2,12 +2,33 @@
     Folders:
     <ul data-bind="foreach: AllFolders">
         <li value="FolderName" data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} ">
-            <span data-bind="text: Name"> </span>
+            <span data-bind="text: Name"  > </span>
             <!--butoon delete- visible only if doubleclick-->
-            <button value="Delete" class="btn btn-primary pull-right btn-sm RbtnMargin" data-bind="click: $parent.fnDeleteFolder">Delete</button>
+   
+                <div class="btn-group">
+               
+                    <!--<button value="Delete" class="btn btn-primary pull-right btn-xs RbtnMargin" data-bind="click: $parent.fnDeleteFolder">Delete</button>
+                
 
+                    <button class="btn btn-default btn-xs " type="button"   data-bind="click: $parent.fnDeleteFolder"> 
+                        Delete 
+                    </button>
+            -->
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                        ...
+                       <!-- <span class="caret">  </span>  -->
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><span data-bind="click: $parent.fnDeleteFolder"> Delete </span></li>
+                        <li><span data-bind="click: $parent.fnSelectCompletedActivity"> Folders'activities </span></li>
+                    </ul>
+                </div>
         </li>
     </ul>
+
+
+
+
     <!--Add a new folder-->
     <div class='col-lg-12' data-bind="with: NewFolder">
         <div class='col-lg-3'>Name:</div>
@@ -16,7 +37,11 @@
         </div>
         <div class='col-lg-2'>
             <input type="button" value="Add" id="btnAddFolder" data-bind="click: $parent.fnAddNewFolder" />
-            <!---->
+            <!--
+            <span data-bind=(label [id*="btnAddFolder" ]).text('')> </span>
+            -->
+            <span data-bind="value:Name".empty() > </span>
+            
         </div>
     </div>
 </div>
