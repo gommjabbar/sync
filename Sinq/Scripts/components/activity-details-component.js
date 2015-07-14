@@ -2,7 +2,6 @@
     viewModel: function (params) {
         var self = this;
         self.SelectedActivity = params.SelectedActivity || ko.observable(new Activity({}));
-        self.ShowDetails = ko.observable();
         self.DisplayActivityDetails = ko.observable(false);
 
         self.SelectedActivity.subscribe(function (newSelectedActivity) {
@@ -10,6 +9,7 @@
         })
 
         self.fnShowActivityDetails = function () {
+            
             self.DisplayActivityDetails(true);
         }
 

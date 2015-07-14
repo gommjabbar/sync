@@ -15,6 +15,7 @@
                         if (singleHandler !== undefined) {
                             singleHandler.call(viewModel, bindingContext.$data, event);
                         }
+
                     } else {
                         // Call the double click handler - passing viewModel as this 'this' object
                         // you may want to pass 'this' explicitly

@@ -1,11 +1,12 @@
 ﻿<div class='col-lg-9' data-bind="if: ShowActivityList, visible: ShowActivityList">
-    <span>Folders' activities: </span><!-- <span data-bind="text: SelectedFolder().Name"></span> -->
+  <!-- <span>Folders' activities: </span><!-- <span data-bind="text: SelectedFolder().Name"></span> --> 
     <!-- The activities list -->
-    <div class='col-lg-12'>
+    <div class='col-lg-10'>
+        <span>Folders' activities: </span><!-- <span data-bind="text: SelectedFolder().Name"></span> -->
         <ul data-bind="foreach: AllActivities">
             <li data-bind="singleOrDoubleClick: { dblclick: $parent.fnSelectActivity} ">
                 <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(null,$data)} "></label>
-                <span data-bind="text: Name"> </span>
+                <span data-bind="text: Name,singleOrDoubleClick: { click: $parent.fnSelectActivity}"> </span>
                 <button data-bind="click: $parent.fnChangeState">Start</button>
             </li>
         </ul>
