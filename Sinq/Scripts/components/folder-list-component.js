@@ -2,7 +2,6 @@
     viewModel: function(params) {
         var self = this;
         self.SelectedFolder = params.SelectedFolder || ko.observable(new Folder({}));
-        self.UnSelectedFolder = params.UnSelectedFolder || ko.observable(new Folder({}));
         self.NewFolder = ko.observable(new Folder({}));
         self.AllFolders = ko.observableArray();
 
@@ -44,10 +43,6 @@
             })
         }
 
-
-
-
-        //The function that clear from textbox - Add button for folders
 
         //The function deletes a folder
         self.fnDeleteFolder = function (folder) {
