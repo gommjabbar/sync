@@ -9,11 +9,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Sinq.Converters;
 
 
 namespace Sinq.Controllers
 {
-    [RoutePrefix("api/activities")]
+   // [RoutePrefix("api/activities")]
+    [RoutePrefix("api/folders/{folderId:int}/activities")]
     public class ActivitiesApiController : ApiController
     {
 
@@ -29,90 +31,29 @@ namespace Sinq.Controllers
             _activityUnitOfWork = activityUnitOfWork;
         }
 
-        [Route("api/test‏")]
-        [HttpGet]
-        public JsonCollectionResponse<ActivityDTO> Test()
-        {
-            bool completed = false;
-            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
-            {
-                bool yes = false;
-                //var folder = _activityUnitOfWork .GetByID(folderId);
-                //if (folder != null)
-                //{
-                //    var activities = folder.Activities;
-                //    foreach (var act in activities)
-                //    {
-                //        if (!act.Completed)
-                //        {
-                //            yes = true;
-                //        }
-                //    }
-                //    if (yes)
-                //    {
-                //        return activities.Select(Mapper.Map<ActivityDTO>).ToList();
-                //    }
-                //}
-                return null;
-            });
-        }
-
-
         /// <summary>
-        /// This method will add a new activity in the database.
+        /// The method add a new activity in the specified folder.
         /// </summary>
+        /// <param name="folderId"></param>
         /// <param name="activity"></param>
-        /// <returns>activity</returns>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
+        public JsonResponse<ActivityDTO> CreateActivity(int folderId, ActivityDTO activity)
         {
             return new JsonResponse<ActivityDTO>(Request, () =>
             {
-                var activityDTO = Mapper.Map<Activity>(activity);
-                _activityUnitOfWork.ActivityRepository.Insert(activityDTO);
-                _activityUnitOfWork.Save();
-                return Mapper.Map<ActivityDTO>(activity);
+                var folder = _activityUnitOfWork.ActivityRepository.Get(a => a.FolderId == folderId);
+                if (folder != null)
+                {
+                    var activityEO = Mapper.Map<Activity>(activity);
+                    activityEO.FolderId = folderId;
+                    _activityUnitOfWork.ActivityRepository.Insert(activityEO);
+                    _activityUnitOfWork.Save();
+                    return Mapper.Map<ActivityDTO>(activityEO);
+                }
+                return null;
             });
-        }
-
-
-        /// <summary>
-        /// This method will return all activities.
-        /// </summary>
-        /// <returns>The list off all activities from the database.</returns>
-        [Route("")]
-        [HttpGet]
-        public JsonCollectionResponse<ActivityDTO> GetAllActivities()
-        {
-            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
-            {
-                var activitiesDTO = _activityUnitOfWork.ActivityRepository.GetAll();
-
-                return activitiesDTO.Select(Mapper.Map<ActivityDTO>).ToList();
-            });
-        }
-
-
-        /// <summary>
-        /// This method will delete the given activity.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true - if the activity was deleted; false - if the activity could not be deleted</returns>
-        [Route("{id:int}")]
-        [HttpDelete]
-        public JsonResponse<bool> Delete(int id)
-        {
-            return new JsonResponse<bool>(Request, () =>
-           {
-               Activity activity = new Activity();
-
-               var result = _activityUnitOfWork.ActivityRepository.Delete(id);
-               if (result)
-                   _activityUnitOfWork.Save();
-               return result;
-           });
-
         }
 
 
@@ -121,14 +62,114 @@ namespace Sinq.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true - if the activity was updated; false - if the activity could not be deleted</returns>
-        [Route("{id:int}/complete")]
+        [Route("{activityId:int}/complete")]
         [HttpDelete]
-        public JsonResponse<bool> Put(int id)
+        public JsonResponse<bool> UpdateCompleted(int folderId, int activityId, bool complete)
+        {
+            return new JsonResponse<bool>(Request, () =>
+            {
+                
+                var folder = _activityUnitOfWork.ActivityRepository.Get(a => a.FolderId == folderId);
+                if (folder != null)
+                {
+                    Activity activity = new Activity();
+                    activity = _activityUnitOfWork.ActivityRepository.GetByID(activityId);
+                    if (activity != null)
+                    {
+                        _activityUnitOfWork.ActivityRepository.Update(activity);
+                        _activityUnitOfWork.Save();
+                        return true;
+                    }
+                    else { return false; }
+                }
+                return false;
+            });
+           
+        }
+
+        /// <summary>
+        /// The method get the list of completed/uncompleted activities.
+        /// </summary>
+        /// <param name="folderId"></param>
+        /// <param name="completed"></param>
+        /// <returns></returns>
+        [Route("")]
+        [HttpGet]
+        public JsonCollectionResponse<ActivityDTO> GetFolderActivities(int folderId, [FromBody]bool completed)
+        {
+            // bool completed = false;
+            return new JsonCollectionResponse<ActivityDTO>(Request, () =>
+            {
+                List<Activity> resultedActivities=new List<Activity>();
+
+                var activities = _activityUnitOfWork.ActivityRepository.Get(a => a.FolderId == folderId);
+                foreach (Activity activity in activities) {
+                    if (activity.Completed == completed) {
+                         resultedActivities.Add(activity);
+                    }
+                }
+                var result = resultedActivities.Select(
+                        a => GenericConverter.Map<Activity, ActivityDTO>(a)).ToList();
+                    return result;
+               
+            });
+        }
+
+        
+        ///// <summary>
+        ///// This method will add a new activity in the database.
+        ///// </summary>
+        ///// <param name="activity"></param>
+        ///// <returns>activity</returns>
+        //[Route("")]
+        //[HttpPost]
+        //public JsonResponse<ActivityDTO> Create(ActivityDTO activity)
+        //{
+        //    return new JsonResponse<ActivityDTO>(Request, () =>
+        //    {
+        //        var activityDTO = Mapper.Map<Activity>(activity);
+        //        _activityUnitOfWork.ActivityRepository.Insert(activityDTO);
+        //        _activityUnitOfWork.Save();
+        //        return Mapper.Map<ActivityDTO>(activity);
+        //    });
+        //}
+
+
+        /// <summary>
+        /// This method will delete the given activity.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true - if the activity was deleted; false - if the activity could not be deleted</returns>
+        //[Route("{id:int}")]
+        //[HttpDelete]
+        //public JsonResponse<bool> Delete(int id)
+        //{
+        //    return new JsonResponse<bool>(Request, () =>
+        //   {
+        //       Activity activity = new Activity();
+
+        //       var result = _activityUnitOfWork.ActivityRepository.Delete(id);
+        //       if (result)
+        //           _activityUnitOfWork.Save();
+        //       return result;
+        //   });
+
+        //}
+
+
+        /// <summary>
+        /// This method will update the 'Completed' proprety of a given activity.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true - if the activity was updated; false - if the activity could not be deleted</returns>
+        [Route("{activityId:int}/complete")]
+        [HttpDelete]
+        public JsonResponse<bool> Put(int folderId, int activityId)
         {
             return new JsonResponse<bool>(Request, () =>
             {
                 Activity activity = new Activity();
-                activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
+                activity = _activityUnitOfWork.ActivityRepository.GetByID(activityId);
                 if (activity != null)
                 {
                     _activityUnitOfWork.ActivityRepository.Update(activity);
@@ -179,15 +220,15 @@ namespace Sinq.Controllers
         /// <param name="id"></param>
         /// <returns>activity</returns>
         // GET: Activities/Details/5
-        public JsonResponse<ActivityDTO> FindActivityById(int? id)
-        {
-            return new JsonResponse<ActivityDTO>(Request, () =>
-           {
-               Activity activity = new Activity();
-               activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
-               return Mapper.Map<ActivityDTO>(activity);
-           });
-        }
+        //public JsonResponse<ActivityDTO> FindActivityById(int? id)
+        //{
+        //    return new JsonResponse<ActivityDTO>(Request, () =>
+        //   {
+        //       Activity activity = new Activity();
+        //       activity = _activityUnitOfWork.ActivityRepository.GetByID(id);
+        //       return Mapper.Map<ActivityDTO>(activity);
+        //   });
+        //}
 
 
     }

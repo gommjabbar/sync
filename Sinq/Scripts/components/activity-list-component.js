@@ -48,7 +48,7 @@
        
         //The function get the list of all completed activities
         self.fnSelectCompletedActivity = function () {
-            var url = "/api/folders/" + self.SelectedFolder().id + "/activities";
+            var url = "/api/folders/" + self.SelectedFolder().id + "/activities/" + self.SelectedActivity().id;
             $.ajax({
                 url: url,
                 method: "Get",
@@ -63,9 +63,10 @@
         }
 
         //The function changes the 'Completed' proprety of an action
-        self.fnCompleteActivity = function () {
-            //var url="api/folder/"+self.SelectedFolder().id+"/activities/"+slf.SelectedActivity().id+"/complete"
-            var url = "/api/activities/" +self.SelectedActivity().id + "/complete";
+        self.fnCompleteActivity = function (activity) {
+            debugger;
+            var url="api/folders/"+self.SelectedFolder().id+"/activities/"+self.SelectedActivity().id+"/complete"
+            //var url = "/api/activities/" +self.SelectedActivity().id + "/complete";
             $.ajax({
                 url: url,
                 method: "Put",
