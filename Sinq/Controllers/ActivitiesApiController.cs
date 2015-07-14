@@ -163,7 +163,7 @@ namespace Sinq.Controllers
         /// <param name="id"></param>
         /// <returns>true - if the activity was updated; false - if the activity could not be deleted</returns>
         [Route("{activityId:int}/complete")]
-        [HttpDelete]
+        [HttpPut]
         public JsonResponse<bool> Put(int folderId, int activityId)
         {
             return new JsonResponse<bool>(Request, () =>

@@ -63,16 +63,16 @@
         }
 
         //The function changes the 'Completed' proprety of an action
-        self.fnCompleteActivity = function (activity) {
+        self.fnCompleteActivity = function (activityParam) {
             debugger;
-            var url="api/folders/"+self.SelectedFolder().id+"/activities/"+self.SelectedActivity().id+"/complete"
+            var url = "api/folders/" + self.SelectedFolder().id + "/activities/" + activityParam.id + "/complete"
             //var url = "/api/activities/" +self.SelectedActivity().id + "/complete";
             $.ajax({
                 url: url,
                 method: "Put",
                 async: false,
             }).done(function (result) {
-                if (sefl.complet(!self.complet())) {
+                if (activityParam.Completed(!activityParam.Completed())) {
                 }
             })
         }
