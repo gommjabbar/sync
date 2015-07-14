@@ -1,20 +1,20 @@
 ﻿<div class='col-lg-3'>
     Folders:
     <ul data-bind="foreach: AllFolders">
-        <li value="FolderName" data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} " >
-                        <span data-bind="text: Name"> </span>
-            <!--butoon delete- visible only if doubleclick-->
-         
 
-            <div class="btn-group" style="float:right; display:block; margin: 0px;  width: 150px; height: 20px; " data-bind="visible:ShowDelete">
+            <li value="FolderName" data-bind="singleOrDoubleClick: {click: $parent.fnSelectFolder} ">
+                <div style="float:left; display:block; margin: 0px;  width: 0px; height: 20px; ">
+                    <span data-bind="text: Name"> </span>
+                    <!--butoon delete- visible only if doubleclick-->
+                </div>
 
-                <button class="btn btn-default btn-xs " type="button" data-bind="click: $parent.fnDeleteFolder">
-                    Delete
-                </button>
+                <div class="btn-group" style="float:right; display:block; margin: 0px;  width: 50px; height: 20px; " data-bind="visible:ShowDelete">
+                    <button class="btn btn-default btn-xs " type="button" data-bind="click: $parent.fnDeleteFolder">
+                        Delete
+                    </button>
+                </div>
 
-            </div>
-
-        </li>
+            </li>
     </ul>
 
 
