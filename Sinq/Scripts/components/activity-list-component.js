@@ -13,19 +13,26 @@
         //The function gets the list of activities from the selected folder and makes it visible
         self.SelectedFolder.subscribe(function (newSelectedFolder) {
             self.fnShowActivitiesFromFolder();
+            
+
         })
 
         //The function gets the list of all uncompleted activities from a selected folder
         self.fnShowActivitiesFromFolder = function () {
             self.ShowActivityList(true);
             self.fnGetAllActivities();
-            
+
         }
         
+
         //Select an activity
         self.fnSelectActivity = function (activity) {
+            //self.SelectedActivity(activity);
+            activity.ShowStart(true);
+           // self.SelectedFolder().ShowDelete(false);
             self.SelectedActivity(activity);
         }
+
 
         //The function get the list of all uncompleted activities
         self.fnGetAllActivities = function () {

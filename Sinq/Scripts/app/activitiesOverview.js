@@ -19,6 +19,8 @@ function Activity(Activity) {
     self.placeholderText = Activity.placeholderText || 'Type the name of the activity';
     self.ElaspedTime = ko.observable(Activity.ElaspedTime || '');
     self.ActivityState = ko.computed(function () { return Activity.IsStarted });
+    self.ShowStart = ko.observable(false);
+
 }
 
 

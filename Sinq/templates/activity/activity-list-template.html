@@ -6,8 +6,12 @@
             <li data-bind="singleOrDoubleClick: { dblclick: $parent.fnSelectActivity} ">
                 <label><input type="checkbox" data-bind="checked: $data.Completed, event: { change: $parent.fnCompleteActivity.bind(null,$data)} "></label>
                 <span data-bind="text: Name"> </span>
-                <button data-bind="click: $parent.fnChangeState">Start</button>
-            </li>
+
+                <div class="btn-group"  data-bind="visible:ShowStart" >
+                    <button data-bind="click: $parent.fnChangeState">Start</button>
+                </div>
+
+</li>
         </ul>
         <button data-bind="click: $parent.fnSelectCompletedActivity">View completed activities</button>
         <ul data-bind="foreach: AllCompletedActivities">
